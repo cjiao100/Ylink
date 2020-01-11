@@ -5,7 +5,6 @@ import {
   Modal,
   Button,
   TextInput,
-  Clipboard,
   TouchableNativeFeedback,
   KeyboardAvoidingView
 } from 'react-native';
@@ -42,6 +41,8 @@ class LoginView extends Component {
       password: this.state.pwd
     };
 
+    console.log(params);
+
     this.setState({
       verification: true
     });
@@ -49,7 +50,12 @@ class LoginView extends Component {
   }
 
   validateFunc() {
-    console.log(this.validate);
+    // console.log(this.props.navigation);
+    // 设置页面跳转
+    this.props.navigation.navigate('index');
+    this.setState({
+      verification: false
+    });
   }
 
   render() {
