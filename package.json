@@ -1,5 +1,5 @@
 {
-  "name": "Ylink",
+  "name": "ylink",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -10,11 +10,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/viewpager": "^3.3.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-gesture-handler": "^1.5.2",
     "react-native-reanimated": "^1.4.0",
     "react-native-screens": "^1.0.0-alpha.23",
+    "react-native-swiper": "^1.5.14",
     "react-navigation": "^4.0.10",
     "react-navigation-stack": "^1.10.3"
   },

@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 import TopBar from '../../components/topBar/topBar';
+import Carousel from '../../components/carousel/carousel';
 
 class index extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class index extends Component {
     return (
       <View>
         <TopBar />
+        <Carousel />
         <View>
           <FlatList
             data={[

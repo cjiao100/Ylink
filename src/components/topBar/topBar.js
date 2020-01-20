@@ -107,7 +107,8 @@ const barStyle = StyleSheet.create({
     lineHeight: 30
   },
   bar_tagGroup: {
-    paddingLeft: 10
+    paddingLeft: 10,
+    paddingBottom: 10
   },
   bar_tag: {
     marginRight: 20,
