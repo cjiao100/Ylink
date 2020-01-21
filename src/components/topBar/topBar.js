@@ -40,6 +40,7 @@ class TopBar extends Component {
         </View>
         <View style={barStyle.bar_tagGroup}>
           <FlatList
+            keyExtractor={item => item.key.toString()}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             data={[
