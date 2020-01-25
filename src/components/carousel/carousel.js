@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 // import ViewPager from '@react-native-community/viewpager';
 import Swiper from 'react-native-swiper';
+import { color } from '../../assets/styles/theme';
 
 class Carousel extends Component {
   constructor(props) {
@@ -19,8 +20,8 @@ class Carousel extends Component {
           autoplayTimeout={3}
           showsButtons={false}
           paginationStyle={carouselStyle.pagination}
-          activeDotColor="#E91B36"
-          dotColor="#F5F5F5">
+          activeDotColor={color.primary_color}
+          dotColor={color.info_color}>
           <View style={carouselStyle.page}>
             <Text style={carouselStyle.pageText}>First page</Text>
           </View>
@@ -39,14 +40,11 @@ const carouselStyle = {
     margin: 5,
     height: 150,
     borderRadius: 10,
-    backgroundColor: '#abc'
+    backgroundColor: color.bg_info_color
   },
   pagination: {
     bottom: 10,
     left: 300
-  },
-  activeDot: {
-    backgroundColor: '#F5F5F5'
   },
   page: {
     flex: 1,

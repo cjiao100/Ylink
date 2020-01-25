@@ -10,7 +10,10 @@ import {
 } from 'react-native';
 
 import TopBar from '../../components/topBar/topBar';
+import BottomBar from '../../components/bottomBar/bottomBar';
 import Carousel from '../../components/carousel/carousel';
+
+import { color, font } from '../../assets/styles/theme';
 
 class index extends Component {
   constructor(props) {
@@ -46,98 +49,164 @@ class index extends Component {
 
   render() {
     return (
-      <ScrollView style={{ flex: 1, flexDirection: 'column' }}>
+      <View style={homeStyle.container}>
         <TopBar />
-        <Carousel />
-        <View style={{ flex: 1, backgroundColor: '#F5F5F5' }}>
-          <FlatList
-            style={{ flex: 1 }}
-            data={[
-              {
-                id: 1,
-                name: '双行列表',
-                desc: '描述信息',
-                img:
-                  'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
-                status: { forward: 200, comment: '2630', awesome: 6983 }
-              },
-              {
-                id: 2,
-                name: '双行列表',
-                desc: '描述信息',
-                img:
-                  'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
-                status: { forward: 200, comment: '2630', awesome: 6983 }
-              },
-              {
-                id: 3,
-                name: '双行列表',
-                desc: '描述信息',
-                img:
-                  'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
-                status: { forward: 200, comment: '2630', awesome: 6983 }
-              },
-              {
-                id: 4,
-                name: '双行列表',
-                desc: '描述信息',
-                img:
-                  'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
-                status: { forward: 200, comment: '2630', awesome: 6983 }
-              },
-              {
-                id: 5,
-                name: '双行列表',
-                desc: '描述信息',
-                img:
-                  'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
-                status: { forward: 200, comment: '2630', awesome: 6983 }
-              },
-              {
-                id: 6,
-                name: '双行列表',
-                desc: '描述信息',
-                img:
-                  'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
-                status: { forward: 200, comment: '2630', awesome: 6983 }
-              }
-            ]}
-            keyExtractor={item => item.id.toString()}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  flex: 1,
-                  height: 200
-                  //   backgroundColor: '#ace',
-                  //   marginBottom: 10
-                }}>
-                <View>
-                  <Text style={{ color: '#000' }}>{item.name}</Text>
-                  <Text>{item.desc}</Text>
+        <ScrollView>
+          <Carousel />
+          <View style={homeStyle.listContainer}>
+            <FlatList
+              style={homeStyle.flexBox}
+              data={[
+                {
+                  id: 1,
+                  name: '双行列表',
+                  desc: '描述信息',
+                  img:
+                    'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
+                  status: { browse: 200, comment: '2630', awesome: 6983 }
+                },
+                {
+                  id: 2,
+                  name: '双行列表',
+                  desc: '描述信息',
+                  img:
+                    'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
+                  status: { browse: 200, comment: '2630', awesome: 6983 }
+                },
+                {
+                  id: 3,
+                  name: '双行列表',
+                  desc: '描述信息',
+                  img:
+                    'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
+                  status: { browse: 200, comment: '2630', awesome: 6983 }
+                },
+                {
+                  id: 4,
+                  name: '双行列表',
+                  desc: '描述信息',
+                  img:
+                    'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
+                  status: { browse: 200, comment: '2630', awesome: 6983 }
+                },
+                {
+                  id: 5,
+                  name: '双行列表',
+                  desc: '描述信息',
+                  img:
+                    'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
+                  status: { browse: 200, comment: '2630', awesome: 6983 }
+                },
+                {
+                  id: 6,
+                  name: '双行列表',
+                  desc: '描述信息',
+                  img:
+                    'https://img.zcool.cn/community/01fe605da7c8bca801209e1f2fee40.png@1280w_1l_0o_100sh.png',
+                  status: { browse: 200, comment: '2630', awesome: 6983 }
+                }
+              ]}
+              keyExtractor={item => item.id.toString()}
+              renderItem={({ item }) => (
+                <View style={homeStyle.item}>
+                  <View>
+                    <Text style={homeStyle.itemTitle}>{item.name}</Text>
+                    <Text style={homeStyle.itemDesc}>{item.desc}</Text>
+                  </View>
+                  <View style={homeStyle.flexBox}>
+                    <Image
+                      style={homeStyle.flexBox}
+                      source={{ uri: item.img }}
+                    />
+                  </View>
+                  <View style={homeStyle.itemStatus}>
+                    <View>
+                      <Text style={homeStyle.itemStatusTitle}>
+                        浏览量
+                        <Text style={homeStyle.itemStatusNum}>
+                          {item.status.browse}
+                        </Text>
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={homeStyle.itemStatusTitle}>
+                        评论
+                        <Text style={homeStyle.itemStatusNum}>
+                          {item.status.comment}
+                        </Text>
+                      </Text>
+                    </View>
+                    <View>
+                      <Text style={homeStyle.itemStatusTitle}>
+                        点赞
+                        <Text style={homeStyle.itemStatusNum}>
+                          {item.status.awesome}
+                        </Text>
+                      </Text>
+                    </View>
+                  </View>
                 </View>
-                <View style={{ flex: 1 }}>
-                  <Image style={{ flex: 1 }} source={{ uri: item.img }} />
-                </View>
-              </View>
-            )}
-            ListFooterComponent={() => this.genIndicator()}
-            onEndReached={() => {
-              this.loadData();
-            }}
-          />
-        </View>
-      </ScrollView>
+              )}
+              ListFooterComponent={() => this.genIndicator()}
+              onEndReached={() => {
+                this.loadData();
+              }}
+            />
+          </View>
+        </ScrollView>
+        <BottomBar />
+      </View>
     );
   }
 }
 
 const homeStyle = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column'
+  },
+  listContainer: {
+    flex: 1,
+    backgroundColor: '#F5F5F5'
+  },
   indicatorContainer: {
     alignItems: 'center'
   },
   indicator: {
     color: 'red',
     margin: 10
+  },
+  item: {
+    marginTop: 10,
+    padding: 10,
+    flex: 1,
+    height: 200,
+    backgroundColor: color.white_color
+  },
+  itemTitle: {
+    color: color.black_color,
+    fontSize: font.primary_size
+  },
+  itemDesc: {
+    color: color.info_color,
+    fontSize: font.small_size
+  },
+  itemStatus: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexDirection: 'row',
+    height: 20,
+    marginTop: 5
+  },
+  itemStatusTitle: {
+    fontSize: font.small_size
+  },
+  itemStatusNum: {
+    fontSize: font.small_size,
+    color: color.info_color
+  },
+  flexBox: {
+    flex: 1
   }
 });
 

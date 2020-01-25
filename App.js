@@ -8,7 +8,7 @@ const AppContainer = createAppContainer(route);
 const App: () => React$Node = () => {
   return (
     <>
-      <StatusBar barStyle="light-content" backgroundColor="#963830" />
+      <StatusBar barStyle="light-content" backgroundColor="#E91B36" />
       <SafeAreaView style={styles.main}>
         <AppContainer />
       </SafeAreaView>

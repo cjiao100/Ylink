@@ -136,7 +136,7 @@ class LoginView extends Component {
                     keyboardType="numeric"
                     disabled={this.state.isValidate}
                     title="验证"
-                    color={color.minor_color}
+                    color={color.primary_color}
                     onPress={this.validateFunc}
                   />
                 </View>

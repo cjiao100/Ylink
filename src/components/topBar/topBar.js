@@ -8,6 +8,8 @@ import {
   TouchableWithoutFeedback
 } from 'react-native';
 
+import { color, font } from '../../assets/styles/theme';
+
 class TopBar extends Component {
   constructor(props) {
     super(props);
@@ -96,8 +98,12 @@ const barStyle = StyleSheet.create({
     flex: 1
   },
   bar_searchInput: {
-    backgroundColor: '#F5F5F5',
-    borderRadius: 20
+    backgroundColor: color.bg_info_color,
+    borderRadius: 20,
+    paddingTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 10,
+    paddingRight: 10
   },
   bar_icon: {
     paddingLeft: 10,
@@ -118,7 +124,7 @@ const barStyle = StyleSheet.create({
     borderRadius: 5
   },
   bar_tagActive: {
-    backgroundColor: '#E91B36'
+    backgroundColor: color.primary_color
   },
   bar_tagText: {
     letterSpacing: 5,
