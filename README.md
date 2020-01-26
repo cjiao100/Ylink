@@ -16,3 +16,5 @@ yarn android
 ## 要点
 react-native-swiper
 > 如果报错信息为 `ViewPagerAndroid has been removed from React Native.`你需要找到`/node_modules/react-native-swiper/src/index.js`，将其中的ViewPagerAndroid改为ViewPager，并且通过`import ViewPager from "@react-native-community/viewpager"`引入`viewpager`
+无法启动
+> 执行start.sh文件

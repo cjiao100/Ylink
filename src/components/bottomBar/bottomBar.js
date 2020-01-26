@@ -5,14 +5,28 @@ import { BoxShadow } from 'react-native-shadow';
 import { color } from '../../assets/styles/theme';
 
 const BottomBar = props => {
+  const { jumpTo } = props;
+
   return (
     <BoxShadow setting={shadowOpt}>
       <View style={barStyle.container}>
         <View>
-          <Text style={barStyle.barText} onPress={}>首页</Text>
+          <Text
+            style={barStyle.barText}
+            onPress={() => {
+              jumpTo('Home');
+            }}>
+            首页
+          </Text>
         </View>
         <View>
-          <Text style={barStyle.barText}>学习</Text>
+          <Text
+            style={barStyle.barText}
+            onPress={() => {
+              jumpTo('Study');
+            }}>
+            学习
+          </Text>
         </View>
         <View>
           <View style={barStyle.search}>

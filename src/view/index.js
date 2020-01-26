@@ -13,7 +13,7 @@ const App: () => React$Node = () => {
       <StatusBar barStyle="light-content" backgroundColor="#E91B36" />
       <SafeAreaView style={styles.main}>
         <AppContainer />
-        <BottomBar />
+        {/* <BottomBar /> */}
       </SafeAreaView>
     </>
   );
