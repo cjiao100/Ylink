@@ -10,12 +10,12 @@ import {
 } from 'react-native';
 
 import TopBar from '../../components/topBar/topBar';
-import BottomBar from '../../components/bottomBar/bottomBar';
+
 import Carousel from '../../components/carousel/carousel';
 
 import { color, font } from '../../assets/styles/theme';
 
-class index extends Component {
+class Home extends Component {
   constructor(props) {
     super(props);
 
@@ -26,7 +26,7 @@ class index extends Component {
   // 设置标题样式
   static navigationOptions = {
     // 设置标题
-    title: 'index',
+    title: 'home',
     // 将标题隐藏
     headerShown: false
   };
@@ -49,7 +49,7 @@ class index extends Component {
 
   render() {
     return (
-      <View style={homeStyle.container}>
+      <>
         <TopBar />
         <ScrollView>
           <Carousel />
@@ -154,20 +154,16 @@ class index extends Component {
             />
           </View>
         </ScrollView>
-        <BottomBar />
-      </View>
+      </>
     );
   }
 }
 
 const homeStyle = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column'
-  },
   listContainer: {
     flex: 1,
-    backgroundColor: '#F5F5F5'
+    backgroundColor: '#F5F5F5',
+    paddingBottom: 20
   },
   indicatorContainer: {
     alignItems: 'center'
@@ -210,4 +206,4 @@ const homeStyle = StyleSheet.create({
   }
 });
 
-export default index;
+export default Home;

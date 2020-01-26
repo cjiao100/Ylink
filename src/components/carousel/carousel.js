@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 // import ViewPager from '@react-native-community/viewpager';
-import Swiper from 'react-native-swiper';
+import Swiper from '../../assets/react-native-swiper';
 import { color } from '../../assets/styles/theme';
 
 class Carousel extends Component {

@@ -1,7 +1,9 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
-import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
-import route from './src/route/index';
+import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
+
+import BottomBar from '../components/bottomBar/bottomBar';
+import route from '../route/index';
 
 const AppContainer = createAppContainer(route);
 
@@ -11,6 +13,7 @@ const App: () => React$Node = () => {
       <StatusBar barStyle="light-content" backgroundColor="#E91B36" />
       <SafeAreaView style={styles.main}>
         <AppContainer />
+        <BottomBar />
       </SafeAreaView>
     </>
   );
@@ -23,3 +26,5 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
+// export default index;

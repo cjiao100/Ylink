@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
+
 import { color } from '../../assets/styles/theme';
 
 const BottomBar = props => {
@@ -8,7 +9,7 @@ const BottomBar = props => {
     <BoxShadow setting={shadowOpt}>
       <View style={barStyle.container}>
         <View>
-          <Text style={barStyle.barText}>首页</Text>
+          <Text style={barStyle.barText} onPress={}>首页</Text>
         </View>
         <View>
           <Text style={barStyle.barText}>学习</Text>

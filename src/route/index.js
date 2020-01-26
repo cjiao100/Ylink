@@ -2,19 +2,23 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 
 import login from '../view/login/loginView';
-import index from '../view/index/indexView';
+import home from '../view/index/home';
+import study from '../view/index/study';
 
 const AppNavigator = createStackNavigator(
   {
     login: {
       screen: login
     },
-    index: {
-      screen: index
+    home: {
+      screen: home
+    },
+    study: {
+      screen: study
     }
   },
   {
-    initialRouteName: 'login'
+    initialRouteName: 'home'
   }
 );
 
