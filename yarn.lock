@@ -847,6 +847,15 @@
   resolved "https://registry.npm.taobao.org/@popmotion/easing/download/@popmotion/easing-1.0.2.tgz#17d925c45b4bf44189e5a38038d149df42d8c0b4"
   integrity sha1-F9klxFtL9EGJ5aOAONFJ30LYwLQ=
 
+"@react-native-community/art@^1.0.3":
+  version "1.1.2"
+  resolved "https://registry.npm.taobao.org/@react-native-community/art/download/@react-native-community/art-1.1.2.tgz#8d365ad5a12f83a0570ef83590f883a201f8e723"
+  integrity sha1-jTZa1aEvg6BXDvg1kPiDogH45yM=
+  dependencies:
+    art "^0.10.3"
+    invariant "^2.2.4"
+    prop-types "^15.7.2"
+
 "@react-native-community/cli-debugger-ui@^3.0.0":
   version "3.0.0"
   resolved "https://registry.npm.taobao.org/@react-native-community/cli-debugger-ui/download/@react-native-community/cli-debugger-ui-3.0.0.tgz#d01d08d1e5ddc1633d82c7d84d48fff07bd39416"
@@ -1395,7 +1404,7 @@ array-unique@^0.3.2:
   resolved "https://registry.npm.taobao.org/array-unique/download/array-unique-0.3.2.tgz#a894b75d4bc4f6cd679ef3244a9fd8f46ae2d428"
   integrity sha1-qJS3XUvE9s1nnvMkSp/Y9Gri1Cg=
 
-art@^0.10.0:
+art@^0.10.0, art@^0.10.3:
   version "0.10.3"
   resolved "https://registry.npm.taobao.org/art/download/art-0.10.3.tgz#b01d84a968ccce6208df55a733838c96caeeaea2"
   integrity sha1-sB2EqWjMzmII31WnM4OMlsrurqI=
@@ -5548,6 +5557,14 @@ react-native-pose@^0.9.1:
   dependencies:
     animated-pose "^1.2.0"
     react-pose-core "^0.5.0"
+
+react-native-progress@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.npm.taobao.org/react-native-progress/download/react-native-progress-4.0.3.tgz#0020a9ce9fa5cb14c7aac8f993b31f27a7ff2150"
+  integrity sha1-ACCpzp+lyxTHqsj5k7MfJ6f/IVA=
+  dependencies:
+    "@react-native-community/art" "^1.0.3"
+    prop-types "^15.7.2"
 
 react-native-reanimated@^1.4.0:
   version "1.4.0"

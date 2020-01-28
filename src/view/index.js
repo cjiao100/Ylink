@@ -21,7 +21,8 @@ const App: () => React$Node = () => {
 
 const styles = StyleSheet.create({
   main: {
-    flex: 1
+    flex: 1,
+    backgroundColor: '#fff'
   }
 });
 

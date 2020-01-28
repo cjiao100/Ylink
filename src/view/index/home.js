@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 
 import TopBar from '../../components/topBar/topBar';
-
 import Carousel from '../../components/carousel/carousel';
 
 import { color, font } from '../../assets/styles/theme';
@@ -50,7 +49,7 @@ class Home extends Component {
   render() {
     return (
       <>
-        <TopBar />
+        <TopBar tagShow={true} />
         <ScrollView>
           <Carousel />
           <View style={homeStyle.listContainer}>

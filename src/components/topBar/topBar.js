@@ -40,47 +40,50 @@ class TopBar extends Component {
             <Text style={barStyle.bar_iconText}>计划</Text>
           </View>
         </View>
-        <View style={barStyle.bar_tagGroup}>
-          <FlatList
-            keyExtractor={item => item.key.toString()}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            data={[
-              { value: '关注', key: 0 },
-              { value: '推荐', key: 1 },
-              { value: '科技', key: 2 },
-              { value: '时尚', key: 3 },
-              { value: '影视', key: 4 },
-              { value: '游戏', key: 5 },
-              { value: '时事', key: 6 },
-              { value: '娱乐', key: 7 },
-              { value: '历史', key: 8 }
-            ]}
-            renderItem={({ item }) => {
-              const tagStyle =
-                item.key === this.state.currentTag
-                  ? StyleSheet.flatten([
-                      barStyle.bar_tag,
-                      barStyle.bar_tagActive
-                    ])
-                  : barStyle.bar_tag;
-              const tagTextStyle =
-                item.key === this.state.currentTag
-                  ? StyleSheet.flatten([
-                      barStyle.bar_tagText,
-                      barStyle.bar_tagTextActive
-                    ])
-                  : barStyle.bar_tagText;
-              return (
-                <TouchableWithoutFeedback onPress={() => this.toggleTag(item)}>
-                  <View style={tagStyle}>
-                    <Text style={tagTextStyle}>{item.value}</Text>
-                  </View>
-                </TouchableWithoutFeedback>
-              );
-            }}
-          />
-        </View>
+        {this.props.tagShow && (
+          <View style={barStyle.bar_tagGroup}>
+            <FlatList
+              keyExtractor={item => item.key.toString()}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={[
+                { value: '关注', key: 0 },
+                { value: '推荐', key: 1 },
+                { value: '科技', key: 2 },
+                { value: '时尚', key: 3 },
+                { value: '影视', key: 4 },
+                { value: '游戏', key: 5 },
+                { value: '时事', key: 6 },
+                { value: '娱乐', key: 7 },
+                { value: '历史', key: 8 }
+              ]}
+              renderItem={({ item }) => {
+                const tagStyle =
+                  item.key === this.state.currentTag
+                    ? StyleSheet.flatten([
+                        barStyle.bar_tag,
+                        barStyle.bar_tagActive
+                      ])
+                    : barStyle.bar_tag;
+                const tagTextStyle =
+                  item.key === this.state.currentTag
+                    ? StyleSheet.flatten([
+                        barStyle.bar_tagText,
+                        barStyle.bar_tagTextActive
+                      ])
+                    : barStyle.bar_tagText;
+                return (
+                  <TouchableWithoutFeedback
+                    onPress={() => this.toggleTag(item)}>
+                    <View style={tagStyle}>
+                      <Text style={tagTextStyle}>{item.value}</Text>
+                    </View>
+                  </TouchableWithoutFeedback>
+                );
+              }}
+            />
+          </View>
+        )}
       </View>
     );
   }
