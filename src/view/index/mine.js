@@ -38,9 +38,13 @@ class Mine extends Component {
               </View>
             </View>
           </View>
-          <View>
-            <View>123</View>
-            <View>321</View>
+          <View style={mineStyle.starBlock}>
+            <View>
+              <Text style={mineStyle.starText}>收藏夹</Text>
+            </View>
+            <View>
+              <Text style={mineStyle.starText}>单词本</Text>
+            </View>
           </View>
         </View>
       </>
@@ -57,8 +61,10 @@ const mineStyle = StyleSheet.create({
   header: {
     display: 'flex',
     flexDirection: 'row',
+    paddingTop: 20,
+    paddingBottom: 40,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    // paddingVertical: 20,
     backgroundColor: color.white_color
   },
   avatar: {
@@ -103,6 +109,25 @@ const mineStyle = StyleSheet.create({
     borderColor: color.bg_info_color,
     borderRadius: 50,
     paddingHorizontal: 10
+  },
+  starBlock: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginHorizontal: 40,
+    backgroundColor: color.white_color,
+    borderRadius: 10,
+    height: 50,
+    borderColor: color.bg_info_color,
+    borderWidth: 1.5,
+    transform: [
+      {
+        translateY: -25
+      }
+    ]
+  },
+  starText: {
+    lineHeight: 50
   }
 });
 
