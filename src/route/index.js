@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 // import login from '../view/login/loginView';
 import Home from '../view/index/home';
 import Study from '../view/index/study';
+import Mine from '../view/index/mine';
 import BottomBar from '../components/bottomBar/bottomBar';
 
 // const BottomBar = createBottomTabNavigator(
@@ -47,6 +48,13 @@ const TabNavigator = createBottomTabNavigator(
       navigationOptions: {
         title: 'Study',
         tabBarLabel: '学习'
+      }
+    },
+    Mine: {
+      screen: Mine,
+      navigationOptions: {
+        title: 'Mine',
+        tabBarLabel: '我的'
       }
     }
   },

@@ -37,7 +37,13 @@ const BottomBar = props => {
           <Text style={barStyle.barText}>论坛</Text>
         </View>
         <View>
-          <Text style={barStyle.barText}>我的</Text>
+          <Text
+            style={barStyle.barText}
+            onPress={() => {
+              jumpTo('Mine');
+            }}>
+            我的
+          </Text>
         </View>
       </View>
     </BoxShadow>
