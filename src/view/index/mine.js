@@ -46,6 +46,23 @@ class Mine extends Component {
               <Text style={mineStyle.starText}>单词本</Text>
             </View>
           </View>
+          <View style={mineStyle.listBlock}>
+            <View style={mineStyle.listItem}>
+              <Text style={mineStyle.listItem_text}>动态</Text>
+            </View>
+            <View style={mineStyle.listItem}>
+              <Text style={mineStyle.listItem_text}>讨论贴</Text>
+            </View>
+            <View style={mineStyle.listItem}>
+              <Text style={mineStyle.listItem_text}>练习试卷</Text>
+            </View>
+            <View style={mineStyle.listItem}>
+              <Text style={mineStyle.listItem_text}>回答</Text>
+            </View>
+            <View style={mineStyle.listItem}>
+              <Text style={mineStyle.listItem_text}>课程</Text>
+            </View>
+          </View>
         </View>
       </>
     );
@@ -127,6 +144,20 @@ const mineStyle = StyleSheet.create({
     ]
   },
   starText: {
+    lineHeight: 50
+  },
+  listBlock: {
+    marginTop: -20,
+    flex: 1,
+    backgroundColor: color.white_color
+  },
+  listItem: {
+    height: 50,
+    paddingHorizontal: 20,
+    borderBottomWidth: 1,
+    borderColor: '#eee'
+  },
+  listItem_text: {
     lineHeight: 50
   }
 });
