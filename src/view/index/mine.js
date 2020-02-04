@@ -5,7 +5,12 @@ import TopBar from '../../components/topBar/topBar';
 import { color, font } from '../../assets/styles/theme';
 
 class Mine extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    // const { jumpTo } = this.props;
+
     return (
       <>
         <TopBar />
@@ -40,7 +45,13 @@ class Mine extends Component {
           </View>
           <View style={mineStyle.starBlock}>
             <View>
-              <Text style={mineStyle.starText}>收藏夹</Text>
+              <Text
+                style={mineStyle.starText}
+                onPress={() => {
+                  this.props.navigation.navigate('star');
+                }}>
+                收藏夹
+              </Text>
             </View>
             <View>
               <Text style={mineStyle.starText}>单词本</Text>

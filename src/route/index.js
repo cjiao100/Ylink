@@ -3,36 +3,15 @@ import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
-// import login from '../view/login/loginView';
+import BottomBar from '../components/bottomBar/bottomBar';
+import Login from '../view/login/loginView';
 import Home from '../view/index/home';
 import Study from '../view/index/study';
 import Mine from '../view/index/mine';
-import BottomBar from '../components/bottomBar/bottomBar';
 
-// const BottomBar = createBottomTabNavigator(
-//   {
-//     home: home,
-//     study: study
-//   },
-//   { tabBarComponent: props => bottomBar(props) }
-// );
-
-// const AppNavigator = createStackNavigator(
-//   {
-//     login: {
-//       screen: login
-//     },
-//     home: {
-//       screen: home
-//     },
-//     study: {
-//       screen: study
-//     }
-//   },
-//   {
-//     initialRouteName: 'home'
-//   }
-// );
+// mine
+import Star from '../view/mine/star';
+import { color } from '../assets/styles/theme';
 
 const TabNavigator = createBottomTabNavigator(
   {
@@ -64,6 +43,33 @@ const TabNavigator = createBottomTabNavigator(
   }
 );
 
-export default createAppContainer(TabNavigator);
+const AppNavigator = createStackNavigator({
+  TabNavigator: {
+    screen: TabNavigator,
+    navigationOptions: {
+      header: null
+    }
+  },
+  login: {
+    screen: Login,
+    navigationOptions: {
+      // header: null,
+      title: '登录'
+    }
+  },
+  star: {
+    screen: Star,
+    navigationOptions: {
+      title: '收藏夹',
+      headerStyle: {
+        backgroundColor: color.primary_color
+      },
+      headerTitleStyle: {
+        color: color.white_color
+      },
+      headerTintColor: color.white_color
+    }
+  }
+});
 
-// export default createAppContainer(AppNavigator);
+export default createAppContainer(AppNavigator);
