@@ -62,7 +62,8 @@ const AppNavigator = createStackNavigator({
     navigationOptions: {
       title: '收藏夹',
       headerStyle: {
-        backgroundColor: color.primary_color
+        backgroundColor: color.primary_color,
+        elevation: 0
       },
       headerTitleStyle: {
         color: color.white_color
