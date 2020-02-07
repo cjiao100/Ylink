@@ -11,6 +11,7 @@ import Mine from '../view/index/mine';
 
 // mine
 import Star from '../view/mine/star';
+import Wordbook from '../view/mine/wordbook';
 import { color } from '../assets/styles/theme';
 
 const TabNavigator = createBottomTabNavigator(
@@ -43,24 +44,36 @@ const TabNavigator = createBottomTabNavigator(
   }
 );
 
-const AppNavigator = createStackNavigator({
-  TabNavigator: {
-    screen: TabNavigator,
-    navigationOptions: {
-      header: null
+const AppNavigator = createStackNavigator(
+  {
+    TabNavigator: {
+      screen: TabNavigator,
+      navigationOptions: {
+        header: null
+      }
+    },
+    login: {
+      screen: Login,
+      navigationOptions: {
+        header: null,
+        title: '登录'
+      }
+    },
+    star: {
+      screen: Star,
+      navigationOptions: {
+        title: '收藏夹'
+      }
+    },
+    wordbook: {
+      screen: Wordbook,
+      navigationOptions: {
+        title: '单词本'
+      }
     }
   },
-  login: {
-    screen: Login,
-    navigationOptions: {
-      // header: null,
-      title: '登录'
-    }
-  },
-  star: {
-    screen: Star,
-    navigationOptions: {
-      title: '收藏夹',
+  {
+    defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: color.primary_color,
         elevation: 0
@@ -71,6 +84,6 @@ const AppNavigator = createStackNavigator({
       headerTintColor: color.white_color
     }
   }
-});
+);
 
 export default createAppContainer(AppNavigator);

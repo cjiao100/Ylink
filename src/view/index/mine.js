@@ -54,7 +54,13 @@ class Mine extends Component {
               </Text>
             </View>
             <View>
-              <Text style={mineStyle.starText}>单词本</Text>
+              <Text
+                style={mineStyle.starText}
+                onPress={() => {
+                  this.props.navigation.navigate('wordbook');
+                }}>
+                单词本
+              </Text>
             </View>
           </View>
           <View style={mineStyle.listBlock}>
