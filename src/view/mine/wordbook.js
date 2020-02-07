@@ -49,6 +49,9 @@ class Wordbook extends Component {
           data={this.state.wordList}
           renderItem={({ item }) => this.renderItem(item)}
           keyExtractor={item => item.id}
+          // onEndReached={() => {
+          //   this.loadData();
+          // }}
         />
       </View>
     );

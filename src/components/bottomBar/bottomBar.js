@@ -30,7 +30,13 @@ const BottomBar = props => {
         </View>
         <View>
           <View style={barStyle.search}>
-            <Text style={barStyle.searchText}>查</Text>
+            <Text
+              style={barStyle.searchText}
+              onPress={() => {
+                jumpTo('Translate');
+              }}>
+              查
+            </Text>
           </View>
         </View>
         <View>

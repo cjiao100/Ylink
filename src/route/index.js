@@ -5,8 +5,11 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import BottomBar from '../components/bottomBar/bottomBar';
 import Login from '../view/login/loginView';
+
+// tab
 import Home from '../view/index/home';
 import Study from '../view/index/study';
+import Translate from '../view/index/translate';
 import Mine from '../view/index/mine';
 
 // mine
@@ -28,6 +31,13 @@ const TabNavigator = createBottomTabNavigator(
       navigationOptions: {
         title: 'Study',
         tabBarLabel: '学习'
+      }
+    },
+    Translate: {
+      screen: Translate,
+      navigationOptions: {
+        title: 'Translate',
+        tabBarLabel: '查'
       }
     },
     Mine: {
