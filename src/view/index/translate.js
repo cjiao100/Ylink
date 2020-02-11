@@ -5,6 +5,23 @@ import { color } from '../../assets/styles/theme';
 class Translate extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      word: ''
+    };
+
+    this.search = this.search.bind(this);
+    this.change = this.change.bind(this);
+  }
+
+  search() {
+    this.props.navigation.navigate('result', { word: this.state.word });
+  }
+
+  change(text) {
+    this.setState({
+      word: text
+    });
   }
 
   render() {
@@ -14,7 +31,12 @@ class Translate extends Component {
           <Text style={translateStyle.title_text}>英领</Text>
         </View>
         <View style={translateStyle.input}>
-          <TextInput style={translateStyle.input_content} />
+          <TextInput
+            style={translateStyle.input_content}
+            multiline={false}
+            onSubmitEditing={this.search}
+            onChangeText={this.change}
+          />
         </View>
       </View>
     );

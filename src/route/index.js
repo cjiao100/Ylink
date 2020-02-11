@@ -15,6 +15,9 @@ import Mine from '../view/index/mine';
 // mine
 import Star from '../view/mine/star';
 import Wordbook from '../view/mine/wordbook';
+
+// translate
+import Result from '../view/translate/result';
 import { color } from '../assets/styles/theme';
 
 const TabNavigator = createBottomTabNavigator(
@@ -79,6 +82,12 @@ const AppNavigator = createStackNavigator(
       screen: Wordbook,
       navigationOptions: {
         title: '单词本'
+      }
+    },
+    result: {
+      screen: Result,
+      navigationOptions: {
+        title: ''
       }
     }
   },
