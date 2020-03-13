@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions } from 'react-native';
+import { View, Text, Dimensions, Image } from 'react-native';
 
 import TopBar from '../../components/topBar/topBar';
 import { color } from '../../assets/styles/theme';
@@ -20,9 +20,14 @@ class forum extends Component {
     return (
       <>
         <TopBar />
-        <View style={{ backgroundColor: color.bg_info_color }}>
-          <View style={{ padding: 20, backgroundColor: color.white_color }}>
-            <Text>热门话题</Text>
+        <View style={{ backgroundColor: color.bg_info_color, flex: 1 }}>
+          <View
+            style={{
+              padding: 20,
+              backgroundColor: color.white_color,
+              marginTop: 10
+            }}>
+            <Text style={{ fontWeight: 'bold' }}>热门话题</Text>
             <View style={{ display: 'flex', flexDirection: 'row' }}>
               <View style={{ padding: 10 }}>
                 {leftList.map((item, index) => (
@@ -39,6 +44,24 @@ class forum extends Component {
                 ))}
               </View>
             </View>
+          </View>
+          <View style={{ marginTop: 10, backgroundColor: color.white_color }}>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Image />
+                <View>
+                  <Text>XXXX</Text>
+                  <Text>17分钟前</Text>
+                </View>
+              </View>
+              <Text>更多操作</Text>
+            </View>
+            <Text>123</Text>
           </View>
         </View>
       </>
