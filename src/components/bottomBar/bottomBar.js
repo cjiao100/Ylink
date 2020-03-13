@@ -40,7 +40,13 @@ const BottomBar = props => {
           </View>
         </View>
         <View>
-          <Text style={barStyle.barText}>论坛</Text>
+          <Text
+            style={barStyle.barText}
+            onPress={() => {
+              jumpTo('Forum');
+            }}>
+            论坛
+          </Text>
         </View>
         <View>
           <Text

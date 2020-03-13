@@ -10,6 +10,7 @@ import Login from '../view/login/loginView';
 import Home from '../view/index/home';
 import Study from '../view/index/study';
 import Translate from '../view/index/translate';
+import Forum from '../view/index/forum';
 import Mine from '../view/index/mine';
 
 // mine
@@ -18,6 +19,9 @@ import Wordbook from '../view/mine/wordbook';
 
 // translate
 import Result from '../view/translate/result';
+
+// study
+import Test from '../view/study/test';
 import { color } from '../assets/styles/theme';
 
 const TabNavigator = createBottomTabNavigator(
@@ -41,6 +45,13 @@ const TabNavigator = createBottomTabNavigator(
       navigationOptions: {
         title: 'Translate',
         tabBarLabel: '查'
+      }
+    },
+    Forum: {
+      screen: Forum,
+      navigationOptions: {
+        title: 'Forum',
+        tabBarLabel: '论坛'
       }
     },
     Mine: {
@@ -86,6 +97,12 @@ const AppNavigator = createStackNavigator(
     },
     result: {
       screen: Result,
+      navigationOptions: {
+        title: ''
+      }
+    },
+    test: {
+      screen: Test,
       navigationOptions: {
         title: ''
       }
