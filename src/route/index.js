@@ -22,6 +22,9 @@ import Result from '../view/translate/result';
 
 // study
 import Test from '../view/study/test';
+
+// forum
+import Post from '../view/forum/post';
 import { color } from '../assets/styles/theme';
 
 const TabNavigator = createBottomTabNavigator(
@@ -103,6 +106,12 @@ const AppNavigator = createStackNavigator(
     },
     test: {
       screen: Test,
+      navigationOptions: {
+        title: '测试页面'
+      }
+    },
+    post: {
+      screen: Post,
       navigationOptions: {
         title: ''
       }

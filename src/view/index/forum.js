@@ -46,6 +46,7 @@ class forum extends Component {
 
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.openPostDetails = this.openPostDetails.bind(this);
   }
 
   showModal() {
@@ -57,6 +58,14 @@ class forum extends Component {
   closeModal() {
     this.setState({
       modalVisible: false
+    });
+  }
+
+  openPostDetails(post) {
+    this.props.navigation.navigate('post', {
+      author: post.author,
+      postId: post.id,
+      title: post.title
     });
   }
 
@@ -90,11 +99,15 @@ class forum extends Component {
             </View>
 
             {/* 帖子 */}
-            <FlatList
-              data={this.state.postList}
-              keyExtractor={item => item.id.toString()}
-              renderItem={({ item }) => (
-                <View key={item.id} style={forumStyle.post}>
+            {this.state.postList.map(item => (
+              <TouchableHighlight
+                activeOpacity={1}
+                underlayColor="#fafafa"
+                key={item.id}
+                style={forumStyle.post}
+                onPress={() => this.openPostDetails(item)}
+                onLongPress={this.showModal}>
+                <View>
                   <View style={forumStyle.post_header}>
                     <View style={forumStyle.post_header_left}>
                       <Image style={forumStyle.post_avatar} />
@@ -121,8 +134,8 @@ class forum extends Component {
                     ))}
                   </View>
                 </View>
-              )}
-            />
+              </TouchableHighlight>
+            ))}
           </View>
         </ScrollView>
 
