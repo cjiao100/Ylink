@@ -115,7 +115,8 @@ const starStyle = StyleSheet.create({
   listItem: {
     padding: 15,
     borderColor: color.bg_info_color,
-    borderBottomWidth: 1.5
+    borderBottomWidth: 1.5,
+    backgroundColor: color.white_color
   },
   listItem_info: {
     display: 'flex',

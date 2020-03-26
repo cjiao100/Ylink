@@ -62,7 +62,7 @@ class forum extends Component {
   }
 
   openPostDetails(post) {
-    this.props.navigation.navigate('post', {
+    this.props.navigation.navigate('Post', {
       author: post.author,
       postId: post.id,
       title: post.title

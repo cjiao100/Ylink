@@ -49,20 +49,15 @@ class Post extends Component {
       ]
     };
 
-    console.log(this.props.navigation.state);
-  }
-
-  static navigationOptions = ({ navigation, screenProps }) => {
-    return {
-      headerTitle: navigation.state.params.title,
+    const { navigation, route } = this.props;
+    navigation.setOptions({
+      title: route.params.title,
+      headerTitleAlign: 'center',
       headerTitleStyle: {
-        marginLeft: -10,
-        marginRight: 50,
-        textAlign: 'center',
-        flex: 1
+        marginLeft: 30
       }
-    };
-  };
+    });
+  }
 
   render() {
     return (

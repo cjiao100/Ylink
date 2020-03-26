@@ -48,7 +48,7 @@ class Mine extends Component {
               <Text
                 style={mineStyle.starText}
                 onPress={() => {
-                  this.props.navigation.navigate('star');
+                  this.props.navigation.navigate('Star');
                 }}>
                 收藏夹
               </Text>
@@ -57,7 +57,7 @@ class Mine extends Component {
               <Text
                 style={mineStyle.starText}
                 onPress={() => {
-                  this.props.navigation.navigate('wordbook');
+                  this.props.navigation.navigate('WordBook');
                 }}>
                 单词本
               </Text>

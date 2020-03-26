@@ -40,7 +40,7 @@ const carouselStyle = {
     margin: 5,
     height: 150,
     borderRadius: 10,
-    backgroundColor: color.bg_info_color
+    backgroundColor: color.white_color
   },
   pagination: {
     bottom: 10,

@@ -28,7 +28,7 @@ class TopBar extends Component {
 
   render() {
     return (
-      <View>
+      <View style={{ backgroundColor: color.white_color }}>
         <View style={barStyle.bar_container}>
           <View style={barStyle.bar_icon}>
             <Text style={barStyle.bar_iconText}>英领</Text>

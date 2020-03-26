@@ -8,7 +8,7 @@ const App: () => React$Node = () => {
     <>
       <StatusBar barStyle="light-content" backgroundColor="#E91B36" />
       <SafeAreaView style={styles.main}>
-        <NavigationContainer>
+        <NavigationContainer style={styles.container}>
           <Navigation />
         </NavigationContainer>
       </SafeAreaView>
@@ -20,6 +20,9 @@ const styles = StyleSheet.create({
   main: {
     flex: 1,
     backgroundColor: '#fff'
+  },
+  container: {
+    flex: 1
   }
 });
 

@@ -62,7 +62,8 @@ const wordStyle = StyleSheet.create({
   word_container: {
     padding: 15,
     borderBottomWidth: 1.5,
-    borderColor: color.bg_info_color
+    borderColor: color.bg_info_color,
+    backgroundColor: color.white_color
   },
   word_title: {
     fontSize: font.big_size,

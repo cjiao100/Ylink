@@ -14,134 +14,36 @@ import ForumScreen from '../view/index/forum';
 import MineScreen from '../view/index/mine';
 
 // mine
-import Star from '../view/mine/star';
-import Wordbook from '../view/mine/wordbook';
+import StarScreen from '../view/mine/star';
+import WordbookScreen from '../view/mine/wordbook';
 
 // translate
-import Result from '../view/translate/result';
+import ResultScreen from '../view/translate/result';
 
 // study
-import Test from '../view/study/test';
+import TestScreen from '../view/study/test';
 
 // forum
-import Post from '../view/forum/post';
+import PostScreen from '../view/forum/post';
 import { color } from '../assets/styles/theme';
-
-// const TabNavigator = createBottomTabNavigator(
-//   {
-//     Home: {
-//       screen: Home,
-//       navigationOptions: {
-//         title: 'Home',
-//         tabBarLabel: '首页'
-//       }
-//     },
-//     Study: {
-//       screen: Study,
-//       navigationOptions: {
-//         title: 'Study',
-//         tabBarLabel: '学习'
-//       }
-//     },
-//     Translate: {
-//       screen: Translate,
-//       navigationOptions: {
-//         title: 'Translate',
-//         tabBarLabel: '查'
-//       }
-//     },
-//     Forum: {
-//       screen: Forum,
-//       navigationOptions: {
-//         title: 'Forum',
-//         tabBarLabel: '论坛'
-//       }
-//     },
-//     Mine: {
-//       screen: Mine,
-//       navigationOptions: {
-//         title: 'Mine',
-//         tabBarLabel: '我的'
-//       }
-//     }
-//   },
-//   {
-//     initialRouteName: 'Home',
-//     tabBarComponent: props => <BottomBar {...props} />
-//   }
-// );
-
-// const AppNavigator = createStackNavigator(
-//   {
-//     TabNavigator: {
-//       screen: TabNavigator,
-//       navigationOptions: {
-//         header: null
-//       }
-//     },
-//     login: {
-//       screen: Login,
-//       navigationOptions: {
-//         header: null,
-//         title: '登录'
-//       }
-//     },
-//     star: {
-//       screen: Star,
-//       navigationOptions: {
-//         title: '收藏夹'
-//       }
-//     },
-//     wordbook: {
-//       screen: Wordbook,
-//       navigationOptions: {
-//         title: '单词本'
-//       }
-//     },
-//     result: {
-//       screen: Result,return
-//       navigationOptions: {
-//         title: ''
-//       }
-//     },
-//     test: {
-//       screen: Test,
-//       navigationOptions: {
-//         title: '测试页面'
-//       }
-//     },
-//     post: {
-//       screen: Post,
-//       navigationOptions: {
-//         title: ''
-//       }
-//     }
-//   },
-//   {
-//     initialRouteName: 'login'
-//   },
-//   {
-//     defaultNavigationOptions: {
-//       headerStyle: {
-//         backgroundColor: color.primary_color,
-//         elevation: 0
-//       },
-//       headerTitleStyle: {
-//         color: color.white_color
-//       },
-//       headerTintColor: color.white_color
-//     }
-//   }return
-// );
-
-// export default createAppContainer(AppNavigator);
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function RootStack() {
   return (
-    <Stack.Navigator initialRouteName="BottomTabs">
+    <Stack.Navigator
+      initialRouteName="BottomTabs"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: color.primary_color,
+          elevation: 0
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold'
+        }
+      }}>
       <Stack.Screen
         name="Login"
         component={LoginScreen}
@@ -152,6 +54,11 @@ function RootStack() {
         component={BottomTabs}
         options={{ headerShown: false }}
       />
+      <Stack.Screen name="Star" component={StarScreen} />
+      <Stack.Screen name="WordBook" component={WordbookScreen} />
+      <Stack.Screen name="Result" component={ResultScreen} />
+      <Stack.Screen name="Test" component={TestScreen} />
+      <Stack.Screen name="Post" component={PostScreen} />
     </Stack.Navigator>
   );
 }
