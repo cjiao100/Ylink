@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StackActions } from '@react-navigation/native';
 import {
   View,
   Text,
@@ -8,8 +9,9 @@ import {
   TouchableNativeFeedback,
   KeyboardAvoidingView
 } from 'react-native';
-import { CommonActions } from '@react-navigation/native';
-
+import request from '../../utils/request';
+import Toast from '../../utils/toast';
+import { saveToken, removeTokens } from '../../utils/storage';
 import { color } from '../../assets/styles/theme';
 import login from './loginStyle';
 
@@ -18,10 +20,10 @@ class LoginView extends Component {
     super(props);
     this.state = {
       name: '',
-      pwd: '123456',
-      email: '197*****12@qq.com',
+      pwd: '',
+      email: '',
       verification: false,
-      validate: '',
+      validate: '1234',
       isValidate: true
     };
     this.login = this.login.bind(this);
@@ -38,30 +40,38 @@ class LoginView extends Component {
 
   login(evt) {
     const params = {
-      username: this.state.name,
-      password: this.state.pwd
+      email: this.state.email || 'cjw123@test.com',
+      password: this.state.pwd || 'cjwcjw'
     };
 
-    console.log(params);
-
-    this.setState({
-      verification: true
-    });
-    // console.log(this.state.verification);
+    request({ url: '/user/login', method: 'Post', data: params })
+      .then(res => {
+        saveToken(res);
+        console.log('登录成功');
+        this.setState({
+          verification: true
+        });
+      })
+      .catch(err => {
+        Toast(err);
+      });
   }
 
   validateFunc() {
-    // console.log(this.props.navigation);
-    // 设置页面跳转
-    // this.props.navigation.navigate('index');
-    const resetAction = CommonActions.reset({
-      index: 0,
-      actions: [CommonActions.navigate({ routeName: 'Home' })]
-    });
-    this.props.navigation.dispath(resetAction);
-    this.setState({
-      verification: false
-    });
+    const validate = this.state.validate;
+    // TODO 校验验证码
+    if (validate === '1234') {
+      const { navigation } = this.props;
+      // 设置页面跳转 使用BottomTabs替换Login路由 这样不会返回到登录页面
+      navigation.dispatch(StackActions.replace('BottomTabs'));
+
+      this.setState({
+        verification: false
+      });
+    } else {
+      removeTokens();
+      Toast('验证码错误 登录失败');
+    }
   }
 
   render() {
@@ -72,7 +82,9 @@ class LoginView extends Component {
           <View style={login.logo}>
             <Text style={login.logoIcon}>英领</Text>
             <Text style={login.logoTitle}>
-              {this.state.name ? `Hello, ${this.state.name}` : 'YLink'}
+              {this.state.email
+                ? `Hello, ${this.state.email.split('@')[0]}`
+                : 'YLink'}
             </Text>
           </View>
           <View style={login.formGroup}>
@@ -82,10 +94,9 @@ class LoginView extends Component {
                 autoCorrect={false}
                 placeholder="请输入邮箱/用户名"
                 placeholderTextColor="#888"
-                maxLength={10}
                 textContentType="emailAddress"
                 style={login.input}
-                onChangeText={name => this.setState({ name })}
+                onChangeText={email => this.setState({ email })}
               />
               <TextInput
                 password={true}
@@ -109,7 +120,10 @@ class LoginView extends Component {
           </View>
         </KeyboardAvoidingView>
         <View>
-          <Modal visible={this.state.verification} transparent={true}>
+          <Modal
+            visible={this.state.verification}
+            transparent={true}
+            onRequestClose={() => this.setState({ verification: false })}>
             <View style={login.tip}>
               <View style={login.tip_block}>
                 <View>
@@ -117,8 +131,7 @@ class LoginView extends Component {
                 </View>
                 <View style={login.tip_content}>
                   <Text style={login.tip_message}>
-                    为了保证您的账户安全，我们将会向您{this.state.email}
-                    的邮箱发送验证码
+                    为了保证您的账户安全，我们将会向您的邮箱发送验证码
                   </Text>
                 </View>
                 <View>

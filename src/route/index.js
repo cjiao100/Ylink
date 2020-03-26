@@ -30,10 +30,10 @@ import { color } from '../assets/styles/theme';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-function RootStack() {
+function RootStack(isLogin = false) {
   return (
     <Stack.Navigator
-      initialRouteName="BottomTabs"
+      initialRouteName={isLogin ? 'Login' : 'BottomTabs'}
       screenOptions={{
         headerStyle: {
           backgroundColor: color.primary_color,
@@ -95,4 +95,4 @@ function BottomTabs() {
   );
 }
 
-module.exports = RootStack;
+export default isLogin => RootStack(isLogin);
