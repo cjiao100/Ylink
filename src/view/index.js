@@ -1,19 +1,16 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
+import { NavigationContainer } from '@react-navigation/native';
 import { StyleSheet, SafeAreaView, StatusBar } from 'react-native';
-
-import BottomBar from '../components/bottomBar/bottomBar';
-import route from '../route/index';
-
-const AppContainer = createAppContainer(route);
+import Navigation from '../route';
 
 const App: () => React$Node = () => {
   return (
     <>
       <StatusBar barStyle="light-content" backgroundColor="#E91B36" />
       <SafeAreaView style={styles.main}>
-        <AppContainer />
-        {/* <BottomBar /> */}
+        <NavigationContainer>
+          <Navigation />
+        </NavigationContainer>
       </SafeAreaView>
     </>
   );
@@ -27,5 +24,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-
-// export default index;

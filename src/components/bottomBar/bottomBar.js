@@ -2,61 +2,33 @@ import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { BoxShadow } from 'react-native-shadow';
 
-import { color } from '../../assets/styles/theme';
+import { color, font } from '../../assets/styles/theme';
 
-const BottomBar = props => {
-  const { jumpTo } = props;
+const BottomBar = ({ state, descriptors, navigation }) => {
+  const { jumpTo } = navigation;
+  const routesTitle = state.routes.map(router => ({
+    title: descriptors[router.key].options.title,
+    path: router.name
+  }));
 
   return (
     <BoxShadow setting={shadowOpt}>
       <View style={barStyle.container}>
-        <View>
-          <Text
-            style={barStyle.barText}
-            onPress={() => {
-              jumpTo('Home');
-            }}>
-            首页
-          </Text>
-        </View>
-        <View>
-          <Text
-            style={barStyle.barText}
-            onPress={() => {
-              jumpTo('Study');
-            }}>
-            学习
-          </Text>
-        </View>
-        <View>
-          <View style={barStyle.search}>
+        {routesTitle.map(item => (
+          <View
+            key={item.path}
+            style={item.path === 'Translate' ? barStyle.search : ''}>
             <Text
-              style={barStyle.searchText}
-              onPress={() => {
-                jumpTo('Translate');
-              }}>
-              查
+              style={
+                item.path === 'Translate'
+                  ? barStyle.searchText
+                  : barStyle.barText
+              }
+              onPress={() => jumpTo(item.path)}>
+              {item.title}
             </Text>
           </View>
-        </View>
-        <View>
-          <Text
-            style={barStyle.barText}
-            onPress={() => {
-              jumpTo('Forum');
-            }}>
-            论坛
-          </Text>
-        </View>
-        <View>
-          <Text
-            style={barStyle.barText}
-            onPress={() => {
-              jumpTo('Mine');
-            }}>
-            我的
-          </Text>
-        </View>
+        ))}
       </View>
     </BoxShadow>
   );
@@ -85,6 +57,7 @@ const barStyle = StyleSheet.create({
     ]
   },
   searchText: {
+    fontSize: font.big_size,
     color: color.white_color,
     lineHeight: 60,
     textAlign: 'center'

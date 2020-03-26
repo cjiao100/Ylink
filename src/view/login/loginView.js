@@ -8,6 +8,7 @@ import {
   TouchableNativeFeedback,
   KeyboardAvoidingView
 } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
 
 import { color } from '../../assets/styles/theme';
 import login from './loginStyle';
@@ -52,7 +53,12 @@ class LoginView extends Component {
   validateFunc() {
     // console.log(this.props.navigation);
     // 设置页面跳转
-    this.props.navigation.navigate('index');
+    // this.props.navigation.navigate('index');
+    const resetAction = CommonActions.reset({
+      index: 0,
+      actions: [CommonActions.navigate({ routeName: 'Home' })]
+    });
+    this.props.navigation.dispath(resetAction);
     this.setState({
       verification: false
     });
