@@ -68,11 +68,12 @@ export function refreshToken() {
       return request({
         method: 'GET',
         url: '/user/refresh_token',
+        access_token: result,
         params: {
           refresh_token: result
         }
       }).then(data => {
-        saveToken(data.data);
+        saveToken(data);
       });
     });
 }

@@ -3,14 +3,30 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 
 import TopBar from '../../components/topBar/topBar';
 import { color, font } from '../../assets/styles/theme';
+import { requestWithToken } from '../../utils/request';
 
 class Mine extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      userInfo: {}
+    };
   }
-  render() {
-    // const { jumpTo } = this.props;
 
+  componentDidMount() {
+    this.getUserInfo();
+  }
+
+  getUserInfo() {
+    requestWithToken({
+      url: '/user',
+      method: 'Get'
+    }).then(res => {
+      console.log(res);
+    });
+  }
+
+  render() {
     return (
       <>
         <TopBar />
