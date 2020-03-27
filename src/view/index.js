@@ -10,32 +10,39 @@ class App extends Component {
 
     this.state = {
       // 请求未结束前, 默认需要登录
-      checkedLogin: false
+      checkedLogin: false,
+      isLogin: false
     };
   }
-  componentDidMount() {
+
+  componentWillMount() {
     refreshToken()
       .then(() => this.setState({ checkedLogin: true, isLogin: true }))
-      .catch(err => {
-        console.log(err);
+      .catch(() => {
         this.setState({
           checkedLogin: true,
           isLogin: false
         });
       });
   }
+  // componentDidMount() {
+  // }
 
   render() {
-    return (
-      <>
-        <StatusBar barStyle="light-content" backgroundColor="#E91B36" />
-        <SafeAreaView style={styles.main}>
-          <NavigationContainer style={styles.container}>
-            {Navigation(this.state.isLogin)}
-          </NavigationContainer>
-        </SafeAreaView>
-      </>
-    );
+    if (this.state.checkedLogin) {
+      return (
+        <>
+          <StatusBar barStyle="light-content" backgroundColor="#E91B36" />
+          <SafeAreaView style={styles.main}>
+            <NavigationContainer style={styles.container}>
+              {Navigation(this.state.isLogin)}
+            </NavigationContainer>
+          </SafeAreaView>
+        </>
+      );
+    } else {
+      return null;
+    }
   }
 }
 

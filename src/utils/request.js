@@ -2,7 +2,7 @@ import { saveToken, storage } from './storage';
 
 const qs = require('qs');
 
-const BASE_URL = 'http://192.168.1.108:5000/ylink';
+const BASE_URL = 'http://192.168.1.103:5000/ylink';
 const DEFAULT_HEADERS = {
   'Content-Type': 'application/json;charset=utf-8'
 };
@@ -54,6 +54,7 @@ export default function request({
 }
 
 export function requestWithToken(options) {
+  refreshToken();
   return storage
     .load({ key: 'accessToken' })
     .then(result => request({ ...options, access_token: result }));

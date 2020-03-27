@@ -7,7 +7,7 @@ class Translate extends Component {
     super(props);
 
     this.state = {
-      word: ''
+      word: 'yes'
     };
 
     this.search = this.search.bind(this);
@@ -15,7 +15,7 @@ class Translate extends Component {
   }
 
   search() {
-    this.props.navigation.navigate('result', { word: this.state.word });
+    this.props.navigation.navigate('Result', { word: this.state.word });
   }
 
   change(text) {
@@ -45,7 +45,8 @@ class Translate extends Component {
 
 const translateStyle = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    backgroundColor: color.white_color
   },
   title: {
     flex: 1,

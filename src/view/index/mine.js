@@ -22,8 +22,22 @@ class Mine extends Component {
       url: '/user',
       method: 'Get'
     }).then(res => {
-      console.log(res);
+      this.setState({
+        userInfo: res.data
+      });
     });
+  }
+
+  showCampusBlock(identity) {
+    if (['0', '2', '3'].includes(identity)) {
+      return (
+        <View style={mineStyle.campusItem}>
+          <View style={mineStyle.listItem}>
+            <Text style={mineStyle.listItem_text}>我的班级</Text>
+          </View>
+        </View>
+      );
+    }
   }
 
   render() {
@@ -33,25 +47,22 @@ class Mine extends Component {
         <View style={mineStyle.container}>
           <View style={mineStyle.header}>
             <View style={mineStyle.avatar}>
-              <Image />
+              <Image
+                style={{ width: 80, height: 80 }}
+                source={{
+                  uri: `http://192.168.1.103:5000/${this.state.userInfo.avatar}`
+                }}
+              />
             </View>
             <View style={mineStyle.userInfo}>
               <View>
-                <Text style={mineStyle.userInfo_name}>我的名字</Text>
-              </View>
-              <View style={mineStyle.userInfo_num}>
-                <Text>
-                  关注：
-                  <Text style={{ fontSize: font.primary_size }}>123</Text>
-                </Text>
-                <Text style={mineStyle.userInfo_right}>
-                  粉丝：
-                  <Text style={{ fontSize: font.primary_size }}>123</Text>
+                <Text style={mineStyle.userInfo_name}>
+                  {this.state.userInfo.name}
                 </Text>
               </View>
               <View style={mineStyle.userInfo_other}>
                 <View style={mineStyle.integral}>
-                  <Text style={mineStyle.buttonText}>我的积分：60</Text>
+                  <Text style={mineStyle.buttonText}>我的积分：0</Text>
                 </View>
                 <View style={[mineStyle.userInfo_right, mineStyle.userCenter]}>
                   <Text style={mineStyle.buttonText}>个人空间</Text>
@@ -80,21 +91,15 @@ class Mine extends Component {
             </View>
           </View>
           <View style={mineStyle.listBlock}>
-            <View style={mineStyle.listItem}>
-              <Text style={mineStyle.listItem_text}>动态</Text>
+            <View style={mineStyle.otherBlock}>
+              <View style={mineStyle.listItem}>
+                <Text style={mineStyle.listItem_text}>我的帖子</Text>
+              </View>
+              <View style={mineStyle.listItem}>
+                <Text style={mineStyle.listItem_text}>我的计划</Text>
+              </View>
             </View>
-            <View style={mineStyle.listItem}>
-              <Text style={mineStyle.listItem_text}>讨论贴</Text>
-            </View>
-            <View style={mineStyle.listItem}>
-              <Text style={mineStyle.listItem_text}>练习试卷</Text>
-            </View>
-            <View style={mineStyle.listItem}>
-              <Text style={mineStyle.listItem_text}>回答</Text>
-            </View>
-            <View style={mineStyle.listItem}>
-              <Text style={mineStyle.listItem_text}>课程</Text>
-            </View>
+            {this.showCampusBlock(this.state.userInfo.identity)}
           </View>
         </View>
       </>
@@ -114,11 +119,9 @@ const mineStyle = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 40,
     paddingHorizontal: 20,
-    // paddingVertical: 20,
     backgroundColor: color.white_color
   },
   avatar: {
-    backgroundColor: '#ff7272',
     height: 80,
     width: 80,
     borderRadius: 50
@@ -126,7 +129,6 @@ const mineStyle = StyleSheet.create({
   userInfo: {
     flex: 1,
     paddingTop: 5,
-    // paddingBottom: 5,
     marginLeft: 20,
     justifyContent: 'space-between'
   },
@@ -181,7 +183,9 @@ const mineStyle = StyleSheet.create({
   },
   listBlock: {
     marginTop: -20,
-    flex: 1,
+    flex: 1
+  },
+  otherBlock: {
     backgroundColor: color.white_color
   },
   listItem: {
@@ -189,6 +193,10 @@ const mineStyle = StyleSheet.create({
     paddingHorizontal: 20,
     borderBottomWidth: 1,
     borderColor: '#eee'
+  },
+  campusItem: {
+    marginTop: 10,
+    backgroundColor: color.white_color
   },
   listItem_text: {
     lineHeight: 50

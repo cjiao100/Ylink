@@ -1,34 +1,58 @@
 import React, { Component } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  ActivityIndicator
+} from 'react-native';
 import { font, color } from '../../assets/styles/theme';
+import { requestWithToken } from '../../utils/request';
 
 class Wordbook extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      wordList: [
-        {
-          id: '0',
-          word: 'hello',
-          explains: [
-            'int. 喂；哈罗，你好，您好',
-            'n. 表示问候， 惊奇或唤起注意时的用语',
-            'n. (Hello) 人名；（法）埃洛'
-          ]
-        }
-      ]
+      wordList: [],
+      loading: true
     };
 
     this.renderItem = this.renderItem.bind(this);
+    this.loadData = this.loadData.bind(this);
+  }
+
+  componentDidMount() {
+    this.getWordBookList().then(res => {
+      this.setState({
+        wordList: res.data,
+        loading: false
+      });
+    });
+  }
+
+  getWordBookList() {
+    return requestWithToken({
+      url: '/wordbook',
+      method: 'Get'
+    }).catch(err => {
+      console.info(err);
+    });
+  }
+
+  loadData() {}
+
+  // 首字母大写
+  Capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
   renderItem(item) {
     return (
       <View style={wordStyle.word_container}>
-        <Text style={wordStyle.word_title}>{item.word}</Text>
+        <Text style={wordStyle.word_title}>{this.Capitalize(item.query)}</Text>
         <Text numberOfLines={1} style={wordStyle.word_translate}>
-          {item.explains.map(explain => (
+          {item.basic.explains.map(explain => (
             <Text key={explain}>
               <Text style={wordStyle.word_part}>
                 {explain.slice(0, explain.indexOf('.') + 1)}
@@ -43,18 +67,26 @@ class Wordbook extends Component {
   }
 
   render() {
-    return (
-      <View>
-        <FlatList
-          data={this.state.wordList}
-          renderItem={({ item }) => this.renderItem(item)}
-          keyExtractor={item => item.id}
-          // onEndReached={() => {
-          //   this.loadData();
-          // }}
-        />
-      </View>
-    );
+    if (this.state.loading) {
+      return (
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <FlatList
+            data={this.state.wordList}
+            renderItem={({ item }) => this.renderItem(item)}
+            keyExtractor={item => item._id}
+            onEndReached={() => {
+              this.loadData();
+            }}
+          />
+        </View>
+      );
+    }
   }
 }
 

@@ -31,9 +31,10 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function RootStack(isLogin = false) {
+  console.log(isLogin);
   return (
     <Stack.Navigator
-      initialRouteName={isLogin ? 'Login' : 'BottomTabs'}
+      initialRouteName={isLogin ? 'BottomTabs' : 'Login'}
       screenOptions={{
         headerStyle: {
           backgroundColor: color.primary_color,
@@ -54,11 +55,31 @@ function RootStack(isLogin = false) {
         component={BottomTabs}
         options={{ headerShown: false }}
       />
-      <Stack.Screen name="Star" component={StarScreen} />
-      <Stack.Screen name="WordBook" component={WordbookScreen} />
-      <Stack.Screen name="Result" component={ResultScreen} />
-      <Stack.Screen name="Test" component={TestScreen} />
-      <Stack.Screen name="Post" component={PostScreen} />
+      <Stack.Screen
+        options={{ title: '收藏' }}
+        name="Star"
+        component={StarScreen}
+      />
+      <Stack.Screen
+        options={{ title: '单词本' }}
+        name="WordBook"
+        component={WordbookScreen}
+      />
+      <Stack.Screen
+        options={{ title: '' }}
+        name="Result"
+        component={ResultScreen}
+      />
+      <Stack.Screen
+        options={{ headerTransparent: true }}
+        name="Test"
+        component={TestScreen}
+      />
+      <Stack.Screen
+        options={{ title: '帖子' }}
+        name="Post"
+        component={PostScreen}
+      />
     </Stack.Navigator>
   );
 }
