@@ -28,10 +28,12 @@ class CreatePost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageList: [{ uri: 'content://media/external/images/media/26' }]
+      imageList: [],
+      uploadImgUrl: []
     };
 
     this.selectImages = this.selectImages.bind(this);
+    this.upload = this.upload.bind(this);
   }
 
   selectImages() {
@@ -41,8 +43,11 @@ class CreatePost extends Component {
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
       } else {
-        const source = { uri: response.uri };
-        console.log(source);
+        const source = {
+          uri: response.uri,
+          status: 0,
+          filename: response.fileName
+        };
         const imageList = [...this.state.imageList];
         imageList.push(source);
 
@@ -66,11 +71,73 @@ class CreatePost extends Component {
       data: formData
     })
       .then(res => {
-        console.log(res);
+        const imageList = this.state.imageList.map(item => {
+          if (res.filename === item.filename) {
+            console.log(item);
+            item.uri = `http://192.168.43.111:5000${res.url}`;
+            item.status = 1;
+          }
+          return item;
+        });
+        this.setState(
+          {
+            imageList
+          },
+          () => {
+            console.log(this.state.imageList);
+          }
+        );
       })
       .catch(err => {
-        console.warn(err);
+        toast(err);
+        const imageList = this.state.imageList.map(item => {
+          if (err.filename === item.filename) {
+            console.log(item);
+            item.status = -1;
+          }
+          return item;
+        });
+        this.setState(
+          {
+            imageList
+          },
+          () => {
+            console.log(this.state.imageList);
+          }
+        );
       });
+  }
+  renderTipButton(image) {
+    let renderItem;
+    switch (image.status) {
+      case -1:
+        renderItem = (
+          <View style={styles.upload_background}>
+            <Text style={styles.upload_background_text}>
+              <Text>重新上传</Text>
+              <Text> | </Text>
+              <Text>删除</Text>
+            </Text>
+          </View>
+        );
+        break;
+      case 0:
+        renderItem = (
+          <View style={styles.upload_background}>
+            <Text style={styles.upload_background_text}>上传中</Text>
+          </View>
+        );
+        break;
+      case 1:
+        renderItem = (
+          <View style={styles.upload_background}>
+            <Text style={styles.upload_background_text}>删除</Text>
+          </View>
+        );
+        break;
+    }
+
+    return renderItem;
   }
 
   render() {
@@ -83,9 +150,11 @@ class CreatePost extends Component {
             return (
               <ImageBackground
                 style={styles.image}
+                imageStyle={{ borderRadius: 10 }}
+                roundAsCircle={true}
                 key={item.uri}
                 source={item}>
-                <Text>删除</Text>
+                {this.renderTipButton(item)}
               </ImageBackground>
             );
           })}
@@ -111,6 +180,21 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     margin: 10
+  },
+  upload_background: {
+    width: 100,
+    height: 100,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  upload_background_text: {
+    width: 100,
+    textAlign: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    color: color.white_color,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10
   },
   upload: {
     borderStyle: 'dashed',
