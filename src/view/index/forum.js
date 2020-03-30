@@ -47,6 +47,7 @@ class forum extends Component {
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openPostDetails = this.openPostDetails.bind(this);
+    this.createNewPost = this.createNewPost.bind(this);
   }
 
   showModal() {
@@ -67,6 +68,10 @@ class forum extends Component {
       postId: post.id,
       title: post.title
     });
+  }
+
+  createNewPost() {
+    this.props.navigation.navigate('CreatePost');
   }
 
   render() {
@@ -138,6 +143,13 @@ class forum extends Component {
             ))}
           </View>
         </ScrollView>
+
+        <TouchableHighlight
+          underlayColor="#ed485e"
+          style={forumStyle.add_post}
+          onPress={this.createNewPost}>
+          <Text style={forumStyle.add_post_text}>新</Text>
+        </TouchableHighlight>
 
         <Modal
           animationType="slide"
@@ -268,6 +280,21 @@ const forumStyle = StyleSheet.create({
   },
   cancel_button: {
     textAlign: 'center'
+  },
+  add_post: {
+    backgroundColor: color.primary_color,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    borderRadius: 50,
+    width: 50,
+    height: 50
+  },
+  add_post_text: {
+    fontSize: font.big_size,
+    color: color.white_color,
+    textAlign: 'center',
+    lineHeight: 50
   }
 });
 

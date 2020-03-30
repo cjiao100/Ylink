@@ -79,6 +79,37 @@ export function refreshToken() {
     });
 }
 
+export function uploadImage(options, type, image) {
+  let isOk;
+  return storage.load({ key: 'accessToken' }).then(
+    result =>
+      new Promise((resolve, reject) => {
+        fetch(BASE_URL + options.url, {
+          method: options.method,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: result
+          },
+          body: options.data
+        })
+          .then(response => {
+            isOk = !!response.ok;
+            return response.json();
+          })
+          .then(responseData => {
+            if (isOk && responseData.success) {
+              resolve(responseData);
+            } else {
+              reject(responseData);
+            }
+          })
+          .catch(err => {
+            reject(err);
+          });
+      })
+  );
+}
+
 /**
  * 请求参数序列化
  *

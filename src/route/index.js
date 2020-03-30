@@ -25,6 +25,7 @@ import TestScreen from '../view/study/test';
 
 // forum
 import PostScreen from '../view/forum/post';
+import CreatePostScreen from '../view/forum/createPost';
 import { color } from '../assets/styles/theme';
 
 const Stack = createStackNavigator();
@@ -79,6 +80,11 @@ function RootStack(isLogin = false) {
         options={{ title: '帖子' }}
         name="Post"
         component={PostScreen}
+      />
+      <Stack.Screen
+        options={{ title: '发布帖子' }}
+        name="CreatePost"
+        component={CreatePostScreen}
       />
     </Stack.Navigator>
   );
