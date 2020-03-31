@@ -6,12 +6,11 @@ import {
   TextInput,
   TouchableHighlight,
   StyleSheet,
-  Image,
   ImageBackground
 } from 'react-native';
-import { color } from '../../assets/styles/theme';
+import { color, font } from '../../assets/styles/theme';
 import toast from '../../utils/toast';
-import { uploadImage } from '../../utils/request';
+import { uploadImage, requestWithToken } from '../../utils/request';
 
 const options = {
   title: '选择文件',
@@ -28,12 +27,37 @@ class CreatePost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageList: [],
-      uploadImgUrl: []
+      imageList: [
+        {
+          filename: '3d79f75b68d9a420.png',
+          status: 1,
+          uri: '/post/3a7780533fbc109d68bd49eb733d2ad4.png'
+        },
+        {
+          filename: 'S00331-09353973.jpg',
+          status: 1,
+          uri: '/post/799101e44be75b0082c6e0735cf29366.png'
+        }
+      ],
+      title: '',
+      content: '',
+      disabled: true
     };
+    this.props.navigation.setOptions({
+      headerRight: () => {
+        return (
+          <TouchableHighlight onPress={this.submit}>
+            <Text style={styles.submit_button}>发布</Text>
+          </TouchableHighlight>
+        );
+      }
+    });
 
     this.selectImages = this.selectImages.bind(this);
     this.upload = this.upload.bind(this);
+    this.titleChange = this.titleChange.bind(this);
+    this.contentChange = this.contentChange.bind(this);
+    this.submit = this.submit.bind(this);
   }
 
   selectImages() {
@@ -56,6 +80,7 @@ class CreatePost extends Component {
       }
     });
   }
+
   upload(source) {
     const formData = new FormData();
     formData.append('photo', {
@@ -74,19 +99,14 @@ class CreatePost extends Component {
         const imageList = this.state.imageList.map(item => {
           if (res.filename === item.filename) {
             console.log(item);
-            item.uri = `http://192.168.43.111:5000${res.url}`;
+            item.uri = res.url;
             item.status = 1;
           }
           return item;
         });
-        this.setState(
-          {
-            imageList
-          },
-          () => {
-            console.log(this.state.imageList);
-          }
-        );
+        this.setState({
+          imageList
+        });
       })
       .catch(err => {
         toast(err);
@@ -97,16 +117,72 @@ class CreatePost extends Component {
           }
           return item;
         });
-        this.setState(
-          {
-            imageList
-          },
-          () => {
-            console.log(this.state.imageList);
-          }
-        );
+        this.setState({
+          imageList
+        });
       });
   }
+
+  titleChange(text) {
+    this.setState(
+      {
+        title: text
+      },
+      () => {
+        this.disableSubmit();
+      }
+    );
+  }
+  contentChange(text) {
+    this.setState(
+      {
+        content: text
+      },
+      () => {
+        this.disableSubmit();
+      }
+    );
+  }
+
+  submit() {
+    const { disabled, title, content, imageList } = this.state;
+    if (!disabled) {
+      const uploadImageUrl = imageList
+        .filter(item => item.status === 1)
+        .map(item => item.uri);
+
+      const data = {
+        title,
+        content,
+        images: uploadImageUrl
+      };
+
+      requestWithToken({
+        url: '/post/add',
+        method: 'Post',
+        data
+      })
+        .then(res => {
+          console.info(res);
+          toast('发布成功');
+          this.props.navigation.goBack();
+        })
+        .catch(err => {
+          console.warn(err);
+          toast(err.message);
+        });
+    } else {
+      toast('内容不全,请完善');
+    }
+  }
+
+  disableSubmit() {
+    const { title, content } = this.state;
+    this.setState({
+      disabled: title === '' || content === '' ? true : false
+    });
+  }
+
   renderTipButton(image) {
     let renderItem;
     switch (image.status) {
@@ -143,8 +219,21 @@ class CreatePost extends Component {
   render() {
     return (
       <View>
-        <TextInput placeholder="来个标题~~" />
-        <TextInput multiline={true} maxLength={200} placeholder="发点啥呢~~!" />
+        <TextInput
+          style={[styles.input, styles.input_title]}
+          value={this.state.title}
+          onChangeText={this.titleChange}
+          maxLength={30}
+          placeholder="来个标题~~"
+        />
+        <TextInput
+          style={styles.input}
+          value={this.state.content}
+          onChangeText={this.contentChange}
+          multiline={true}
+          maxLength={200}
+          placeholder="发点啥呢~~!"
+        />
         <View style={styles.image_group}>
           {this.state.imageList.map(item => {
             return (
@@ -153,7 +242,7 @@ class CreatePost extends Component {
                 imageStyle={{ borderRadius: 10 }}
                 roundAsCircle={true}
                 key={item.uri}
-                source={item}>
+                source={{ uri: `http://192.168.43.111:5000${item.uri}` }}>
                 {this.renderTipButton(item)}
               </ImageBackground>
             );
@@ -208,6 +297,21 @@ const styles = StyleSheet.create({
     fontSize: 50,
     lineHeight: 100,
     textAlign: 'center'
+  },
+  input: {
+    margin: 0,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
+    fontSize: font.primary_size
+  },
+  input_title: {
+    fontSize: font.big_size,
+    fontWeight: 'bold'
+  },
+  submit_button: {
+    color: color.white_color,
+    fontSize: font.big_size,
+    marginRight: 10
   }
 });
 
