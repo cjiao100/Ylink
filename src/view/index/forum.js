@@ -13,6 +13,8 @@ import {
 
 import TopBar from '../../components/topBar/topBar';
 import { color, font } from '../../assets/styles/theme';
+import { requestWithToken } from '../../utils/request';
+import toast from '../../utils/toast';
 
 const { width } = Dimensions.get('window');
 
@@ -22,32 +24,37 @@ class forum extends Component {
     this.state = {
       modalVisible: false,
       hotList: ['新型冠状病毒肺炎疫情', '想见你', '疫情辟谣', '李子维'],
-      postList: [
-        {
-          id: 1,
-          author: '共青团中央',
-          data: '17分钟前',
-          title: '武汉市新冠肺炎疫情防控指挥部通告',
-          content:
-            '武汉市新冠肺炎疫情防控指挥部发布的《关于加强进出武汉市车辆和人员管理的通告》(第17号)，系市指挥部下设的交通防控组未经指挥部研究和主要领导同志同意发布的，现宣布该通告无效。对此，我们对相关人员进行了严肃的批评处理。武汉市坚决贯彻习近平总书记关于“外防输出”的重要指示精神，牢固树立全国一盘棋的思想，严格离汉通道管理，严格人员管控，严防疫情向外输出。\n 特此通告\n 武汉市新冠肺炎疫情防控指挥部 \n 2020年2月24日',
-          img: []
-        },
-        {
-          id: 2,
-          author: '共青团中央',
-          data: '17分钟前',
-          title: '武汉市新冠肺炎疫情防控指挥部通告',
-          content:
-            '武汉市新冠肺炎疫情防控指挥部发布的《关于加强进出武汉市车辆和人员管理的通告》(第17号)，系市指挥部下设的交通防控组未经指挥部研究和主要领导同志同意发布的，现宣布该通告无效。对此，我们对相关人员进行了严肃的批评处理。武汉市坚决贯彻习近平总书记关于“外防输出”的重要指示精神，牢固树立全国一盘棋的思想，严格离汉通道管理，严格人员管控，严防疫情向外输出。\n 特此通告\n 武汉市新冠肺炎疫情防控指挥部 \n 2020年2月24日',
-          img: ['1', '2']
-        }
-      ]
+      postList: []
     };
 
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.openPostDetails = this.openPostDetails.bind(this);
     this.createNewPost = this.createNewPost.bind(this);
+  }
+
+  componentDidMount() {
+    this.getPostList();
+  }
+
+  getPostList() {
+    requestWithToken({
+      url: '/post/list',
+      method: 'Get',
+      params: {
+        pageNum: 0,
+        pageSize: 10
+      }
+    })
+      .then(res => {
+        this.setState({
+          postList: res.data
+        });
+      })
+      .catch(err => {
+        console.warn(err);
+        toast('获取失败');
+      });
   }
 
   showModal() {
@@ -64,8 +71,8 @@ class forum extends Component {
 
   openPostDetails(post) {
     this.props.navigation.navigate('Post', {
-      author: post.author,
-      postId: post.id,
+      author: post.userInfo.name,
+      postId: post._id,
       title: post.title
     });
   }
@@ -108,19 +115,27 @@ class forum extends Component {
               <TouchableHighlight
                 activeOpacity={1}
                 underlayColor="#fafafa"
-                key={item.id}
+                key={item._id}
                 style={forumStyle.post}
                 onPress={() => this.openPostDetails(item)}
                 onLongPress={this.showModal}>
                 <View>
                   <View style={forumStyle.post_header}>
                     <View style={forumStyle.post_header_left}>
-                      <Image style={forumStyle.post_avatar} />
+                      <Image
+                        style={forumStyle.post_avatar}
+                        source={{
+                          // eslint-disable-next-line prettier/prettier
+                          uri: `http://192.168.43.111:5000${item.userInfo.avatar}`
+                        }}
+                      />
                       <View>
                         <Text style={forumStyle.post_author}>
-                          {item.author}
+                          {item.userInfo.name}
                         </Text>
-                        <Text style={forumStyle.post_time}>{item.data}</Text>
+                        <Text style={forumStyle.post_time}>
+                          {item.created_at}
+                        </Text>
                       </View>
                     </View>
                     <Text onPress={this.showModal}>更多操作</Text>
@@ -134,8 +149,12 @@ class forum extends Component {
                     </Text>
                   </View>
                   <View style={forumStyle.post_img_group}>
-                    {item.img.map((img, index) => (
-                      <Image key={index} style={forumStyle.post_img} />
+                    {item.images.map((img, index) => (
+                      <Image
+                        key={index}
+                        style={forumStyle.post_img}
+                        source={{ uri: `http://192.168.43.111:5000${img}` }}
+                      />
                     ))}
                   </View>
                 </View>
@@ -226,7 +245,6 @@ const forumStyle = StyleSheet.create({
     flexDirection: 'row'
   },
   post_avatar: {
-    backgroundColor: color.info_color,
     width: 50,
     height: 50,
     marginRight: 15,

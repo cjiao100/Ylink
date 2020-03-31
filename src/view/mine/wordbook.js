@@ -79,7 +79,7 @@ class Wordbook extends Component {
     return (
       <TouchableNativeFeedback
         onPress={() => this.openDetails(item)}
-        background={TouchableNativeFeedback.Ripple(color.bg_info_color, true)}>
+        background={TouchableNativeFeedback.Ripple(color.bg_info_color, false)}>
         <View style={wordStyle.word_container}>
           <Text style={wordStyle.word_title}>
             {this.Capitalize(item.query)}

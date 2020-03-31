@@ -1,0 +1,139 @@
+Date : 2020-03-31 22:21:32
+Directory : /home/cjw/dev/code/Ylink
+Total : 65 files,  14166 codes, 417 comments, 586 blanks, all 15169 lines
+
+Languages
++--------------+------------+------------+------------+------------+------------+
+| language     | files      | code       | comment    | blank      | total      |
++--------------+------------+------------+------------+------------+------------+
+| JSON         |          7 |      9,711 |          0 |          4 |      9,715 |
+| JavaScript   |         31 |      3,543 |        199 |        294 |      4,036 |
+| Markdown     |          6 |        399 |          0 |        155 |        554 |
+| Groovy       |          3 |        111 |        113 |         23 |        247 |
+| Objective-C  |          3 |         86 |         18 |         29 |        133 |
+| XML          |          5 |         81 |          2 |         12 |         95 |
+| Batch        |          1 |         76 |          0 |         25 |        101 |
+| Java         |          2 |         63 |         15 |         13 |         91 |
+| TypeScript   |          1 |         48 |         50 |          9 |        107 |
+| Properties   |          4 |         42 |         14 |         16 |         72 |
+| C++          |          1 |          5 |          6 |          5 |         16 |
+| Shell Script |          1 |          1 |          0 |          1 |          2 |
++--------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                     | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                        |         65 |     14,166 |        417 |        586 |     15,169 |
+| __tests__                                                                                |          1 |          7 |          4 |          4 |         15 |
+| android                                                                                  |         12 |        296 |        144 |         79 |        519 |
+| android/app                                                                              |          7 |        181 |        125 |         41 |        347 |
+| android/app/src                                                                          |          6 |        102 |         17 |         24 |        143 |
+| android/app/src/debug                                                                    |          1 |          6 |          0 |          3 |          9 |
+| android/app/src/main                                                                     |          5 |         96 |         17 |         21 |        134 |
+| android/app/src/main/java                                                                |          2 |         63 |         15 |         13 |         91 |
+| android/app/src/main/java/com                                                            |          2 |         63 |         15 |         13 |         91 |
+| android/app/src/main/java/com/ylink                                                      |          2 |         63 |         15 |         13 |         91 |
+| android/app/src/main/res                                                                 |          2 |          8 |          2 |          4 |         14 |
+| android/app/src/main/res/values                                                          |          2 |          8 |          2 |          4 |         14 |
+| android/gradle                                                                           |          1 |          5 |          0 |          1 |          6 |
+| android/gradle/wrapper                                                                   |          1 |          5 |          0 |          1 |          6 |
+| ios                                                                                      |          7 |        177 |         24 |         36 |        237 |
+| ios/Ylink                                                                                |          6 |        126 |         18 |         20 |        164 |
+| ios/Ylink/Base.lproj                                                                     |          1 |         42 |          0 |          1 |         43 |
+| ios/Ylink/Images.xcassets                                                                |          2 |         44 |          0 |          1 |         45 |
+| ios/Ylink/Images.xcassets/AppIcon.appiconset                                             |          1 |         38 |          0 |          0 |         38 |
+| ios/YlinkTests                                                                           |          1 |         51 |          6 |         16 |         73 |
+| src                                                                                      |         33 |      4,031 |        236 |        452 |      4,719 |
+| src/assets                                                                               |         11 |      1,147 |        161 |        256 |      1,564 |
+| src/assets/react-native-swiper                                                           |         10 |      1,133 |        159 |        253 |      1,545 |
+| src/assets/react-native-swiper/.github                                                   |          2 |         22 |          0 |         14 |         36 |
+| src/assets/react-native-swiper/src                                                       |          1 |        603 |        109 |         82 |        794 |
+| src/assets/styles                                                                        |          1 |         14 |          2 |          3 |         19 |
+| src/components                                                                           |          4 |        289 |          4 |         22 |        315 |
+| src/components/bottomBar                                                                 |          1 |         70 |          3 |          6 |         79 |
+| src/components/carousel                                                                  |          1 |         55 |          1 |          5 |         61 |
+| src/components/spliteLine                                                                |          1 |         28 |          0 |          4 |         32 |
+| src/components/topBar                                                                    |          1 |        136 |          0 |          7 |        143 |
+| src/route                                                                                |          1 |        109 |          5 |         11 |        125 |
+| src/utils                                                                                |          3 |        130 |         23 |         14 |        167 |
+| src/view                                                                                 |         14 |      2,356 |         43 |        149 |      2,548 |
+| src/view/forum                                                                           |          2 |        591 |          8 |         31 |        630 |
+| src/view/index                                                                           |          5 |        917 |          6 |         58 |        981 |
+| src/view/login                                                                           |          2 |        232 |          5 |         13 |        250 |
+| src/view/mine                                                                            |          2 |        251 |         17 |         21 |        289 |
+| src/view/study                                                                           |          1 |        102 |          0 |          9 |        111 |
+| src/view/translate                                                                       |          1 |        213 |          4 |         10 |        227 |
++------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
+| filename                                                                                 | language     | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+
+| /home/cjw/dev/code/Ylink/.eslintrc.js                                                    | JavaScript   |          7 |          0 |          1 |          8 |
+| /home/cjw/dev/code/Ylink/.gitattributes                                                  | Properties   |          1 |          0 |          1 |          2 |
+| /home/cjw/dev/code/Ylink/.prettierrc.js                                                  | JavaScript   |          9 |          0 |          1 |         10 |
+| /home/cjw/dev/code/Ylink/.watchmanconfig                                                 | JSON         |          1 |          0 |          0 |          1 |
+| /home/cjw/dev/code/Ylink/README.md                                                       | Markdown     |         17 |          0 |          3 |         20 |
+| /home/cjw/dev/code/Ylink/__tests__/App-test.js                                           | JavaScript   |          7 |          4 |          4 |         15 |
+| /home/cjw/dev/code/Ylink/android/app/build.gradle                                        | Groovy       |         79 |        108 |         17 |        204 |
+| /home/cjw/dev/code/Ylink/android/app/src/debug/AndroidManifest.xml                       | XML          |          6 |          0 |          3 |          9 |
+| /home/cjw/dev/code/Ylink/android/app/src/main/AndroidManifest.xml                        | XML          |         25 |          0 |          4 |         29 |
+| /home/cjw/dev/code/Ylink/android/app/src/main/java/com/ylink/MainActivity.java           | Java         |          8 |          4 |          4 |         16 |
+| /home/cjw/dev/code/Ylink/android/app/src/main/java/com/ylink/MainApplication.java        | Java         |         55 |         11 |          9 |         75 |
+| /home/cjw/dev/code/Ylink/android/app/src/main/res/values/strings.xml                     | XML          |          3 |          0 |          1 |          4 |
+| /home/cjw/dev/code/Ylink/android/app/src/main/res/values/styles.xml                      | XML          |          5 |          2 |          3 |         10 |
+| /home/cjw/dev/code/Ylink/android/build.gradle                                            | Groovy       |         29 |          5 |          5 |         39 |
+| /home/cjw/dev/code/Ylink/android/gradle.properties                                       | Properties   |          2 |         14 |          6 |         22 |
+| /home/cjw/dev/code/Ylink/android/gradle/wrapper/gradle-wrapper.properties                | Properties   |          5 |          0 |          1 |          6 |
+| /home/cjw/dev/code/Ylink/android/gradlew.bat                                             | Batch        |         76 |          0 |         25 |        101 |
+| /home/cjw/dev/code/Ylink/android/settings.gradle                                         | Groovy       |          3 |          0 |          1 |          4 |
+| /home/cjw/dev/code/Ylink/app.json                                                        | JSON         |          4 |          0 |          0 |          4 |
+| /home/cjw/dev/code/Ylink/babel.config.js                                                 | JavaScript   |          3 |          0 |          1 |          4 |
+| /home/cjw/dev/code/Ylink/index.js                                                        | JavaScript   |          4 |          3 |          3 |         10 |
+| /home/cjw/dev/code/Ylink/ios/Ylink/AppDelegate.h                                         | C++          |          5 |          6 |          5 |         16 |
+| /home/cjw/dev/code/Ylink/ios/Ylink/AppDelegate.m                                         | Objective-C  |         28 |          6 |          9 |         43 |
+| /home/cjw/dev/code/Ylink/ios/Ylink/Base.lproj/LaunchScreen.xib                           | XML          |         42 |          0 |          1 |         43 |
+| /home/cjw/dev/code/Ylink/ios/Ylink/Images.xcassets/AppIcon.appiconset/Contents.json      | JSON         |         38 |          0 |          0 |         38 |
+| /home/cjw/dev/code/Ylink/ios/Ylink/Images.xcassets/Contents.json                         | JSON         |          6 |          0 |          1 |          7 |
+| /home/cjw/dev/code/Ylink/ios/Ylink/main.m                                                | Objective-C  |          7 |          6 |          4 |         17 |
+| /home/cjw/dev/code/Ylink/ios/YlinkTests/YlinkTests.m                                     | Objective-C  |         51 |          6 |         16 |         73 |
+| /home/cjw/dev/code/Ylink/metro.config.js                                                 | JavaScript   |         10 |          6 |          2 |         18 |
+| /home/cjw/dev/code/Ylink/package-lock.json                                               | JSON         |      9,553 |          0 |          1 |      9,554 |
+| /home/cjw/dev/code/Ylink/package.json                                                    | JSON         |         45 |          0 |          1 |         46 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/.editorconfig                    | Properties   |         34 |          0 |          8 |         42 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/.github/ISSUE_TEMPLATE.md        | Markdown     |         14 |          0 |         10 |         24 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/.github/PULL_REQUEST_TEMPLATE.md | Markdown     |          8 |          0 |          4 |         12 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/CHANGELOG.md                     | Markdown     |         80 |          0 |         28 |        108 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/README.md                        | Markdown     |        256 |          0 |         86 |        342 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/ROADMAP.md                       | Markdown     |         24 |          0 |         24 |         48 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/index.d.ts                       | TypeScript   |         48 |         50 |          9 |        107 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/index.js                         | JavaScript   |          2 |          0 |          1 |          3 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/package.json                     | JSON         |         64 |          0 |          1 |         65 |
+| /home/cjw/dev/code/Ylink/src/assets/react-native-swiper/src/index.js                     | JavaScript   |        603 |        109 |         82 |        794 |
+| /home/cjw/dev/code/Ylink/src/assets/styles/theme.js                                      | JavaScript   |         14 |          2 |          3 |         19 |
+| /home/cjw/dev/code/Ylink/src/components/bottomBar/bottomBar.js                           | JavaScript   |         70 |          3 |          6 |         79 |
+| /home/cjw/dev/code/Ylink/src/components/carousel/carousel.js                             | JavaScript   |         55 |          1 |          5 |         61 |
+| /home/cjw/dev/code/Ylink/src/components/spliteLine/spliteLine.js                         | JavaScript   |         28 |          0 |          4 |         32 |
+| /home/cjw/dev/code/Ylink/src/components/topBar/topBar.js                                 | JavaScript   |        136 |          0 |          7 |        143 |
+| /home/cjw/dev/code/Ylink/src/route/index.js                                              | JavaScript   |        109 |          5 |         11 |        125 |
+| /home/cjw/dev/code/Ylink/src/utils/request.js                                            | JavaScript   |         98 |         16 |          8 |        122 |
+| /home/cjw/dev/code/Ylink/src/utils/storage.js                                            | JavaScript   |         27 |          7 |          4 |         38 |
+| /home/cjw/dev/code/Ylink/src/utils/toast.js                                              | JavaScript   |          5 |          0 |          2 |          7 |
+| /home/cjw/dev/code/Ylink/src/view/forum/createPost.js                                    | JavaScript   |        300 |          1 |         18 |        319 |
+| /home/cjw/dev/code/Ylink/src/view/forum/post.js                                          | JavaScript   |        291 |          7 |         13 |        311 |
+| /home/cjw/dev/code/Ylink/src/view/index.js                                               | JavaScript   |         50 |          3 |          7 |         60 |
+| /home/cjw/dev/code/Ylink/src/view/index/forum.js                                         | JavaScript   |        301 |          2 |         17 |        320 |
+| /home/cjw/dev/code/Ylink/src/view/index/home.js                                          | JavaScript   |        187 |          1 |         14 |        202 |
+| /home/cjw/dev/code/Ylink/src/view/index/mine.js                                          | JavaScript   |        197 |          2 |          9 |        208 |
+| /home/cjw/dev/code/Ylink/src/view/index/study.js                                         | JavaScript   |        167 |          1 |          9 |        177 |
+| /home/cjw/dev/code/Ylink/src/view/index/translate.js                                     | JavaScript   |         65 |          0 |          9 |         74 |
+| /home/cjw/dev/code/Ylink/src/view/login/loginStyle.js                                    | JavaScript   |         74 |          0 |          4 |         78 |
+| /home/cjw/dev/code/Ylink/src/view/login/loginView.js                                     | JavaScript   |        158 |          5 |          9 |        172 |
+| /home/cjw/dev/code/Ylink/src/view/mine/star.js                                           | JavaScript   |        116 |         16 |          8 |        140 |
+| /home/cjw/dev/code/Ylink/src/view/mine/wordbook.js                                       | JavaScript   |        135 |          1 |         13 |        149 |
+| /home/cjw/dev/code/Ylink/src/view/study/test.js                                          | JavaScript   |        102 |          0 |          9 |        111 |
+| /home/cjw/dev/code/Ylink/src/view/translate/result.js                                    | JavaScript   |        213 |          4 |         10 |        227 |
+| /home/cjw/dev/code/Ylink/start.sh                                                        | Shell Script |          1 |          0 |          1 |          2 |
+| Total                                                                                    |              |     14,166 |        417 |        586 |     15,169 |
++------------------------------------------------------------------------------------------+--------------+------------+------------+------------+------------+

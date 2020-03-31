@@ -7,26 +7,22 @@ import {
   Dimensions,
   ScrollView,
   TextInput,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ActivityIndicator
 } from 'react-native';
 
 import { color, font } from '../../assets/styles/theme';
+import { requestWithToken } from '../../utils/request';
+import Viewer from '../../components/imageViewer/imageViewer';
+
+const { width } = Dimensions.get('window');
 
 class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: 'post',
-      post: {
-        id: 1,
-        author: '共青团中央',
-        data: '17分钟前',
-        title: '武汉市新冠肺炎疫情防控指挥部通告',
-        content:
-          '武汉市新冠肺炎疫情防控指挥部发布的《关于加强进出武汉市车辆和人员管理的通告》(第17号)，系市指挥部下设的交通防控组未经指挥部研究和主要领导同志同意发布的，现宣布该通告无效。对此，我们对相关人员进行了严肃的批评处理。武汉市坚决贯彻习近平总书记关于“外防输出”的重要指示精神，牢固树立全国一盘棋的思想，严格离汉通道管理，严格人员管控，严防疫情向外输出。\n 特此通告\n 武汉市新冠肺炎疫情防控指挥部 \n 2020年2月24日',
-        img: [1, 2],
-        browse: 3000
-      },
+      visible: false,
+      post: {},
       comment: [
         {
           id: 1,
@@ -54,89 +50,167 @@ class Post extends Component {
       title: route.params.title,
       headerTitleAlign: 'center',
       headerTitleStyle: {
-        marginLeft: 30
+        padding: 30
       }
     });
   }
 
+  componentDidMount() {
+    this.gitPostInfo();
+  }
+
+  gitPostInfo() {
+    requestWithToken({
+      url: `/post/${this.props.route.params.postId}`,
+      method: 'Get'
+    })
+      .then(res => {
+        this.setState({
+          post: res.data
+        });
+        this.getImageSize();
+      })
+      .catch(err => {
+        console.warn(err);
+      });
+  }
+
+  async getImageSize() {
+    const images = this.state.post.images;
+
+    for (let i = 0; i < images.length; i++) {
+      let url = images[i];
+      await Image.getSize(
+        `http://192.168.43.111:5000${url}`,
+        (imgWidth, imgHeight) => {
+          const ratio = (width - 30) / imgWidth;
+          images[i] = {
+            width,
+            height: imgHeight * ratio,
+            imgWidth,
+            imgHeight,
+            url
+          };
+        }
+      );
+    }
+
+    this.setState({
+      'post.images': images
+    });
+  }
+
   render() {
-    return (
-      <>
-        <ScrollView style={postStyle.container}>
-          <View style={postStyle.post}>
-            <View style={postStyle.post_header}>
-              <View style={postStyle.post_header_left}>
-                <Image style={postStyle.post_avatar} />
-                <View>
-                  <Text style={postStyle.comment_author}>
-                    {this.state.post.author}
-                  </Text>
-                  <Text style={postStyle.post_time}>
-                    {this.state.post.data}·{this.state.post.browse}浏览
-                  </Text>
+    if (Object.keys(this.state.post).length === 0) {
+      return (
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
+    } else {
+      return (
+        <>
+          <ScrollView style={postStyle.container}>
+            <View style={postStyle.post}>
+              <View style={postStyle.post_header}>
+                <View style={postStyle.post_header_left}>
+                  <Image
+                    source={{
+                      // eslint-disable-next-line prettier/prettier
+                      uri: `http://192.168.43.111:5000${this.state.post.userInfo.avatar}`
+                    }}
+                    style={postStyle.post_avatar}
+                  />
+                  <View>
+                    <Text style={postStyle.comment_author}>
+                      {this.state.post.userInfo.name}
+                    </Text>
+                    <Text style={postStyle.post_time}>
+                      {this.state.post.created_at}·
+                      {this.state.post.postInfo.browse}浏览
+                    </Text>
+                  </View>
                 </View>
               </View>
+              <View>
+                <Text style={postStyle.post_title}>
+                  {this.state.post.title}
+                </Text>
+                <Text style={postStyle.post_content}>
+                  {this.state.post.content}
+                </Text>
+              </View>
+              <View>
+                {this.state.post.images.map((img, index) => {
+                  return (
+                    <Image
+                      resizeMode="contain"
+                      resizeMethod="resize"
+                      source={{ uri: `http://192.168.43.111:5000${img.url}` }}
+                      key={index}
+                      style={[postStyle.post_img, { height: img.height }]}
+                    />
+                  );
+                })}
+              </View>
             </View>
-            <View>
-              <Text style={postStyle.post_title}>{this.state.post.title}</Text>
-              <Text style={postStyle.post_content}>
-                {this.state.post.content}
-              </Text>
-            </View>
-            <View>
-              {this.state.post.img.map((img, index) => (
-                <Image key={index} style={postStyle.post_img} />
-              ))}
-            </View>
-          </View>
 
-          <View style={postStyle.comment}>
-            <View style={postStyle.comment_header}>
-              <Text style={postStyle.comment_header_text}>
-                评论<Text>126</Text>
-              </Text>
-            </View>
-            <View style={postStyle.comment_list}>
-              {this.state.comment.map(item => (
-                <View key={item.id} style={postStyle.comment_list_content}>
-                  <View style={postStyle.post_header_left}>
-                    <Image style={postStyle.comment_avatar} />
-                    <View>
-                      <Text style={postStyle.post_author}>
-                        {item.user.name}
-                      </Text>
-                      <Text style={postStyle.post_time}>{item.create_at}</Text>
+            <View style={postStyle.comment}>
+              <View style={postStyle.comment_header}>
+                <Text style={postStyle.comment_header_text}>
+                  评论<Text>126</Text>
+                </Text>
+              </View>
+              <View style={postStyle.comment_list}>
+                {this.state.comment.map(item => (
+                  <View key={item.id} style={postStyle.comment_list_content}>
+                    <View style={postStyle.post_header_left}>
+                      <Image style={postStyle.comment_avatar} />
+                      <View>
+                        <Text style={postStyle.post_author}>
+                          {item.user.name}
+                        </Text>
+                        <Text style={postStyle.post_time}>
+                          {item.create_at}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={postStyle.comment_content}>
+                      <Text>{item.content}</Text>
                     </View>
                   </View>
-                  <View style={postStyle.comment_content}>
-                    <Text>{item.content}</Text>
-                  </View>
-                </View>
-              ))}
+                ))}
+              </View>
             </View>
+          </ScrollView>
+          <View style={postStyle.bottom}>
+            <TextInput
+              placeholder="评论一下吧"
+              style={postStyle.bottom_input}
+            />
+            <TouchableWithoutFeedback>
+              <View style={postStyle.bottom_button}>
+                <Text style={postStyle.bottom_button_title}>收藏</Text>
+                <Text style={postStyle.bottom_button_num}>1000</Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback>
+              <View style={postStyle.bottom_button}>
+                <Text style={postStyle.bottom_button_title}>点赞</Text>
+                <Text style={postStyle.bottom_button_num}>1000</Text>
+              </View>
+            </TouchableWithoutFeedback>
           </View>
-        </ScrollView>
-        <View style={postStyle.bottom}>
-          <TextInput placeholder="评论一下吧" style={postStyle.bottom_input} />
-          <TouchableWithoutFeedback>
-            <View style={postStyle.bottom_button}>
-              <Text style={postStyle.bottom_button_title}>收藏</Text>
-              <Text style={postStyle.bottom_button_num}>1000</Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <TouchableWithoutFeedback>
-            <View style={postStyle.bottom_button}>
-              <Text style={postStyle.bottom_button_title}>点赞</Text>
-              <Text style={postStyle.bottom_button_num}>1000</Text>
-            </View>
-          </TouchableWithoutFeedback>
-        </View>
-      </>
-    );
+
+          <Viewer
+            visible={this.state.visible}
+            imageList={this.state.post.images}
+          />
+        </>
+      );
+    }
   }
 }
-
-const { width } = Dimensions.get('window');
 
 const postStyle = StyleSheet.create({
   container: {

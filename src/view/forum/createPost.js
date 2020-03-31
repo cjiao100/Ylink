@@ -5,6 +5,7 @@ import {
   Text,
   TextInput,
   TouchableHighlight,
+  TouchableNativeFeedback,
   StyleSheet,
   ImageBackground
 } from 'react-native';
@@ -46,9 +47,11 @@ class CreatePost extends Component {
     this.props.navigation.setOptions({
       headerRight: () => {
         return (
-          <TouchableHighlight onPress={this.submit}>
+          <TouchableNativeFeedback
+            background={TouchableNativeFeedback.Ripple('#4b1c18', false)}
+            onPress={this.submit}>
             <Text style={styles.submit_button}>发布</Text>
-          </TouchableHighlight>
+          </TouchableNativeFeedback>
         );
       }
     });
