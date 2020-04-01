@@ -3,13 +3,15 @@ import {
   View,
   Text,
   Image,
+  Modal,
+  TextInput,
   StyleSheet,
   Dimensions,
   ScrollView,
-  TextInput,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   ActivityIndicator,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import { color, font } from '../../assets/styles/theme';
@@ -17,16 +19,18 @@ import { requestWithToken } from '../../utils/request';
 import Viewer from '../../components/imageViewer/imageViewer';
 import toast from '../../utils/toast';
 
-const { width } = Dimensions.get('window');
+const { width, height } = Dimensions.get('window');
 
 class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      inputVisible: false,
       visible: false,
       currentImagIndex: 0,
       post: {},
-      comment: []
+      comment: [],
+      newComment: ''
     };
 
     const { navigation, route } = this.props;
@@ -41,6 +45,7 @@ class Post extends Component {
     this.closeModel = this.closeModel.bind(this);
     this.postStar = this.postStar.bind(this);
     this.postAwesome = this.postAwesome.bind(this);
+    this.submitComment = this.submitComment.bind(this);
   }
 
   componentDidMount() {
@@ -164,6 +169,26 @@ class Post extends Component {
     this.setState({ visible: false });
   }
 
+  submitComment() {
+    this.setState({ inputVisible: false });
+    const comment = this.state.newComment;
+    requestWithToken({
+      url: `/post/${this.props.route.params.postId}/comment`,
+      method: 'Put',
+      data: {
+        content: comment
+      }
+    })
+      .then(res => {
+        toast('发布评论成功');
+        this.getPostComment();
+        // console.log(res);
+      })
+      .catch(err => {
+        console.warn(err);
+      });
+  }
+
   render() {
     if (Object.keys(this.state.post).length === 0) {
       return (
@@ -229,7 +254,7 @@ class Post extends Component {
             <View style={postStyle.comment}>
               <View style={postStyle.comment_header}>
                 <Text style={postStyle.comment_header_text}>
-                  评论<Text>{this.state.comment.length}</Text>
+                  评论 <Text>{this.state.comment.length}</Text>
                 </Text>
               </View>
               <View style={postStyle.comment_list}>
@@ -260,10 +285,13 @@ class Post extends Component {
             </View>
           </ScrollView>
           <View style={postStyle.bottom}>
-            <TextInput
-              placeholder="评论一下吧"
-              style={postStyle.bottom_input}
-            />
+            <Text
+              onPress={() => {
+                this.setState({ inputVisible: true });
+              }}
+              style={postStyle.bottom_input}>
+              评论一下吧
+            </Text>
             <TouchableWithoutFeedback>
               <View style={postStyle.bottom_button}>
                 <Text
@@ -306,6 +334,31 @@ class Post extends Component {
             currentImagIndex={this.state.currentImagIndex}
             closeModel={this.closeModel}
           />
+
+          <Modal visible={this.state.inputVisible} transparent={true}>
+            <View style={postStyle.modal_view}>
+              <Text
+                onPress={() => {
+                  this.setState({ inputVisible: false });
+                }}
+                style={postStyle.modal_block}>
+                123
+              </Text>
+              <View style={postStyle.modal_input_block}>
+                <TextInput
+                  placeholder="说点什么"
+                  autoFocus={true}
+                  style={postStyle.modal_input}
+                  onChangeText={text => this.setState({ newComment: text })}
+                />
+                <TouchableOpacity
+                  disabled={this.state.newComment === ''}
+                  onPress={this.submitComment}>
+                  <Text style={postStyle.modal_button}>发布</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
         </>
       );
     }
@@ -330,7 +383,6 @@ const postStyle = StyleSheet.create({
     flexDirection: 'row'
   },
   post_avatar: {
-    // backgroundColor: color.info_color,
     width: 50,
     height: 50,
     marginRight: 15,
@@ -356,7 +408,6 @@ const postStyle = StyleSheet.create({
     color: '#101010'
   },
   post_img: {
-    // marginTop: 10,
     backgroundColor: color.bg_info_color,
     height: 200,
     width: width - 30,
@@ -379,7 +430,6 @@ const postStyle = StyleSheet.create({
     marginLeft: 20
   },
   comment_avatar: {
-    // backgroundColor: color.info_color,
     width: 40,
     height: 40,
     marginRight: 15,
@@ -399,12 +449,10 @@ const postStyle = StyleSheet.create({
   },
   comment_content: {
     marginLeft: 50,
-    // marginTop: 5,
     padding: 5
   },
 
   bottom: {
-    // flex: 1,
     width,
     height: 40,
     elevation: 10,
@@ -419,7 +467,9 @@ const postStyle = StyleSheet.create({
     paddingVertical: 0,
     paddingLeft: 5,
     borderRadius: 10,
-    fontSize: font.small_size
+    fontSize: font.small_size,
+    color: color.info_color,
+    lineHeight: 30
   },
   bottom_button: {
     width: 70
@@ -431,6 +481,36 @@ const postStyle = StyleSheet.create({
     textAlign: 'center',
     fontSize: font.small_size,
     color: color.info_color
+  },
+
+  modal_view: {
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+    justifyContent: 'flex-end'
+  },
+  modal_block: {
+    flex: 1,
+    color: 'transparent'
+  },
+  modal_input_block: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: color.white_color,
+    paddingHorizontal: 10
+  },
+  modal_input: {
+    flex: 1,
+    backgroundColor: color.bg_info_color,
+    padding: 0,
+    paddingHorizontal: 10,
+    borderRadius: 15,
+    marginVertical: 10
+  },
+  modal_button: {
+    fontSize: font.primary_size,
+    lineHeight: 50,
+    paddingHorizontal: 10
   }
 });
 
