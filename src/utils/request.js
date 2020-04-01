@@ -104,6 +104,7 @@ export function uploadImage(options, type, image) {
             }
           })
           .catch(err => {
+            console.warn(err);
             reject(err);
           });
       })

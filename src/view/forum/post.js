@@ -8,12 +8,14 @@ import {
   ScrollView,
   TextInput,
   TouchableWithoutFeedback,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableHighlight
 } from 'react-native';
 
 import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
 import Viewer from '../../components/imageViewer/imageViewer';
+import toast from '../../utils/toast';
 
 const { width } = Dimensions.get('window');
 
@@ -22,27 +24,9 @@ class Post extends Component {
     super(props);
     this.state = {
       visible: false,
+      currentImagIndex: 0,
       post: {},
-      comment: [
-        {
-          id: 1,
-          user: {
-            avatar: '',
-            name: '战忽局'
-          },
-          content: 'HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH',
-          create_at: '41分钟前'
-        },
-        {
-          id: 2,
-          user: {
-            avatar: '',
-            name: '战忽局'
-          },
-          content: 'HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH',
-          create_at: '41分钟前'
-        }
-      ]
+      comment: []
     };
 
     const { navigation, route } = this.props;
@@ -53,13 +37,17 @@ class Post extends Component {
         padding: 30
       }
     });
+
+    this.closeModel = this.closeModel.bind(this);
   }
 
   componentDidMount() {
-    this.gitPostInfo();
+    this.getPostInfo();
+    this.getPostComment();
+    this.postBrower();
   }
 
-  gitPostInfo() {
+  getPostInfo() {
     requestWithToken({
       url: `/post/${this.props.route.params.postId}`,
       method: 'Get'
@@ -69,6 +57,36 @@ class Post extends Component {
           post: res.data
         });
         this.getImageSize();
+      })
+      .catch(err => {
+        toast('帖子加载失败');
+        console.warn(err);
+      });
+  }
+
+  getPostComment() {
+    requestWithToken({
+      url: `/post/${this.props.route.params.postId}/comment`,
+      method: 'Get'
+    })
+      .then(res => {
+        this.setState({
+          comment: res.data
+        });
+      })
+      .catch(err => {
+        toast('评论加载失败');
+        console.warn(err);
+      });
+  }
+
+  postBrower() {
+    requestWithToken({
+      url: `/post/${this.props.route.params.postId}/browse`,
+      method: 'Put'
+    })
+      .then(res => {
+        console.log(res);
       })
       .catch(err => {
         console.warn(err);
@@ -100,6 +118,10 @@ class Post extends Component {
     });
   }
 
+  closeModel() {
+    this.setState({ visible: false });
+  }
+
   render() {
     if (Object.keys(this.state.post).length === 0) {
       return (
@@ -126,8 +148,7 @@ class Post extends Component {
                       {this.state.post.userInfo.name}
                     </Text>
                     <Text style={postStyle.post_time}>
-                      {this.state.post.created_at}·
-                      {this.state.post.postInfo.browse}浏览
+                      {this.state.post.created_at}·{this.state.post.browse}浏览
                     </Text>
                   </View>
                 </View>
@@ -143,13 +164,21 @@ class Post extends Component {
               <View>
                 {this.state.post.images.map((img, index) => {
                   return (
-                    <Image
-                      resizeMode="contain"
-                      resizeMethod="resize"
-                      source={{ uri: `http://192.168.43.111:5000${img.url}` }}
+                    <TouchableHighlight
                       key={index}
-                      style={[postStyle.post_img, { height: img.height }]}
-                    />
+                      onPress={() => {
+                        this.setState({
+                          visible: true,
+                          currentImagIndex: index
+                        });
+                      }}>
+                      <Image
+                        resizeMode="contain"
+                        resizeMethod="resize"
+                        source={{ uri: `http://192.168.43.111:5000${img.url}` }}
+                        style={[postStyle.post_img, { height: img.height }]}
+                      />
+                    </TouchableHighlight>
                   );
                 })}
               </View>
@@ -158,17 +187,22 @@ class Post extends Component {
             <View style={postStyle.comment}>
               <View style={postStyle.comment_header}>
                 <Text style={postStyle.comment_header_text}>
-                  评论<Text>126</Text>
+                  评论<Text>{this.state.comment.length}</Text>
                 </Text>
               </View>
               <View style={postStyle.comment_list}>
                 {this.state.comment.map(item => (
-                  <View key={item.id} style={postStyle.comment_list_content}>
+                  <View key={item._id} style={postStyle.comment_list_content}>
                     <View style={postStyle.post_header_left}>
-                      <Image style={postStyle.comment_avatar} />
+                      <Image
+                        source={{
+                          uri: `http://192.168.43.111:5000${item.userId.avatar}`
+                        }}
+                        style={postStyle.comment_avatar}
+                      />
                       <View>
                         <Text style={postStyle.post_author}>
-                          {item.user.name}
+                          {item.userId.name}
                         </Text>
                         <Text style={postStyle.post_time}>
                           {item.create_at}
@@ -205,6 +239,8 @@ class Post extends Component {
           <Viewer
             visible={this.state.visible}
             imageList={this.state.post.images}
+            currentImagIndex={this.state.currentImagIndex}
+            closeModel={this.closeModel}
           />
         </>
       );
@@ -256,7 +292,7 @@ const postStyle = StyleSheet.create({
     color: '#101010'
   },
   post_img: {
-    marginTop: 10,
+    // marginTop: 10,
     backgroundColor: color.bg_info_color,
     height: 200,
     width: width - 30,
@@ -279,7 +315,7 @@ const postStyle = StyleSheet.create({
     marginLeft: 20
   },
   comment_avatar: {
-    backgroundColor: color.info_color,
+    // backgroundColor: color.info_color,
     width: 40,
     height: 40,
     marginRight: 15,

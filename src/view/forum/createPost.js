@@ -28,18 +28,7 @@ class CreatePost extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageList: [
-        {
-          filename: '3d79f75b68d9a420.png',
-          status: 1,
-          uri: '/post/3a7780533fbc109d68bd49eb733d2ad4.png'
-        },
-        {
-          filename: 'S00331-09353973.jpg',
-          status: 1,
-          uri: '/post/799101e44be75b0082c6e0735cf29366.png'
-        }
-      ],
+      imageList: [],
       title: '',
       content: '',
       disabled: true
@@ -73,7 +62,8 @@ class CreatePost extends Component {
         const source = {
           uri: response.uri,
           status: 0,
-          filename: response.fileName
+          filename: response.fileName,
+          type: response.type
         };
         const imageList = [...this.state.imageList];
         imageList.push(source);
@@ -91,8 +81,8 @@ class CreatePost extends Component {
       type: source.type,
       name: source.fileName
     });
+    formData.append('fileName', source.fileName);
 
-    // console.log(formData.get('photo'));
     uploadImage({
       url: '/upload/post',
       method: 'Post',
@@ -101,7 +91,6 @@ class CreatePost extends Component {
       .then(res => {
         const imageList = this.state.imageList.map(item => {
           if (res.filename === item.filename) {
-            console.log(item);
             item.uri = res.url;
             item.status = 1;
           }
@@ -112,10 +101,9 @@ class CreatePost extends Component {
         });
       })
       .catch(err => {
-        toast(err);
+        toast(err.message);
         const imageList = this.state.imageList.map(item => {
           if (err.filename === item.filename) {
-            console.log(item);
             item.status = -1;
           }
           return item;
@@ -186,16 +174,25 @@ class CreatePost extends Component {
     });
   }
 
-  renderTipButton(image) {
+  deleteImage(index) {
+    console.log(index);
+    const imageList = [...this.state.imageList];
+    imageList.splice(index, 1);
+    this.setState({
+      imageList
+    });
+  }
+
+  renderTipButton(image, index) {
     let renderItem;
     switch (image.status) {
       case -1:
         renderItem = (
           <View style={styles.upload_background}>
             <Text style={styles.upload_background_text}>
-              <Text>重新上传</Text>
+              <Text onPress={() => this.upload(image)}>重新上传</Text>
               <Text> | </Text>
-              <Text>删除</Text>
+              <Text onPress={() => this.deleteImage(index)}>删除</Text>
             </Text>
           </View>
         );
@@ -210,7 +207,11 @@ class CreatePost extends Component {
       case 1:
         renderItem = (
           <View style={styles.upload_background}>
-            <Text style={styles.upload_background_text}>删除</Text>
+            <Text
+              style={styles.upload_background_text}
+              onPress={() => this.deleteImage(index)}>
+              删除
+            </Text>
           </View>
         );
         break;
@@ -238,15 +239,19 @@ class CreatePost extends Component {
           placeholder="发点啥呢~~!"
         />
         <View style={styles.image_group}>
-          {this.state.imageList.map(item => {
+          {this.state.imageList.map((item, index) => {
             return (
               <ImageBackground
                 style={styles.image}
                 imageStyle={{ borderRadius: 10 }}
                 roundAsCircle={true}
                 key={item.uri}
-                source={{ uri: `http://192.168.43.111:5000${item.uri}` }}>
-                {this.renderTipButton(item)}
+                source={
+                  item.status === 1
+                    ? { uri: `http://192.168.43.111:5000${item.uri}` }
+                    : { uri: item.uri }
+                }>
+                {this.renderTipButton(item, index)}
               </ImageBackground>
             );
           })}
