@@ -185,6 +185,7 @@ class Post extends Component {
         // console.log(res);
       })
       .catch(err => {
+        toast('发布失败,请重试');
         console.warn(err);
       });
   }
