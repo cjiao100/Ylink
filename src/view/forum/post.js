@@ -39,6 +39,8 @@ class Post extends Component {
     });
 
     this.closeModel = this.closeModel.bind(this);
+    this.postStar = this.postStar.bind(this);
+    this.postAwesome = this.postAwesome.bind(this);
   }
 
   componentDidMount() {
@@ -86,9 +88,49 @@ class Post extends Component {
       method: 'Put'
     })
       .then(res => {
-        console.log(res);
+        // console.log(res);
+        console.log('浏览');
       })
       .catch(err => {
+        console.warn(err);
+      });
+  }
+
+  postStar() {
+    requestWithToken({
+      url: `/post/${this.props.route.params.postId}/star`,
+      method: 'Put'
+    })
+      .then(res => {
+        if (this.state.post.currentUser.star) {
+          toast('取消收藏(>_<)');
+        } else {
+          toast('收藏成功(^▽^)');
+        }
+
+        this.getPostInfo();
+      })
+      .catch(err => {
+        toast('收藏失败');
+        console.warn(err);
+      });
+  }
+  postAwesome() {
+    requestWithToken({
+      url: `/post/${this.props.route.params.postId}/awesome`,
+      method: 'Put'
+    })
+      .then(res => {
+        if (this.state.post.currentUser.star) {
+          toast('取消点赞(>_<)');
+        } else {
+          toast('点赞成功(^▽^)');
+        }
+
+        this.getPostInfo();
+      })
+      .catch(err => {
+        toast('点赞失败');
         console.warn(err);
       });
   }
@@ -224,14 +266,36 @@ class Post extends Component {
             />
             <TouchableWithoutFeedback>
               <View style={postStyle.bottom_button}>
-                <Text style={postStyle.bottom_button_title}>收藏</Text>
-                <Text style={postStyle.bottom_button_num}>1000</Text>
+                <Text
+                  style={[
+                    postStyle.bottom_button_title,
+                    this.state.post.currentUser.star
+                      ? { color: color.primary_color }
+                      : {}
+                  ]}
+                  onPress={this.postStar}>
+                  收藏
+                </Text>
+                <Text style={postStyle.bottom_button_num}>
+                  {this.state.post.postInfo.star}
+                </Text>
               </View>
             </TouchableWithoutFeedback>
             <TouchableWithoutFeedback>
               <View style={postStyle.bottom_button}>
-                <Text style={postStyle.bottom_button_title}>点赞</Text>
-                <Text style={postStyle.bottom_button_num}>1000</Text>
+                <Text
+                  style={[
+                    postStyle.bottom_button_title,
+                    this.state.post.currentUser.awesome
+                      ? { color: color.primary_color }
+                      : {}
+                  ]}
+                  onPress={this.postAwesome}>
+                  点赞
+                </Text>
+                <Text style={postStyle.bottom_button_num}>
+                  {this.state.post.postInfo.awesome}
+                </Text>
               </View>
             </TouchableWithoutFeedback>
           </View>
@@ -266,7 +330,7 @@ const postStyle = StyleSheet.create({
     flexDirection: 'row'
   },
   post_avatar: {
-    backgroundColor: color.info_color,
+    // backgroundColor: color.info_color,
     width: 50,
     height: 50,
     marginRight: 15,
