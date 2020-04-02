@@ -19,6 +19,7 @@ import { requestWithToken } from '../../utils/request';
 import Viewer from '../../components/imageViewer/imageViewer';
 import toast from '../../utils/toast';
 import moment from '../../utils/moment';
+import topic from '../../utils/topic';
 
 const { width, height } = Dimensions.get('window');
 
@@ -228,7 +229,7 @@ class Post extends Component {
                   {this.state.post.title}
                 </Text>
                 <Text style={postStyle.post_content}>
-                  {this.state.post.content}
+                  {topic(this.state.post.content, this.state.post.topicList)}
                 </Text>
               </View>
               <View>

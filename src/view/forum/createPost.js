@@ -45,6 +45,8 @@ class CreatePost extends Component {
       }
     });
 
+    console.log(this.props.route.params);
+
     this.selectImages = this.selectImages.bind(this);
     this.upload = this.upload.bind(this);
     this.titleChange = this.titleChange.bind(this);
@@ -154,8 +156,8 @@ class CreatePost extends Component {
         data
       })
         .then(res => {
-          console.info(res);
           toast('发布成功');
+          this.props.route.params.refresh();
           this.props.navigation.goBack();
         })
         .catch(err => {

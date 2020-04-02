@@ -16,6 +16,7 @@ import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
 import toast from '../../utils/toast';
 import moment from '../../utils/moment';
+import topic from '../../utils/topic';
 
 const { width } = Dimensions.get('window');
 
@@ -32,10 +33,12 @@ class forum extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.openPostDetails = this.openPostDetails.bind(this);
     this.createNewPost = this.createNewPost.bind(this);
+    this.getPostList = this.getPostList.bind(this);
   }
 
   componentDidMount() {
     this.getPostList();
+    this.getHotTopicList();
   }
 
   getPostList() {
@@ -55,6 +58,23 @@ class forum extends Component {
       .catch(err => {
         console.warn(err);
         toast('获取失败');
+      });
+  }
+
+  getHotTopicList() {
+    requestWithToken({
+      url: '/topic/hot',
+      method: 'Get'
+    })
+      .then(res => {
+        // console.log(res);
+        this.setState({
+          hotList: res.data
+        });
+      })
+      .catch(err => {
+        toast('获取热门话题失败');
+        console.warn(err);
       });
   }
 
@@ -79,7 +99,9 @@ class forum extends Component {
   }
 
   createNewPost() {
-    this.props.navigation.navigate('CreatePost');
+    this.props.navigation.navigate('CreatePost', {
+      refresh: this.getPostList
+    });
   }
 
   render() {
@@ -95,16 +117,22 @@ class forum extends Component {
               <Text style={forumStyle.hot_title}>热门话题</Text>
               <View style={forumStyle.hot_list}>
                 <View style={forumStyle.hot_left_and_right}>
-                  {leftList.map((item, index) => (
-                    <Text key={index} style={{ width: width / 2 }}>
-                      #{item}#
+                  {leftList.map(item => (
+                    <Text
+                      numberOfLines={1}
+                      key={item._id}
+                      style={{ width: width / 2 }}>
+                      #{item.title}#
                     </Text>
                   ))}
                 </View>
                 <View style={forumStyle.hot_left_and_right}>
-                  {rightList.map((item, index) => (
-                    <Text key={index} style={{ width: width / 2 }}>
-                      #{item}#
+                  {rightList.map(item => (
+                    <Text
+                      numberOfLines={1}
+                      key={item._id}
+                      style={{ width: width / 2 }}>
+                      #{item.title}#
                     </Text>
                   ))}
                 </View>
@@ -146,7 +174,7 @@ class forum extends Component {
                       {item.title}
                     </Text>
                     <Text style={forumStyle.post_content} numberOfLines={5}>
-                      {item.content}
+                      {topic(item.content, item.topicList)}
                     </Text>
                   </View>
                   <View style={forumStyle.post_img_group}>
