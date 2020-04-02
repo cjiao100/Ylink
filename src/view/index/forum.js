@@ -15,6 +15,7 @@ import TopBar from '../../components/topBar/topBar';
 import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
 import toast from '../../utils/toast';
+import moment from '../../utils/moment';
 
 const { width } = Dimensions.get('window');
 
@@ -134,7 +135,7 @@ class forum extends Component {
                           {item.userInfo.name}
                         </Text>
                         <Text style={forumStyle.post_time}>
-                          {item.created_at}
+                          {moment(item.created_at)}
                         </Text>
                       </View>
                     </View>

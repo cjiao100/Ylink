@@ -18,6 +18,7 @@ import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
 import Viewer from '../../components/imageViewer/imageViewer';
 import toast from '../../utils/toast';
+import moment from '../../utils/moment';
 
 const { width, height } = Dimensions.get('window');
 
@@ -216,7 +217,8 @@ class Post extends Component {
                       {this.state.post.userInfo.name}
                     </Text>
                     <Text style={postStyle.post_time}>
-                      {this.state.post.created_at}·{this.state.post.browse}浏览
+                      {moment(this.state.post.created_at)} ·{' '}
+                      {this.state.post.browse}浏览
                     </Text>
                   </View>
                 </View>
