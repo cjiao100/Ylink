@@ -38,6 +38,32 @@ class Home extends Component {
         total: res.total
       });
     });
+
+    this.props.navigation.setParams({
+      queryData: () => {
+        this.refresh();
+      }
+    });
+  }
+
+  refresh() {
+    this.setState(
+      {
+        pageNum: 0,
+        pageSize: 5,
+        list: [],
+        total: 0,
+        loading: true
+      },
+      () => {
+        this.getArticleList().then(res => {
+          this.setState({
+            list: res.data,
+            total: res.total
+          });
+        });
+      }
+    );
   }
 
   getArticleList() {

@@ -4,7 +4,6 @@ import {
   Text,
   Modal,
   Image,
-  FlatList,
   StyleSheet,
   ScrollView,
   Dimensions,
@@ -37,6 +36,15 @@ class forum extends Component {
   }
 
   componentDidMount() {
+    this.refresh();
+    this.props.navigation.setParams({
+      queryData: () => {
+        this.refresh();
+      }
+    });
+  }
+
+  refresh() {
     this.getPostList();
     this.getHotTopicList();
   }
@@ -205,24 +213,23 @@ class forum extends Component {
           visible={this.state.modalVisible}
           onRequestClose={this.closeModal}>
           <View style={forumStyle.modal}>
+            <Text
+              style={forumStyle.modal_blank}
+              onPress={() =>
+                this.setState({
+                  modalVisible: false
+                })
+              }>
+              123
+            </Text>
             <View style={forumStyle.other_button}>
               <TouchableHighlight
                 style={forumStyle.modal_button}
                 underlayColor="#f5f5f5"
-                onPress={() => {}}>
-                <Text>收藏</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={forumStyle.modal_button}
-                underlayColor="#f5f5f5"
-                onPress={() => {}}>
+                onPress={() => {
+                  toast('举报成功,等待审核');
+                }}>
                 <Text>举报</Text>
-              </TouchableHighlight>
-              <TouchableHighlight
-                style={forumStyle.modal_button}
-                underlayColor="#f5f5f5"
-                onPress={() => {}}>
-                <Text>不感兴趣</Text>
               </TouchableHighlight>
             </View>
             <View>
@@ -310,10 +317,16 @@ const forumStyle = StyleSheet.create({
     marginRight: 15
   },
   modal: {
-    backgroundColor: color.bg_info_color,
-    position: 'absolute',
-    bottom: 0,
-    width: width
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    flex: 1,
+    justifyContent: 'flex-end'
+    // position: 'absolute',
+    // bottom: 0,
+    // width: width
+  },
+  modal_blank: {
+    flex: 1,
+    color: 'transparent'
   },
   modal_button: {
     paddingVertical: 15,
@@ -323,7 +336,8 @@ const forumStyle = StyleSheet.create({
     backgroundColor: color.white_color
   },
   other_button: {
-    marginBottom: 10
+    paddingBottom: 10,
+    backgroundColor: color.bg_info_color
   },
   cancel_button: {
     textAlign: 'center'

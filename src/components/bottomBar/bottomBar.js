@@ -8,8 +8,28 @@ const BottomBar = ({ state, descriptors, navigation }) => {
   const { jumpTo } = navigation;
   const routesTitle = state.routes.map(router => ({
     title: descriptors[router.key].options.title,
-    path: router.name
+    path: router.name,
+    key: router.key
   }));
+
+  const onPress = item => {
+    const event = navigation.emit({
+      type: 'tabPress',
+      target: item.key,
+      canPreventDefault: true
+    });
+
+    console.log(item);
+
+    if (!event.defaultPrevented) {
+      const temp = state.routes.filter(route => route.key === item.key)[0];
+      console.log(temp);
+      if (temp.params) {
+        temp.params.queryData();
+      }
+      navigation.navigate(item.path);
+    }
+  };
 
   return (
     <BoxShadow setting={shadowOpt}>
@@ -24,7 +44,7 @@ const BottomBar = ({ state, descriptors, navigation }) => {
                   ? barStyle.searchText
                   : barStyle.barText
               }
-              onPress={() => jumpTo(item.path)}>
+              onPress={() => onPress(item)}>
               {item.title}
             </Text>
           </View>

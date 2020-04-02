@@ -4,7 +4,6 @@ import { color } from '../assets/styles/theme';
 import toast from './toast';
 
 export default (element, topicList) => {
-  console.log(topicList);
   let rightLabel = false;
   let str = [];
   let i = -1;

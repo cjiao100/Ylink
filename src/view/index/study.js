@@ -4,22 +4,58 @@ import {
   Text,
   StyleSheet,
   TouchableNativeFeedback,
-  Dimensions
+  Dimensions,
+  Modal
 } from 'react-native';
 import * as Progress from 'react-native-progress';
 
 import { color, font } from '../../assets/styles/theme';
 import SpliteLine from '../../components/spliteLine/spliteLine';
 import TopBar from '../../components/topBar/topBar';
+import { requestWithToken } from '../../utils/request';
 
 class Study extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      planInfo: {},
+      visible: false
+    };
+
     this.startTest = this.startTest.bind(this);
   }
 
+  componentDidMount() {
+    this.getPlanInfo();
+    this.props.navigation.setParams({
+      queryData: () => {
+        this.getPlanInfo();
+      }
+    });
+  }
+
+  getPlanInfo() {
+    requestWithToken({
+      url: '/plan',
+      method: 'Get'
+    }).then(res => {
+      // console.log(res);
+      res.data = null;
+      if (res.data) {
+        this.setState({
+          planInfo: res.data
+        });
+      } else {
+        this.setState({
+          visible: true
+        });
+      }
+    });
+  }
+
   render() {
+    // {this.state.planInfo ?}
     return (
       <>
         <TopBar />
@@ -28,19 +64,18 @@ class Study extends Component {
             <View style={studyStyle.planData}>
               <View>
                 <Text style={studyStyle.planData_title}>今日单词</Text>
-                <Text>
-                  <Text style={studyStyle.planData_num}>32</Text>个
-                </Text>
-              </View>
-              <View>
-                <Text style={studyStyle.planData_title}>剩余时间</Text>
-                <Text>
-                  <Text style={studyStyle.planData_num}>32</Text>天
+                <Text style={studyStyle.planData_nums}>
+                  <Text style={studyStyle.planData_num}>
+                    {this.state.planInfo.today}
+                  </Text>
+                  个
                 </Text>
               </View>
             </View>
             <View style={studyStyle.planInfo}>
-              <Text style={studyStyle.planInfo_name}>考研词汇</Text>
+              <Text style={studyStyle.planInfo_name}>
+                {this.state.planInfo.name}
+              </Text>
               <TouchableNativeFeedback
                 background={TouchableNativeFeedback.Ripple('#4b1c18', false)}>
                 <View style={studyStyle.planInfo_change}>
@@ -56,9 +91,9 @@ class Study extends Component {
                   <Text style={studyStyle.planData_progress_text}>
                     {' '}
                     <Text style={studyStyle.planData_progress_complete_text}>
-                      560
+                      {this.state.planInfo.complete}
                     </Text>
-                    /9887
+                    /{this.state.planInfo.total}
                   </Text>
                 </Text>
               </View>
@@ -85,16 +120,39 @@ class Study extends Component {
             </TouchableNativeFeedback>
           </View>
         </View>
+
+        <Modal visible={this.state.visible} transparent={true}>
+          <View style={studyStyle.modal}>
+            <View style={studyStyle.modal_content}>
+              <Text style={{ fontSize: font.primary_size }}>
+                您还未选择学习计划,请选择后继续
+              </Text>
+              <View style={studyStyle.modal_button_group}>
+                <Text
+                  style={studyStyle.modal_button_back}
+                  onPress={() => {
+                    this.setState({
+                      visible: false
+                    });
+                    this.props.navigation.goBack();
+                  }}>
+                  返回
+                </Text>
+                <Text style={studyStyle.modal_button_select}>去选择</Text>
+              </View>
+            </View>
+          </View>
+        </Modal>
       </>
     );
   }
 
   startTest() {
-    this.props.navigation.navigate('test');
+    this.props.navigation.navigate('Test');
   }
 }
 
-const { height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 const studyStyle = StyleSheet.create({
   container: {
@@ -118,6 +176,9 @@ const studyStyle = StyleSheet.create({
   planData_title: {
     fontSize: font.big_size,
     color: color.info_color
+  },
+  planData_nums: {
+    textAlign: 'center'
   },
   planData_num: {
     fontSize: 50
@@ -170,6 +231,38 @@ const studyStyle = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 45,
     fontSize: 28
+  },
+
+  modal: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  modal_content: {
+    backgroundColor: color.white_color,
+    borderRadius: 10,
+    height: 100,
+    width: width * 0.7,
+    padding: 15,
+    display: 'flex',
+    justifyContent: 'space-between'
+  },
+  modal_button_group: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end'
+  },
+  modal_button_back: {
+    color: color.info_color,
+    padding: 5
+  },
+  modal_button_select: {
+    color: color.white_color,
+    backgroundColor: color.primary_color,
+    padding: 5,
+    borderRadius: 5,
+    marginLeft: 5
   }
 });
 

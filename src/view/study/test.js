@@ -5,6 +5,8 @@ import { color } from '../../assets/styles/theme';
 class Test extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {};
   }
 
   render() {
