@@ -1,68 +1,99 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableHighlight, StyleSheet } from 'react-native';
+import {
+  Text,
+  View,
+  TouchableHighlight,
+  StyleSheet,
+  ActivityIndicator
+} from 'react-native';
 import { color } from '../../assets/styles/theme';
+import { requestWithToken } from '../../utils/request';
+import toast from '../../utils/toast';
 
 class Test extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      problem: {}
+    };
+  }
+
+  componentDidMount() {
+    this.getInitWordProblem();
+  }
+
+  getInitWordProblem() {
+    requestWithToken({
+      url: '/test/',
+      mesthod: 'Get'
+    })
+      .then(res => {
+        this.setState({
+          problem: res.data
+        });
+      })
+      .catch(err => {
+        console.warn(err);
+        toast('获取失败');
+      });
+  }
+
+  nextWordProblem(answer) {
+    const result = answer.index === 1;
+    requestWithToken({
+      url: `/test/result/${this.state.problem.wordId}`,
+      method: 'Post',
+      data: {
+        result
+      }
+    }).then(() => {
+      this.getInitWordProblem();
+    });
   }
 
   render() {
-    return (
-      <View style={testStyle.container}>
-        <View style={testStyle.word_content}>
-          <Text style={testStyle.word}>gloom</Text>
-          <Text style={testStyle.soundmark}>[ɡluːm]</Text>
+    if (!this.state.problem) {
+      return (
+        <View>
+          <Text>计划完成</Text>
         </View>
-
-        <View style={{ flex: 1 }}>
-          <TouchableHighlight
-            underlayColor="#f5f5f5"
-            style={testStyle.selete_button}
-            onPress={() => {}}>
-            <Text style={testStyle.selete_item}>
-              n.忧郁，沮丧；v.变忧郁，变忧愁
+      );
+    } else if (Object.keys(this.state.problem).length === 0) {
+      return <ActivityIndicator />;
+    } else {
+      return (
+        <View style={testStyle.container}>
+          <View style={testStyle.word_content}>
+            <Text style={testStyle.word}>{this.state.problem.question}</Text>
+            <Text style={testStyle.soundmark}>
+              [{this.state.problem.phonetic}]
             </Text>
-          </TouchableHighlight>
+          </View>
 
-          <TouchableHighlight
-            underlayColor="#f5f5f5"
-            style={testStyle.selete_button}
-            onPress={() => {}}>
-            <Text style={testStyle.selete_item}>n.腕部</Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            underlayColor="#f5f5f5"
-            style={testStyle.selete_button}
-            onPress={() => {}}>
-            <Text style={testStyle.selete_item} numberOfLines={2}>
-              n.（病人或减肥者的）特种饮食；日常饮食； v.节食；n.大量
-            </Text>
-          </TouchableHighlight>
-
-          <TouchableHighlight
-            underlayColor="#f5f5f5"
-            style={testStyle.selete_button}
-            onPress={() => {}}>
-            <Text style={testStyle.selete_item}>vt.积攒，积累</Text>
-          </TouchableHighlight>
+          <View style={{ flex: 1 }}>
+            {this.state.problem.answer.map(answer => (
+              <TouchableHighlight
+                underlayColor="#f5f5f5"
+                style={testStyle.selete_button}
+                onPress={() => this.nextWordProblem(answer)}>
+                <Text numberOfLines={2} style={testStyle.selete_item}>
+                  {answer.value}
+                </Text>
+              </TouchableHighlight>
+            ))}
+          </View>
+          <View style={testStyle.bottom_content}>
+            <TouchableHighlight>
+              <Text style={testStyle.bottom_buttom}>提示</Text>
+            </TouchableHighlight>
+            <TouchableHighlight>
+              <Text style={testStyle.bottom_buttom}>收藏</Text>
+            </TouchableHighlight>
+          </View>
         </View>
-        <View style={testStyle.bottom_content}>
-          <TouchableHighlight>
-            <Text style={testStyle.bottom_buttom}>提示</Text>
-          </TouchableHighlight>
-          <TouchableHighlight>
-            <Text style={testStyle.bottom_buttom}>下一个</Text>
-          </TouchableHighlight>
-          <TouchableHighlight>
-            <Text style={testStyle.bottom_buttom}>收藏</Text>
-          </TouchableHighlight>
-        </View>
-      </View>
-    );
+      );
+    }
   }
 }
 
@@ -72,7 +103,7 @@ const testStyle = StyleSheet.create({
     flex: 1
   },
   word_content: {
-    height: 260,
+    height: 220,
     justifyContent: 'center',
     alignItems: 'center'
   },
