@@ -158,20 +158,18 @@ class Home extends Component {
     return (
       <>
         <TopBar tagShow={true} />
-        <ScrollView>
-          <View style={homeStyle.listContainer}>
-            <FlatList
-              style={homeStyle.flexBox}
-              data={this.state.list}
-              keyExtractor={item => item._id}
-              ListHeaderComponent={<Carousel />}
-              renderItem={({ item }) => this.renderItem(item)}
-              ListFooterComponent={() => this.genIndicator()}
-              onEndReached={this.loadData}
-              onEndReachedThreshold={0.2}
-            />
-          </View>
-        </ScrollView>
+        <View style={homeStyle.listContainer}>
+          <FlatList
+            style={homeStyle.flexBox}
+            data={this.state.list}
+            keyExtractor={item => item._id}
+            ListHeaderComponent={<Carousel />}
+            renderItem={({ item }) => this.renderItem(item)}
+            ListFooterComponent={() => this.genIndicator()}
+            onEndReached={this.loadData}
+            onEndReachedThreshold={0.2}
+          />
+        </View>
       </>
     );
   }

@@ -24,6 +24,7 @@ class Study extends Component {
     };
 
     this.startTest = this.startTest.bind(this);
+    this.goSelectPage = this.goSelectPage.bind(this);
   }
 
   componentDidMount() {
@@ -40,9 +41,8 @@ class Study extends Component {
       url: '/plan',
       method: 'Get'
     }).then(res => {
-      // console.log(res);
-      res.data = null;
       if (res.data) {
+        console.log(res.data);
         this.setState({
           planInfo: res.data
         });
@@ -54,8 +54,14 @@ class Study extends Component {
     });
   }
 
+  goSelectPage() {
+    this.props.navigation.navigate('PlanList');
+    this.setState({
+      visible: false
+    });
+  }
+
   render() {
-    // {this.state.planInfo ?}
     return (
       <>
         <TopBar />
@@ -77,7 +83,8 @@ class Study extends Component {
                 {this.state.planInfo.name}
               </Text>
               <TouchableNativeFeedback
-                background={TouchableNativeFeedback.Ripple('#4b1c18', false)}>
+                background={TouchableNativeFeedback.Ripple('#4b1c18', false)}
+                onPress={this.goSelectPage}>
                 <View style={studyStyle.planInfo_change}>
                   <Text style={studyStyle.planData_text}>修改计划</Text>
                 </View>
@@ -103,7 +110,9 @@ class Study extends Component {
             </View>
             <View style={studyStyle.planInfo_progress}>
               <Progress.Bar
-                progress={560 / 9887}
+                progress={
+                  this.state.planInfo.complete / this.state.planInfo.total || 0
+                }
                 color={color.primary_color}
                 borderWidth={0}
                 width={null}
@@ -138,7 +147,11 @@ class Study extends Component {
                   }}>
                   返回
                 </Text>
-                <Text style={studyStyle.modal_button_select}>去选择</Text>
+                <Text
+                  style={studyStyle.modal_button_select}
+                  onPress={this.goSelectPage}>
+                  去选择
+                </Text>
               </View>
             </View>
           </View>

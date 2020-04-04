@@ -21,6 +21,7 @@ import ResultScreen from '../view/translate/result';
 
 // study
 import TestScreen from '../view/study/test';
+import PlanListScreen from '../view/study/planlist';
 
 // forum
 import PostScreen from '../view/forum/post';
@@ -74,6 +75,11 @@ function RootStack(isLogin = false) {
         options={{ headerTransparent: true }}
         name="Test"
         component={TestScreen}
+      />
+      <Stack.Screen
+        options={{ title: '选择计划' }}
+        name="PlanList"
+        component={PlanListScreen}
       />
       <Stack.Screen
         options={{ title: '帖子' }}
