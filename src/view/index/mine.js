@@ -40,6 +40,10 @@ class Mine extends Component {
     }
   }
 
+  jumpToPage(route) {
+    this.props.navigation.navigate(route);
+  }
+
   render() {
     return (
       <>
@@ -94,13 +98,30 @@ class Mine extends Component {
           <View style={mineStyle.listBlock}>
             <View style={mineStyle.otherBlock}>
               <View style={mineStyle.listItem}>
-                <Text style={mineStyle.listItem_text}>我的帖子</Text>
+                <Text
+                  style={mineStyle.listItem_text}
+                  onPress={() => this.jumpToPage('MyPost')}>
+                  我的帖子
+                </Text>
               </View>
               <View style={mineStyle.listItem}>
-                <Text style={mineStyle.listItem_text}>我的计划</Text>
+                <Text
+                  style={mineStyle.listItem_text}
+                  onPress={() => this.jumpToPage('MyPlan')}>
+                  我的计划
+                </Text>
               </View>
             </View>
             {this.showCampusBlock(this.state.userInfo.identity)}
+            <View style={mineStyle.otherBlock}>
+              <View style={mineStyle.listItem}>
+                <Text
+                  style={mineStyle.listItem_text}
+                  onPress={() => this.jumpToPage('Setting')}>
+                  设置
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
       </>
@@ -187,7 +208,8 @@ const mineStyle = StyleSheet.create({
     flex: 1
   },
   otherBlock: {
-    backgroundColor: color.white_color
+    backgroundColor: color.white_color,
+    marginBottom: 10
   },
   listItem: {
     height: 50,
@@ -196,7 +218,7 @@ const mineStyle = StyleSheet.create({
     borderColor: '#eee'
   },
   campusItem: {
-    marginTop: 10,
+    marginBottom: 10,
     backgroundColor: color.white_color
   },
   listItem_text: {

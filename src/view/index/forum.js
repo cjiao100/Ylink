@@ -125,20 +125,20 @@ class forum extends Component {
               <Text style={forumStyle.hot_title}>热门话题</Text>
               <View style={forumStyle.hot_list}>
                 <View style={forumStyle.hot_left_and_right}>
-                  {leftList.map(item => (
+                  {leftList.map((item, index) => (
                     <Text
                       numberOfLines={1}
-                      key={item._id}
+                      key={index}
                       style={{ width: width / 2 }}>
                       #{item.title}#
                     </Text>
                   ))}
                 </View>
                 <View style={forumStyle.hot_left_and_right}>
-                  {rightList.map(item => (
+                  {rightList.map((item, index) => (
                     <Text
                       numberOfLines={1}
-                      key={item._id}
+                      key={index}
                       style={{ width: width / 2 }}>
                       #{item.title}#
                     </Text>

@@ -15,6 +15,9 @@ import MineScreen from '../view/index/mine';
 // mine
 import StarScreen from '../view/mine/star';
 import WordbookScreen from '../view/mine/wordbook';
+import MyPostScreen from '../view/mine/post';
+import MyPlanScreen from '../view/mine/plan';
+import SettingScreen from '../view/mine/setting';
 
 // translate
 import ResultScreen from '../view/translate/result';
@@ -65,6 +68,21 @@ function RootStack(isLogin = false) {
         options={{ title: '单词本' }}
         name="WordBook"
         component={WordbookScreen}
+      />
+      <Stack.Screen
+        options={{ title: '我的帖子' }}
+        name="MyPost"
+        component={MyPostScreen}
+      />
+      <Stack.Screen
+        options={{ title: '我的计划' }}
+        name="MyPlan"
+        component={MyPlanScreen}
+      />
+      <Stack.Screen
+        options={{ title: '设置' }}
+        name="Setting"
+        component={SettingScreen}
       />
       <Stack.Screen
         options={{ title: '' }}
