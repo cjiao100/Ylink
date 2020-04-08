@@ -29,6 +29,9 @@ import PlanListScreen from '../view/study/planlist';
 // forum
 import PostScreen from '../view/forum/post';
 import CreatePostScreen from '../view/forum/createPost';
+
+// home
+import ArticleScreen from '../view/home/article';
 import { color } from '../assets/styles/theme';
 
 const Stack = createStackNavigator();
@@ -108,6 +111,11 @@ function RootStack(isLogin = false) {
         options={{ title: '发布帖子' }}
         name="CreatePost"
         component={CreatePostScreen}
+      />
+      <Stack.Screen
+        options={{ title: '发布帖子' }}
+        name="Article"
+        component={ArticleScreen}
       />
     </Stack.Navigator>
   );

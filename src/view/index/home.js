@@ -4,9 +4,9 @@ import {
   Text,
   Image,
   FlatList,
-  ScrollView,
   StyleSheet,
-  ActivityIndicator
+  ActivityIndicator,
+  TouchableOpacity
 } from 'react-native';
 
 import TopBar from '../../components/topBar/topBar';
@@ -77,6 +77,12 @@ class Home extends Component {
     });
   }
 
+  openArticle(article) {
+    this.props.navigation.navigate('Article', {
+      articleId: article._id
+    });
+  }
+
   // 下拉列表底部
   genIndicator() {
     const { loading } = this.state;
@@ -98,42 +104,52 @@ class Home extends Component {
 
   renderItem(item) {
     return (
-      <View style={homeStyle.item}>
-        <View>
-          <Text numberOfLines={1} style={homeStyle.itemTitle}>
-            {item.title}
-          </Text>
-          <Text numberOfLines={2} style={homeStyle.itemDesc}>
-            {item.content}
-          </Text>
-        </View>
-        <View style={homeStyle.flexBox}>
-          <Image
-            style={homeStyle.flexBox}
-            source={{ uri: item.coverImage || null }}
-          />
-        </View>
-        <View style={homeStyle.itemStatus}>
+      <TouchableOpacity
+        activeOpacity={0.7}
+        onPress={() => this.openArticle(item)}>
+        <View style={homeStyle.item}>
           <View>
-            <Text style={homeStyle.itemStatusTitle}>
-              浏览量
-              <Text style={homeStyle.itemStatusNum}>{item.browse.length}</Text>
+            <Text numberOfLines={1} style={homeStyle.itemTitle}>
+              {item.title}
+            </Text>
+            <Text numberOfLines={2} style={homeStyle.itemDesc}>
+              {item.content}
             </Text>
           </View>
-          <View>
-            <Text style={homeStyle.itemStatusTitle}>
-              评论
-              <Text style={homeStyle.itemStatusNum}>{item.comment.length}</Text>
-            </Text>
+          <View style={homeStyle.flexBox}>
+            <Image
+              style={homeStyle.flexBox}
+              source={{ uri: item.coverImage || null }}
+            />
           </View>
-          <View>
-            <Text style={homeStyle.itemStatusTitle}>
-              点赞
-              <Text style={homeStyle.itemStatusNum}>{item.awesome.length}</Text>
-            </Text>
+          <View style={homeStyle.itemStatus}>
+            <View>
+              <Text style={homeStyle.itemStatusTitle}>
+                浏览量
+                <Text style={homeStyle.itemStatusNum}>
+                  {item.browse.length}
+                </Text>
+              </Text>
+            </View>
+            <View>
+              <Text style={homeStyle.itemStatusTitle}>
+                评论
+                <Text style={homeStyle.itemStatusNum}>
+                  {item.comment.length}
+                </Text>
+              </Text>
+            </View>
+            <View>
+              <Text style={homeStyle.itemStatusTitle}>
+                点赞
+                <Text style={homeStyle.itemStatusNum}>
+                  {item.awesome.length}
+                </Text>
+              </Text>
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 

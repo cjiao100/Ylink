@@ -3,6 +3,7 @@ import { View, Text, Image, Button, StyleSheet } from 'react-native';
 import SpliteLine from '../../components/spliteLine/spliteLine';
 import { color } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
+import { removeTokens } from '../../utils/storage';
 
 class Setting extends Component {
   constructor(props) {
@@ -11,6 +12,8 @@ class Setting extends Component {
     this.state = {
       userInfo: []
     };
+
+    this.exit = this.exit.bind(this);
   }
 
   componentDidMount() {
@@ -28,6 +31,11 @@ class Setting extends Component {
     });
   }
 
+  exit() {
+    removeTokens();
+    this.props.navigation.navigate('Login');
+  }
+
   render() {
     return (
       <View>
@@ -41,13 +49,24 @@ class Setting extends Component {
           />
         </View>
         <SpliteLine lineHeight={2} color={color.bg_info_color} />
+
+        <View style={styles.email}>
+          <Text>用户昵称</Text>
+          <Text>{this.state.userInfo.name}</Text>
+        </View>
+        <SpliteLine lineHeight={2} color={color.bg_info_color} />
+
         <View style={styles.email}>
           <Text>认证邮箱</Text>
           <Text>{this.state.userInfo.email}</Text>
         </View>
 
         <View style={styles.button}>
-          <Button title="退出登录" color={color.primary_color} />
+          <Button
+            title="退出登录"
+            color={color.primary_color}
+            onPress={this.exit}
+          />
         </View>
       </View>
     );

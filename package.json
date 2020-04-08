@@ -29,7 +29,8 @@
     "react-native-shadow": "^1.2.2",
     "react-native-storage": "^1.0.1",
     "react-native-svg": "^11.0.1",
-    "react-native-swiper": "^1.5.14"
+    "react-native-swiper": "^1.5.14",
+    "react-native-webview": "^9.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.7.4",
