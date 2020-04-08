@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { WebView } from 'react-native-webview';
 import { requestWithToken } from '../../utils/request';
 import moment from '../../utils/moment';
-import { color } from '../../assets/styles/theme';
+import { color, font } from '../../assets/styles/theme';
 import { ActivityIndicator } from 'react-native';
 
 class Article extends Component {
@@ -77,19 +77,29 @@ class Article extends Component {
                       line-height: 2;
                     }
                     .footer {
-                      position: fixed;
-                      bottom: 0;
-                      left: 0;
+                      margin-top: 40px;
+                      border-top: 1px solid ${color.bg_info_color};
+                      padding-top: 40px;
                       background: #fff;
-                      box-shadow: 1px 0px 0 1px #eee;
                       width: 100%;
-                      height: 50px;
-                      line-height: 50px
+                      text-align: center;
                     }
                     .column {
+                      height: 50px;
+                      width: 50px;
+                      color: ${color.white_color};
                       display: inline-block;
-                      width: 49%;
-                      text-align: center
+                      text-align: center;
+                      background-color: ${color.primary_color};
+                      // padding: 15px;
+                      border-radius: 50%;
+                      line-height: 50px;
+                      opacity: 0.6
+                    }
+                    .column_num {
+                      margin: 5px 0;
+                      color: ${color.info_color};
+                      font-size: ${font.small_size}
                     }
                   </style>
                 </head>
@@ -104,13 +114,13 @@ class Article extends Component {
                     <p class="content">
                       ${this.state.article.content}
                     </p>
-                  <div>
-                  <div class="footer">
-                    <div class="column">收藏</div>
-                    <div class="column">点赞
-                    ${this.state.article.awesome.length}
+                    <div class="footer">
+                      <div class="column">点赞</div>
+                      <p class="column_num">
+                        ${this.state.article.awesome.length}
+                      </p>
                     </div>
-                  </div>
+                  <div>
                 </body>
               </html>
               `
