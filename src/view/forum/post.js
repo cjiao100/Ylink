@@ -21,7 +21,7 @@ import toast from '../../utils/toast';
 import moment from '../../utils/moment';
 import topic from '../../utils/topic';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 class Post extends Component {
   constructor(props) {
@@ -147,19 +147,16 @@ class Post extends Component {
 
     for (let i = 0; i < images.length; i++) {
       let url = images[i];
-      await Image.getSize(
-        `http://192.168.43.111:5000${url}`,
-        (imgWidth, imgHeight) => {
-          const ratio = (width - 30) / imgWidth;
-          images[i] = {
-            width,
-            height: imgHeight * ratio,
-            imgWidth,
-            imgHeight,
-            url
-          };
-        }
-      );
+      await Image.getSize(`${global.URI}${url}`, (imgWidth, imgHeight) => {
+        const ratio = (width - 30) / imgWidth;
+        images[i] = {
+          width,
+          height: imgHeight * ratio,
+          imgWidth,
+          imgHeight,
+          url
+        };
+      });
     }
 
     this.setState({
@@ -208,8 +205,7 @@ class Post extends Component {
                 <View style={postStyle.post_header_left}>
                   <Image
                     source={{
-                      // eslint-disable-next-line prettier/prettier
-                      uri: `http://192.168.43.111:5000${this.state.post.userInfo.avatar}`
+                      uri: `${global.URI}${this.state.post.userInfo.avatar}`
                     }}
                     style={postStyle.post_avatar}
                   />
@@ -246,7 +242,7 @@ class Post extends Component {
                       <Image
                         resizeMode="contain"
                         resizeMethod="resize"
-                        source={{ uri: `http://192.168.43.111:5000${img.url}` }}
+                        source={{ uri: `${global.URI}${img.url}` }}
                         style={[postStyle.post_img, { height: img.height }]}
                       />
                     </TouchableHighlight>
@@ -267,7 +263,7 @@ class Post extends Component {
                     <View style={postStyle.post_header_left}>
                       <Image
                         source={{
-                          uri: `http://192.168.43.111:5000${item.userId.avatar}`
+                          uri: `${global.URI}${item.userId.avatar}`
                         }}
                         style={postStyle.comment_avatar}
                       />

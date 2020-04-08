@@ -44,7 +44,7 @@ class Setting extends Component {
           <Image
             style={styles.info_img}
             source={{
-              uri: `http://192.168.43.111:5000/${this.state.userInfo.avatar}`
+              uri: `${global.URI}/${this.state.userInfo.avatar}`
             }}
           />
         </View>

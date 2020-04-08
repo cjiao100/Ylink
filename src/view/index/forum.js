@@ -162,8 +162,7 @@ class forum extends Component {
                       <Image
                         style={forumStyle.post_avatar}
                         source={{
-                          // eslint-disable-next-line prettier/prettier
-                          uri: `http://192.168.43.111:5000${item.userInfo.avatar}`
+                          uri: `${global.URI}${item.userInfo.avatar}`
                         }}
                       />
                       <View>
@@ -190,7 +189,7 @@ class forum extends Component {
                       <Image
                         key={index}
                         style={forumStyle.post_img}
-                        source={{ uri: `http://192.168.43.111:5000${img}` }}
+                        source={{ uri: `${global.URI}${img}` }}
                       />
                     ))}
                   </View>

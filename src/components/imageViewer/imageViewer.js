@@ -4,7 +4,7 @@ import { Modal } from 'react-native';
 
 function Viewer(props) {
   const imageUrls = props.imageList.map(item => ({
-    url: `http://192.168.43.111:5000${item.url}`
+    url: `${global.URI}${item.url}`
   }));
   return (
     <Modal visible={props.visible}>

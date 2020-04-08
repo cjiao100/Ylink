@@ -54,8 +54,7 @@ class Mine extends Component {
               <Image
                 style={{ width: 80, height: 80 }}
                 source={{
-                  // eslint-disable-next-line prettier/prettier
-                  uri: `http://192.168.43.111:5000/${this.state.userInfo.avatar}`
+                  uri: `${global.URI}/${this.state.userInfo.avatar}`
                 }}
               />
             </View>

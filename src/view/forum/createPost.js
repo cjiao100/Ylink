@@ -250,7 +250,7 @@ class CreatePost extends Component {
                 key={item.uri}
                 source={
                   item.status === 1
-                    ? { uri: `http://192.168.43.111:5000${item.uri}` }
+                    ? { uri: `${global.URI}${item.uri}` }
                     : { uri: item.uri }
                 }>
                 {this.renderTipButton(item, index)}
