@@ -126,9 +126,7 @@ class Home extends Component {
             <View>
               <Text style={homeStyle.itemStatusTitle}>
                 浏览量
-                <Text style={homeStyle.itemStatusNum}>
-                  {item.browse.length}
-                </Text>
+                <Text style={homeStyle.itemStatusNum}>{item.browse}</Text>
               </Text>
             </View>
             <View>

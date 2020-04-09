@@ -108,7 +108,18 @@ class Article extends Component {
       });
   }
 
-  articleBrower() {}
+  articleBrower() {
+    requestWithToken({
+      url: `/article/${this.props.route.params.articleId}/browse`,
+      method: 'Put'
+    })
+      .then(res => {
+        console.log('浏览');
+      })
+      .catch(err => {
+        console.warn(err);
+      });
+  }
 
   renderComment(item) {
     return `
@@ -227,7 +238,7 @@ class Article extends Component {
                     <h1 class="title">${this.state.article.title}</h1>
                     <p class="date">
                       ${moment(this.state.article.created_at)} · 
-                      ${this.state.article.browse.length}浏览
+                      ${this.state.article.browse}浏览
                     </p>
                     <p class="content">
                       ${this.state.article.content}

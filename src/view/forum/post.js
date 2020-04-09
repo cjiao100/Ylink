@@ -95,7 +95,6 @@ class Post extends Component {
       method: 'Put'
     })
       .then(res => {
-        // console.log(res);
         console.log('浏览');
       })
       .catch(err => {
