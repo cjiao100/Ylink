@@ -133,6 +133,14 @@ class Home extends Component {
             </View>
             <View>
               <Text style={homeStyle.itemStatusTitle}>
+                评论
+                <Text style={homeStyle.itemStatusNum}>
+                  {item.comment.length}
+                </Text>
+              </Text>
+            </View>
+            <View>
+              <Text style={homeStyle.itemStatusTitle}>
                 点赞
                 <Text style={homeStyle.itemStatusNum}>
                   {item.awesome.length}

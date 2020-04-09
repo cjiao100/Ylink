@@ -21,7 +21,6 @@ class Star extends Component {
     };
 
     this.renderItem = this.renderItem.bind(this);
-    this.loadData = this.loadData.bind(this);
   }
 
   renderItem(item) {
@@ -41,77 +40,20 @@ class Star extends Component {
     );
   }
 
-  loadData() {
-    // const data = this.state.data;
-    // const length = data.length;
-    // if (length < 100) {
-    //   this.setState({
-    //     data: data.concat({
-    //       id: length,
-    //       title: '四川省首例新型冠状病毒感染的肺炎病例痊愈出院',
-    //       browse: '200',
-    //       awesome: '1414',
-    //       author: '小可爱',
-    //       createTime: '2019-02-10',
-    //       updateTime: '2019-02-10'
-    //     })
-    //   });
-    // }
-    // console.log(JSON.stringify(data));
-  }
-
   render() {
     return (
       <View>
-        <View style={starStyle.tabbar}>
-          <View
-            style={
-              this.state.current === 'post' ? starStyle.tabbar_active : ''
-            }>
-            <Text style={starStyle.tabbar_text}>帖子</Text>
-          </View>
-          <View
-            style={[
-              starStyle.tabbar_next,
-              this.state.current === 'column' ? starStyle.tabbar_active : ''
-            ]}>
-            <Text style={starStyle.tabbar_text}>专栏</Text>
-          </View>
-        </View>
-        <View>
-          <FlatList
-            data={this.state.data}
-            renderItem={({ item }) => this.renderItem(item)}
-            keyExtractor={item => item.id}
-            onEndReached={() => {
-              this.loadData();
-            }}
-          />
-        </View>
+        <FlatList
+          data={this.state.data}
+          renderItem={({ item }) => this.renderItem(item)}
+          keyExtractor={item => item.id}
+        />
       </View>
     );
   }
 }
 
 const starStyle = StyleSheet.create({
-  tabbar: {
-    display: 'flex',
-    flexDirection: 'row',
-    height: 30,
-    paddingLeft: 30,
-    backgroundColor: color.primary_color
-  },
-  tabbar_text: {
-    color: color.white_color,
-    fontSize: font.primary_size
-  },
-  tabbar_next: {
-    marginLeft: 20
-  },
-  tabbar_active: {
-    borderBottomWidth: 2,
-    borderColor: color.white_color
-  },
   listItem: {
     padding: 15,
     borderColor: color.bg_info_color,
