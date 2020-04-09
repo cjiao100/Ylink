@@ -128,7 +128,7 @@ class Post extends Component {
       method: 'Put'
     })
       .then(res => {
-        if (this.state.post.currentUser.star) {
+        if (this.state.post.currentUser.awesome) {
           toast('取消点赞(>_<)');
         } else {
           toast('点赞成功(^▽^)');
