@@ -69,7 +69,6 @@ class MyPost extends Component {
               <Image
                 style={styles.post_avatar}
                 source={{
-                  // eslint-disable-next-line prettier/prettier
                   uri: `${global.URI}${item.userInfo.avatar}`
                 }}
               />

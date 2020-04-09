@@ -26,11 +26,14 @@ class Article extends Component {
     };
 
     this.submitComment = this.submitComment.bind(this);
+    this.awesome = this.awesome.bind(this);
+    this.articleBrower = this.articleBrower.bind(this);
   }
 
   componentDidMount() {
     this.getArticle();
     this.getComment();
+    this.articleBrower();
   }
 
   getComment() {
@@ -85,6 +88,27 @@ class Article extends Component {
         console.warn(err);
       });
   }
+
+  awesome() {
+    requestWithToken({
+      url: `/article/${this.state.article._id}/awesome`,
+      method: 'Put'
+    })
+      .then(res => {
+        if (this.state.article.current.awesome) {
+          toast('取消点赞(>_<)');
+        } else {
+          toast('点赞成功(^▽^)');
+        }
+        this.getArticle();
+      })
+      .catch(err => {
+        console.warn(err);
+        toast('点赞失败');
+      });
+  }
+
+  articleBrower() {}
 
   renderComment(item) {
     return `
@@ -165,6 +189,8 @@ class Article extends Component {
                     .comment {
                       list-style: none;
                       padding: 0;
+                      margin-top: 20px;
+                      border-top :1px solid ${color.bg_info_color}
                     }
                     .comment_item {
                       padding: 10px;
@@ -206,12 +232,6 @@ class Article extends Component {
                     <p class="content">
                       ${this.state.article.content}
                     </p>
-                    <div class="awesome">
-                      <div class="column">点赞</div>
-                      <p class="column_num">
-                        ${this.state.article.awesome.length}
-                      </p>
-                    </div>
                     <ul class="comment">
                       ${this.state.comment
                         .map(item => this.renderComment(item))
@@ -231,6 +251,21 @@ class Article extends Component {
               style={styles.bottom_input}>
               评论一下吧
             </Text>
+            <View style={styles.awesome}>
+              <Text
+                style={[
+                  styles.awesome_text,
+                  this.state.article.current.awesome
+                    ? {
+                        color: color.primary_color,
+                        backgroundColor: color.white_color
+                      }
+                    : {}
+                ]}
+                onPress={this.awesome}>
+                点赞
+              </Text>
+            </View>
           </View>
 
           <Modal visible={this.state.inputVisible} transparent={true}>
@@ -264,6 +299,24 @@ class Article extends Component {
 }
 
 const styles = StyleSheet.create({
+  awesome: {
+    position: 'relative',
+    width: 60
+  },
+  awesome_text: {
+    position: 'absolute',
+    backgroundColor: color.bg_info_color,
+    borderWidth: 5,
+    borderRadius: 50,
+    borderColor: color.white_color,
+    height: 50,
+    width: 50,
+    lineHeight: 50,
+    textAlign: 'center',
+    top: -25,
+    right: 0,
+    elevation: 1
+  },
   footer: {
     display: 'flex',
     flexDirection: 'row',

@@ -1,14 +1,7 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  FlatList,
-  TouchableWithoutFeedback
-} from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 
-import { color, font } from '../../assets/styles/theme';
+import { color } from '../../assets/styles/theme';
 
 class TopBar extends Component {
   constructor(props) {
@@ -28,62 +21,12 @@ class TopBar extends Component {
 
   render() {
     return (
-      <View style={{ backgroundColor: color.white_color }}>
+      <View style={{ backgroundColor: color.primary_color }}>
         <View style={barStyle.bar_container}>
           <View style={barStyle.bar_icon}>
-            <Text style={barStyle.bar_iconText}>英领</Text>
-          </View>
-          <View style={barStyle.bar_search}>
-            <TextInput style={barStyle.bar_searchInput} />
-          </View>
-          <View style={barStyle.bar_icon}>
-            <Text style={barStyle.bar_iconText}>计划</Text>
+            <Text style={barStyle.bar_iconText}>Ylink</Text>
           </View>
         </View>
-        {this.props.tagShow && (
-          <View style={barStyle.bar_tagGroup}>
-            <FlatList
-              keyExtractor={item => item.key.toString()}
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={[
-                { value: '关注', key: 0 },
-                { value: '推荐', key: 1 },
-                { value: '科技', key: 2 },
-                { value: '时尚', key: 3 },
-                { value: '影视', key: 4 },
-                { value: '游戏', key: 5 },
-                { value: '时事', key: 6 },
-                { value: '娱乐', key: 7 },
-                { value: '历史', key: 8 }
-              ]}
-              renderItem={({ item }) => {
-                const tagStyle =
-                  item.key === this.state.currentTag
-                    ? StyleSheet.flatten([
-                        barStyle.bar_tag,
-                        barStyle.bar_tagActive
-                      ])
-                    : barStyle.bar_tag;
-                const tagTextStyle =
-                  item.key === this.state.currentTag
-                    ? StyleSheet.flatten([
-                        barStyle.bar_tagText,
-                        barStyle.bar_tagTextActive
-                      ])
-                    : barStyle.bar_tagText;
-                return (
-                  <TouchableWithoutFeedback
-                    onPress={() => this.toggleTag(item)}>
-                    <View style={tagStyle}>
-                      <Text style={tagTextStyle}>{item.value}</Text>
-                    </View>
-                  </TouchableWithoutFeedback>
-                );
-              }}
-            />
-          </View>
-        )}
       </View>
     );
   }
@@ -97,45 +40,15 @@ const barStyle = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10
   },
-  bar_search: {
-    flex: 1
-  },
-  bar_searchInput: {
-    backgroundColor: color.bg_info_color,
-    borderRadius: 20,
-    paddingTop: 0,
-    paddingBottom: 0,
-    paddingLeft: 10,
-    paddingRight: 10
-  },
   bar_icon: {
+    flex: 1,
     paddingLeft: 10,
     paddingRight: 10,
     textAlign: 'center'
   },
   bar_iconText: {
+    color: color.white_color,
     lineHeight: 30
-  },
-  bar_tagGroup: {
-    paddingLeft: 10,
-    paddingBottom: 10
-  },
-  bar_tag: {
-    marginRight: 20,
-    backgroundColor: '#EEEEEE',
-    padding: 5,
-    borderRadius: 5
-  },
-  bar_tagActive: {
-    backgroundColor: color.primary_color
-  },
-  bar_tagText: {
-    letterSpacing: 5,
-    color: '#8E8E8E',
-    fontSize: 12
-  },
-  bar_tagTextActive: {
-    color: '#FFFFFF'
   }
 });
 
