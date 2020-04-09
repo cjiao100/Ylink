@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  TouchableNativeFeedback
+} from 'react-native';
 import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
 import toast from '../../utils/toast';
@@ -20,6 +26,13 @@ class Star extends Component {
     this.getStarList();
   }
 
+  openDetails(post) {
+    this.props.navigation.navigate('Post', {
+      postId: post.post._id,
+      title: post.post.title
+    });
+  }
+
   getStarList() {
     requestWithToken({
       url: '/post//list/star',
@@ -38,18 +51,24 @@ class Star extends Component {
 
   renderItem(item) {
     return (
-      <View style={starStyle.listItem}>
-        <Text>{item.post.title}</Text>
-        <View style={starStyle.listItem_info}>
-          <View style={starStyle.listItem_num}>
-            <Text style={starStyle.listItem_text}>{item.post.browse} 浏览</Text>
-            <Text style={[starStyle.listItem_text, starStyle.listItem_next]}>
-              {item.postInfo.awesome} 赞同
-            </Text>
+      <TouchableNativeFeedback
+        onPress={() => this.openDetails(item)}
+        background={TouchableNativeFeedback.Ripple(color.bg_info_color, false)}>
+        <View style={starStyle.listItem}>
+          <Text>{item.post.title}</Text>
+          <View style={starStyle.listItem_info}>
+            <View style={starStyle.listItem_num}>
+              <Text style={starStyle.listItem_text}>
+                {item.post.browse} 浏览
+              </Text>
+              <Text style={[starStyle.listItem_text, starStyle.listItem_next]}>
+                {item.postInfo.awesome} 赞同
+              </Text>
+            </View>
+            <Text style={starStyle.listItem_text}>{item.user.name}</Text>
           </View>
-          <Text style={starStyle.listItem_text}>{item.user.name}</Text>
         </View>
-      </View>
+      </TouchableNativeFeedback>
     );
   }
 

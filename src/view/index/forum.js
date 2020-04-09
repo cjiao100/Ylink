@@ -24,7 +24,7 @@ class forum extends Component {
     super(props);
     this.state = {
       modalVisible: false,
-      hotList: ['新型冠状病毒肺炎疫情', '想见你', '疫情辟谣', '李子维'],
+      hotList: [],
       postList: []
     };
 
