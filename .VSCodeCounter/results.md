@@ -1,18 +1,18 @@
 # Summary
 
-Date : 2020-03-31 22:21:32
+Date : 2020-04-09 23:49:34
 
 Directory /home/cjw/dev/code/Ylink
 
-Total : 65 files,  14166 codes, 417 comments, 586 blanks, all 15169 lines
+Total : 74 files,  15534 codes, 404 comments, 698 blanks, all 16636 lines
 
 [details](details.md)
 
 ## Languages
 | language | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| JSON | 7 | 9,711 | 0 | 4 | 9,715 |
-| JavaScript | 31 | 3,543 | 199 | 294 | 4,036 |
+| JSON | 7 | 9,714 | 0 | 4 | 9,718 |
+| JavaScript | 40 | 4,908 | 186 | 406 | 5,500 |
 | Markdown | 6 | 399 | 0 | 155 | 554 |
 | Groovy | 3 | 111 | 113 | 23 | 247 |
 | Objective-C | 3 | 86 | 18 | 29 | 133 |
@@ -27,7 +27,7 @@ Total : 65 files,  14166 codes, 417 comments, 586 blanks, all 15169 lines
 ## Directories
 | path | files | code | comment | blank | total |
 | :--- | ---: | ---: | ---: | ---: | ---: |
-| . | 65 | 14,166 | 417 | 586 | 15,169 |
+| . | 74 | 15,534 | 404 | 698 | 16,636 |
 | __tests__ | 1 | 7 | 4 | 4 | 15 |
 | android | 12 | 296 | 144 | 79 | 519 |
 | android/app | 7 | 181 | 125 | 41 | 347 |
@@ -47,25 +47,27 @@ Total : 65 files,  14166 codes, 417 comments, 586 blanks, all 15169 lines
 | ios/Ylink/Images.xcassets | 2 | 44 | 0 | 1 | 45 |
 | ios/Ylink/Images.xcassets/AppIcon.appiconset | 1 | 38 | 0 | 0 | 38 |
 | ios/YlinkTests | 1 | 51 | 6 | 16 | 73 |
-| src | 33 | 4,031 | 236 | 452 | 4,719 |
+| src | 42 | 5,394 | 223 | 563 | 6,180 |
 | src/assets | 11 | 1,147 | 161 | 256 | 1,564 |
 | src/assets/react-native-swiper | 10 | 1,133 | 159 | 253 | 1,545 |
 | src/assets/react-native-swiper/.github | 2 | 22 | 0 | 14 | 36 |
 | src/assets/react-native-swiper/src | 1 | 603 | 109 | 82 | 794 |
 | src/assets/styles | 1 | 14 | 2 | 3 | 19 |
-| src/components | 4 | 289 | 4 | 22 | 315 |
-| src/components/bottomBar | 1 | 70 | 3 | 6 | 79 |
+| src/components | 5 | 240 | 4 | 28 | 272 |
+| src/components/bottomBar | 1 | 87 | 3 | 9 | 99 |
 | src/components/carousel | 1 | 55 | 1 | 5 | 61 |
+| src/components/imageViewer | 1 | 21 | 0 | 3 | 24 |
 | src/components/spliteLine | 1 | 28 | 0 | 4 | 32 |
-| src/components/topBar | 1 | 136 | 0 | 7 | 143 |
-| src/route | 1 | 109 | 5 | 11 | 125 |
-| src/utils | 3 | 130 | 23 | 14 | 167 |
-| src/view | 14 | 2,356 | 43 | 149 | 2,548 |
-| src/view/forum | 2 | 591 | 8 | 31 | 630 |
-| src/view/index | 5 | 917 | 6 | 58 | 981 |
+| src/components/topBar | 1 | 49 | 0 | 7 | 56 |
+| src/route | 1 | 139 | 6 | 12 | 157 |
+| src/utils | 5 | 178 | 23 | 23 | 224 |
+| src/view | 19 | 3,688 | 29 | 242 | 3,959 |
+| src/view/forum | 2 | 798 | 1 | 47 | 846 |
+| src/view/home | 1 | 365 | 1 | 14 | 380 |
+| src/view/index | 5 | 1,110 | 8 | 70 | 1,188 |
 | src/view/login | 2 | 232 | 5 | 13 | 250 |
-| src/view/mine | 2 | 251 | 17 | 21 | 289 |
-| src/view/study | 1 | 102 | 0 | 9 | 111 |
+| src/view/mine | 5 | 644 | 6 | 58 | 708 |
+| src/view/study | 2 | 276 | 1 | 23 | 300 |
 | src/view/translate | 1 | 213 | 4 | 10 | 227 |
 
 [details](details.md)

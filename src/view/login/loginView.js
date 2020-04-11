@@ -80,7 +80,7 @@ class LoginView extends Component {
         {/* KeyboardAvoidingView可以自动根据键盘的位置，调整自身的 height 或底部的 padding，以避免被遮挡 */}
         <KeyboardAvoidingView style={login.container}>
           <View style={login.logo}>
-            <Text style={login.logoIcon}>英领</Text>
+            <Text style={login.logoIcon}>Ylink</Text>
             <Text style={login.logoTitle}>
               {this.state.email
                 ? `Hello, ${this.state.email.split('@')[0]}`

@@ -5,11 +5,12 @@ import { BoxShadow } from 'react-native-shadow';
 import { color, font } from '../../assets/styles/theme';
 
 const BottomBar = ({ state, descriptors, navigation }) => {
-  const { jumpTo } = navigation;
+  console.log(state);
   const routesTitle = state.routes.map(router => ({
     title: descriptors[router.key].options.title,
     path: router.name,
-    key: router.key
+    key: router.key,
+    icon: descriptors[router.key].options.tabBarIcon
   }));
 
   const onPress = item => {
@@ -19,11 +20,8 @@ const BottomBar = ({ state, descriptors, navigation }) => {
       canPreventDefault: true
     });
 
-    console.log(item);
-
     if (!event.defaultPrevented) {
       const temp = state.routes.filter(route => route.key === item.key)[0];
-      console.log(temp);
       if (temp.params) {
         temp.params.queryData();
       }
@@ -34,21 +32,41 @@ const BottomBar = ({ state, descriptors, navigation }) => {
   return (
     <BoxShadow setting={shadowOpt}>
       <View style={barStyle.container}>
-        {routesTitle.map(item => (
-          <View
-            key={item.path}
-            style={item.path === 'Translate' ? barStyle.search : ''}>
-            <Text
+        {routesTitle.map((item, index) => {
+          return (
+            <View
+              key={item.path}
               style={
-                item.path === 'Translate'
-                  ? barStyle.searchText
-                  : barStyle.barText
-              }
-              onPress={() => onPress(item)}>
-              {item.title}
-            </Text>
-          </View>
-        ))}
+                item.path === 'Translate' ? barStyle.search : barStyle.bar
+              }>
+              {state.index === index ? (
+                <Text
+                  style={
+                    item.path === 'Translate'
+                      ? barStyle.searchText
+                      : barStyle.activeBarText
+                  }
+                  onPress={() => onPress(item)}>
+                  {item.icon({ size: 30 })}
+                  <Text style={{ fontSize: font.small_size }}>
+                    {item.path === 'Translate' ? '' : item.title}
+                  </Text>
+                </Text>
+              ) : (
+                <Text
+                  style={
+                    item.path === 'Translate'
+                      ? barStyle.searchText
+                      : barStyle.barText
+                  }
+                  onPress={() => onPress(item)}>
+                  {item.icon({ size: 15 })}
+                  {item.path === 'Translate' ? '' : item.title}
+                </Text>
+              )}
+            </View>
+          );
+        })}
       </View>
     </BoxShadow>
   );
@@ -82,8 +100,16 @@ const barStyle = StyleSheet.create({
     lineHeight: 60,
     textAlign: 'center'
   },
+  bar: {
+    flex: 1,
+    alignItems: 'center'
+  },
   barText: {
     lineHeight: 40
+  },
+  activeBarText: {
+    lineHeight: 40,
+    color: color.primary_color
   }
 });
 // 设置阴影

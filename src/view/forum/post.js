@@ -13,6 +13,7 @@ import {
   TouchableHighlight,
   TouchableWithoutFeedback
 } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
@@ -298,10 +299,14 @@ class Post extends Component {
                     postStyle.bottom_button_title,
                     this.state.post.currentUser.star
                       ? { color: color.primary_color }
-                      : {}
+                      : { color: color.info_color }
                   ]}
                   onPress={this.postStar}>
-                  收藏
+                  {this.state.post.currentUser.star ? (
+                    <Icon name="star" size={25} />
+                  ) : (
+                    <Icon name="staro" size={25} />
+                  )}
                 </Text>
                 <Text style={postStyle.bottom_button_num}>
                   {this.state.post.postInfo.star}
@@ -315,10 +320,14 @@ class Post extends Component {
                     postStyle.bottom_button_title,
                     this.state.post.currentUser.awesome
                       ? { color: color.primary_color }
-                      : {}
+                      : { color: color.info_color }
                   ]}
                   onPress={this.postAwesome}>
-                  点赞
+                  {this.state.post.currentUser.awesome ? (
+                    <Icon name="like1" size={25} />
+                  ) : (
+                    <Icon name="like2" size={25} />
+                  )}
                 </Text>
                 <Text style={postStyle.bottom_button_num}>
                   {this.state.post.postInfo.awesome}
@@ -471,14 +480,14 @@ const postStyle = StyleSheet.create({
     lineHeight: 30
   },
   bottom_button: {
-    width: 70
+    width: 50
   },
   bottom_button_title: {
     textAlign: 'center'
   },
   bottom_button_num: {
     textAlign: 'center',
-    fontSize: font.small_size,
+    fontSize: 9,
     color: color.info_color
   },
 

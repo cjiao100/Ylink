@@ -33,6 +33,7 @@ import CreatePostScreen from '../view/forum/createPost';
 // home
 import ArticleScreen from '../view/home/article';
 import { color } from '../assets/styles/theme';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -93,7 +94,14 @@ function RootStack(isLogin = false) {
         component={ResultScreen}
       />
       <Stack.Screen
-        options={{ headerTransparent: true }}
+        options={{
+          title: '',
+          headerStyle: {
+            backgroundColor: color.bg_info_color,
+            elevation: 0
+          },
+          headerTintColor: color.primary_color
+        }}
         name="Test"
         component={TestScreen}
       />
@@ -125,27 +133,42 @@ function BottomTabs() {
   return (
     <Tab.Navigator tabBar={props => <BottomBar {...props} />}>
       <Tab.Screen
-        options={{ title: '首页' }}
+        options={{
+          title: '首页',
+          tabBarIcon: ({ size }) => <Icon name="home" size={size} />
+        }}
         name="Home"
         component={HomeScreen}
       />
       <Tab.Screen
-        options={{ title: '学习' }}
+        options={{
+          title: '学习',
+          tabBarIcon: ({ size }) => <Icon name="book" size={size} />
+        }}
         name="Study"
         component={StudyScreen}
       />
       <Tab.Screen
-        options={{ title: '查' }}
+        options={{
+          title: '查',
+          tabBarIcon: () => <Icon name="yelp" size={50} />
+        }}
         name="Translate"
         component={TranslateScreen}
       />
       <Tab.Screen
-        options={{ title: '论坛' }}
+        options={{
+          title: '论坛',
+          tabBarIcon: ({ size }) => <Icon name="forum" size={size} />
+        }}
         name="Forum"
         component={ForumScreen}
       />
       <Tab.Screen
-        options={{ title: '我的' }}
+        options={{
+          title: '我的',
+          tabBarIcon: ({ size }) => <Icon name="account" size={size} />
+        }}
         name="Mine"
         component={MineScreen}
       />

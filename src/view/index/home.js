@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/EvilIcons';
 
 import TopBar from '../../components/topBar/topBar';
 import Carousel from '../../components/carousel/carousel';
@@ -124,26 +125,26 @@ class Home extends Component {
           </View>
           <View style={homeStyle.itemStatus}>
             <View>
-              <Text style={homeStyle.itemStatusTitle}>
-                浏览量
+              <View style={homeStyle.itemStatusTitle}>
+                <Icon name="eye" size={20} />
                 <Text style={homeStyle.itemStatusNum}>{item.browse}</Text>
-              </Text>
+              </View>
             </View>
             <View>
-              <Text style={homeStyle.itemStatusTitle}>
-                评论
+              <View style={homeStyle.itemStatusTitle}>
+                <Icon name="comment" size={20} />
                 <Text style={homeStyle.itemStatusNum}>
                   {item.comment.length}
                 </Text>
-              </Text>
+              </View>
             </View>
             <View>
-              <Text style={homeStyle.itemStatusTitle}>
-                点赞
+              <View style={homeStyle.itemStatusTitle}>
+                <Icon name="like" size={20} />
                 <Text style={homeStyle.itemStatusNum}>
                   {item.awesome.length}
                 </Text>
-              </Text>
+              </View>
             </View>
           </View>
         </View>
@@ -225,6 +226,10 @@ const homeStyle = StyleSheet.create({
     marginTop: 5
   },
   itemStatusTitle: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     fontSize: font.small_size
   },
   itemStatusNum: {

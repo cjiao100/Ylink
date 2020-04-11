@@ -6,7 +6,8 @@ import {
   StyleSheet,
   ActivityIndicator
 } from 'react-native';
-import { color } from '../../assets/styles/theme';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
 import toast from '../../utils/toast';
 
@@ -55,8 +56,10 @@ class Test extends Component {
   render() {
     if (!this.state.problem) {
       return (
-        <View>
-          <Text>计划完成</Text>
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <Icon name="check-circle" size={50} color={color.primary_color} />
+          <Text style={{ fontSize: font.big_size }}>计划完成</Text>
         </View>
       );
     } else if (Object.keys(this.state.problem).length === 0) {

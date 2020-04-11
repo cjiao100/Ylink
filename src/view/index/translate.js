@@ -28,7 +28,7 @@ class Translate extends Component {
     return (
       <View style={translateStyle.container}>
         <View style={translateStyle.title}>
-          <Text style={translateStyle.title_text}>英领</Text>
+          <Text style={translateStyle.title_text}>Ylink</Text>
         </View>
         <View style={translateStyle.input}>
           <TextInput

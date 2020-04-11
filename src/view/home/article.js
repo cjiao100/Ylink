@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import { WebView } from 'react-native-webview';
-import { requestWithToken } from '../../utils/request';
-import moment from '../../utils/moment';
-import { color, font } from '../../assets/styles/theme';
 import {
   ActivityIndicator,
   View,
@@ -12,7 +9,12 @@ import {
   StyleSheet,
   TouchableOpacity
 } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+
+import moment from '../../utils/moment';
 import toast from '../../utils/toast';
+import { requestWithToken } from '../../utils/request';
+import { color, font } from '../../assets/styles/theme';
 
 class Article extends Component {
   constructor(props) {
@@ -274,7 +276,11 @@ class Article extends Component {
                     : {}
                 ]}
                 onPress={this.awesome}>
-                点赞
+                {this.state.article.current.awesome ? (
+                  <Icon name="like1" size={25} />
+                ) : (
+                  <Icon name="like2" size={25} />
+                )}
               </Text>
             </View>
           </View>

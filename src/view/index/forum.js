@@ -9,6 +9,7 @@ import {
   Dimensions,
   TouchableHighlight
 } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import TopBar from '../../components/topBar/topBar';
 import { color, font } from '../../assets/styles/theme';
@@ -174,7 +175,9 @@ class forum extends Component {
                         </Text>
                       </View>
                     </View>
-                    <Text onPress={this.showModal}>更多操作</Text>
+                    <Text onPress={this.showModal}>
+                      <Icon name="ellipsis1" size={18} />
+                    </Text>
                   </View>
                   <View>
                     <Text style={forumStyle.post_title} numberOfLines={1}>
@@ -203,7 +206,9 @@ class forum extends Component {
           underlayColor="#ed485e"
           style={forumStyle.add_post}
           onPress={this.createNewPost}>
-          <Text style={forumStyle.add_post_text}>新</Text>
+          <Text style={forumStyle.add_post_text}>
+            <Icon name="plus" size={30} />
+          </Text>
         </TouchableHighlight>
 
         <Modal

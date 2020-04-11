@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import TopBar from '../../components/topBar/topBar';
 import { color, font } from '../../assets/styles/theme';
@@ -33,6 +34,7 @@ class Mine extends Component {
       return (
         <View style={mineStyle.campusItem}>
           <View style={mineStyle.listItem}>
+            <Icon name="user" size={18} color={color.info_color} />
             <Text style={mineStyle.listItem_text}>我的班级</Text>
           </View>
         </View>
@@ -97,6 +99,7 @@ class Mine extends Component {
           <View style={mineStyle.listBlock}>
             <View style={mineStyle.otherBlock}>
               <View style={mineStyle.listItem}>
+                <Icon name="profile" size={18} color={color.info_color} />
                 <Text
                   style={mineStyle.listItem_text}
                   onPress={() => this.jumpToPage('MyPost')}>
@@ -104,6 +107,7 @@ class Mine extends Component {
                 </Text>
               </View>
               <View style={mineStyle.listItem}>
+                <Icon name="bars" size={18} color={color.info_color} />
                 <Text
                   style={mineStyle.listItem_text}
                   onPress={() => this.jumpToPage('MyPlan')}>
@@ -114,6 +118,7 @@ class Mine extends Component {
             {this.showCampusBlock(this.state.userInfo.identity)}
             <View style={mineStyle.otherBlock}>
               <View style={mineStyle.listItem}>
+                <Icon name="setting" size={18} color={color.info_color} />
                 <Text
                   style={mineStyle.listItem_text}
                   onPress={() => this.jumpToPage('Setting')}>
@@ -214,14 +219,18 @@ const mineStyle = StyleSheet.create({
     height: 50,
     paddingHorizontal: 20,
     borderBottomWidth: 1,
-    borderColor: '#eee'
+    borderColor: '#eee',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   campusItem: {
     marginBottom: 10,
     backgroundColor: color.white_color
   },
   listItem_text: {
-    lineHeight: 50
+    lineHeight: 50,
+    marginLeft: 5
   }
 });
 
