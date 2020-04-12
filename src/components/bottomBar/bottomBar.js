@@ -5,7 +5,6 @@ import { BoxShadow } from 'react-native-shadow';
 import { color, font } from '../../assets/styles/theme';
 
 const BottomBar = ({ state, descriptors, navigation }) => {
-  console.log(state);
   const routesTitle = state.routes.map(router => ({
     title: descriptors[router.key].options.title,
     path: router.name,

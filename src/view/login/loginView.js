@@ -12,7 +12,7 @@ import {
 import request from '../../utils/request';
 import Toast from '../../utils/toast';
 import { saveToken, removeTokens } from '../../utils/storage';
-import { color } from '../../assets/styles/theme';
+import { color, font } from '../../assets/styles/theme';
 import login from './loginStyle';
 
 class LoginView extends Component {
@@ -21,22 +21,10 @@ class LoginView extends Component {
     this.state = {
       name: '',
       pwd: '',
-      email: '',
-      verification: false,
-      validate: '1234',
-      isValidate: true
+      email: ''
     };
     this.login = this.login.bind(this);
-    this.validateFunc = this.validateFunc.bind(this);
   }
-
-  // 设置标题样式
-  static navigationOptions = {
-    // 设置标题
-    title: 'Login',
-    // 将标题隐藏
-    headerShown: false
-  };
 
   login(evt) {
     const params = {
@@ -48,30 +36,13 @@ class LoginView extends Component {
       .then(res => {
         saveToken(res);
         console.log('登录成功');
-        this.setState({
-          verification: true
-        });
+        const { navigation } = this.props;
+        // 设置页面跳转 使用BottomTabs替换Login路由 这样不会返回到登录页面
+        navigation.dispatch(StackActions.replace('BottomTabs'));
       })
       .catch(err => {
         Toast(err);
       });
-  }
-
-  validateFunc() {
-    const validate = this.state.validate;
-    // TODO 校验验证码
-    if (validate === '1234') {
-      const { navigation } = this.props;
-      // 设置页面跳转 使用BottomTabs替换Login路由 这样不会返回到登录页面
-      navigation.dispatch(StackActions.replace('BottomTabs'));
-
-      this.setState({
-        verification: false
-      });
-    } else {
-      removeTokens();
-      Toast('验证码错误 登录失败');
-    }
   }
 
   render() {
@@ -109,6 +80,14 @@ class LoginView extends Component {
                 onChangeText={pwd => this.setState({ pwd })}
               />
             </View>
+            <Text
+              style={login.text}
+              onPress={() => {
+                const { navigation } = this.props;
+                navigation.navigate('Register');
+              }}>
+              还没账号,注册一个?
+            </Text>
             <TouchableNativeFeedback
               style={login.buttonGroup}
               onPress={this.login}
@@ -119,50 +98,6 @@ class LoginView extends Component {
             </TouchableNativeFeedback>
           </View>
         </KeyboardAvoidingView>
-        <View>
-          <Modal
-            visible={this.state.verification}
-            transparent={true}
-            onRequestClose={() => this.setState({ verification: false })}>
-            <View style={login.tip}>
-              <View style={login.tip_block}>
-                <View>
-                  <Text style={login.tip_title}>账户验证</Text>
-                </View>
-                <View style={login.tip_content}>
-                  <Text style={login.tip_message}>
-                    为了保证您的账户安全，我们将会向您的邮箱发送验证码
-                  </Text>
-                </View>
-                <View>
-                  <TextInput
-                    autoCorrect={false}
-                    autoFocus={true}
-                    autoCapitalize="none"
-                    placeholder="请输入验证码"
-                    maxLength={4}
-                    onChangeText={value => {
-                      if (value.length === 4) {
-                        this.setState({
-                          validate: value,
-                          isValidate: false
-                        });
-                      }
-                    }}
-                  />
-                  <Button
-                    style={login.tip_validate_button}
-                    keyboardType="numeric"
-                    disabled={this.state.isValidate}
-                    title="验证"
-                    color={color.primary_color}
-                    onPress={this.validateFunc}
-                  />
-                </View>
-              </View>
-            </View>
-          </Modal>
-        </View>
       </>
     );
   }

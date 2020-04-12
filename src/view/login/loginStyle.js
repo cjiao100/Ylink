@@ -71,6 +71,13 @@ const login = StyleSheet.create({
   tip_validate_button: {
     backgroundColor: color.primary_color,
     color: color.primary_color
+  },
+  text: {
+    color: color.info_color,
+    textAlign: 'center',
+    textDecorationLine: 'underline',
+    fontSize: font.small_size,
+    marginBottom: 10
   }
 });
 

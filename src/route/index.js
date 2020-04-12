@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import BottomBar from '../components/bottomBar/bottomBar';
 import LoginScreen from '../view/login/loginView';
+import RegisterScreen from '../view/register/register';
 
 // tab
 import HomeScreen from '../view/index/home';
@@ -57,6 +58,11 @@ function RootStack(isLogin = false) {
         name="Login"
         component={LoginScreen}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{ title: '注册' }}
       />
       <Stack.Screen
         name="BottomTabs"
