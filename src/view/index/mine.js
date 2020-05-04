@@ -66,14 +66,14 @@ class Mine extends Component {
                   {this.state.userInfo.name}
                 </Text>
               </View>
-              <View style={mineStyle.userInfo_other}>
+              {/* <View style={mineStyle.userInfo_other}>
                 <View style={mineStyle.integral}>
                   <Text style={mineStyle.buttonText}>我的积分：0</Text>
                 </View>
                 <View style={[mineStyle.userInfo_right, mineStyle.userCenter]}>
                   <Text style={mineStyle.buttonText}>个人空间</Text>
                 </View>
-              </View>
+              </View> */}
             </View>
           </View>
           <View style={mineStyle.starBlock}>

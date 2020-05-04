@@ -42,7 +42,6 @@ class Study extends Component {
       method: 'Get'
     }).then(res => {
       if (res.data) {
-        console.log(res.data);
         this.setState({
           planInfo: res.data
         });

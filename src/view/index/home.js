@@ -114,13 +114,18 @@ class Home extends Component {
               {item.title}
             </Text>
             <Text numberOfLines={2} style={homeStyle.itemDesc}>
-              {item.content}
+              {item.content
+                .split(/<(?!img).*?>/gi)
+                .join('')
+                .replace(/<(img)[^>]*>/gi, '[图片]')
+                .replace(/&lt;/gi, '<')
+                .replace(/&gt;/gi, '>')}
             </Text>
           </View>
           <View style={homeStyle.flexBox}>
             <Image
               style={homeStyle.flexBox}
-              source={{ uri: item.coverImage || null }}
+              source={{ uri: `${global.URI}${item.coverImage}` || null }}
             />
           </View>
           <View style={homeStyle.itemStatus}>

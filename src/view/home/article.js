@@ -147,10 +147,11 @@ class Article extends Component {
             androidHardwareAccelerationDisabled={true}
             originWhitelist={['*']}
             source={{
+              baseUrl: global.URI,
               html: `
                 <html>
                 <head>
-                  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
                   <style>
                     html,body {
                       background-color: ${color.white_color}
@@ -242,7 +243,7 @@ class Article extends Component {
                       ${moment(this.state.article.created_at)} · 
                       ${this.state.article.browse}浏览
                     </p>
-                    <p class="content">
+                    <p class="content" id="content">
                       ${this.state.article.content}
                     </p>
                     <ul class="comment">
@@ -251,6 +252,11 @@ class Article extends Component {
                         .join(' ')}
                     </ul>
                   <div>
+                  <script>
+                    window.onload = () => {
+                      console.log(document.getElementById('content'))
+                    }
+                  </script>
                 </body>
               </html>
               `
