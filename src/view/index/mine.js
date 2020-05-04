@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import TopBar from '../../components/topBar/topBar';
 import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
 
@@ -49,7 +48,6 @@ class Mine extends Component {
   render() {
     return (
       <>
-        <TopBar />
         <View style={mineStyle.container}>
           <View style={mineStyle.header}>
             <View style={mineStyle.avatar}>

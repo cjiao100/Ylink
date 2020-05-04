@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 import { color } from '../../assets/styles/theme';
 
 class TopBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      currentTag: 1
-    };
-    this.toggleTag = this.toggleTag.bind(this);
+    this.openSearchView = this.openSearchView.bind(this);
   }
 
-  toggleTag(tag) {
-    console.log(tag);
-    this.setState({
-      currentTag: tag.key
-    });
+  openSearchView() {
+    this.props.navigation.navigate('Search');
   }
 
   render() {
@@ -26,6 +21,11 @@ class TopBar extends Component {
           <View style={barStyle.bar_icon}>
             <Text style={barStyle.bar_iconText}>Ylink</Text>
           </View>
+          <TouchableWithoutFeedback onPress={this.openSearchView}>
+            <View style={barStyle.bar_icon}>
+              <Icon name="search1" style={barStyle.bar_iconText} size={20} />
+            </View>
+          </TouchableWithoutFeedback>
         </View>
       </View>
     );
@@ -36,12 +36,12 @@ const barStyle = StyleSheet.create({
   bar_container: {
     display: 'flex',
     flexDirection: 'row',
+    justifyContent: 'space-between',
     height: 50,
     paddingTop: 10,
     paddingBottom: 10
   },
   bar_icon: {
-    flex: 1,
     paddingLeft: 10,
     paddingRight: 10,
     textAlign: 'center'

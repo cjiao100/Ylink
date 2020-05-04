@@ -11,7 +11,6 @@ import * as Progress from 'react-native-progress';
 
 import { color, font } from '../../assets/styles/theme';
 import SpliteLine from '../../components/spliteLine/spliteLine';
-import TopBar from '../../components/topBar/topBar';
 import { requestWithToken } from '../../utils/request';
 
 class Study extends Component {
@@ -63,7 +62,6 @@ class Study extends Component {
   render() {
     return (
       <>
-        <TopBar />
         <View style={studyStyle.container}>
           <View style={studyStyle.content}>
             <View style={studyStyle.planData}>

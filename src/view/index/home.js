@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/EvilIcons';
 
-import TopBar from '../../components/topBar/topBar';
 import Carousel from '../../components/carousel/carousel';
 import request from '../../utils/request';
 
@@ -177,7 +176,6 @@ class Home extends Component {
   render() {
     return (
       <>
-        <TopBar tagShow={true} />
         <View style={homeStyle.listContainer}>
           <FlatList
             style={homeStyle.flexBox}

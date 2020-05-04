@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-import TopBar from '../../components/topBar/topBar';
 import { color, font } from '../../assets/styles/theme';
 import { requestWithToken } from '../../utils/request';
 import toast from '../../utils/toast';
@@ -119,7 +118,6 @@ class forum extends Component {
     const rightList = this.state.hotList.slice(Math.ceil(length / 2), length);
     return (
       <>
-        <TopBar />
         <ScrollView>
           <View style={forumStyle.container}>
             <View style={forumStyle.hot_content}>

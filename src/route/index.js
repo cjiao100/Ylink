@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import BottomBar from '../components/bottomBar/bottomBar';
+import TopBar from '../components/topBar/topBar';
 import LoginScreen from '../view/login/loginView';
 import RegisterScreen from '../view/register/register';
 
@@ -33,6 +34,9 @@ import CreatePostScreen from '../view/forum/createPost';
 
 // home
 import ArticleScreen from '../view/home/article';
+
+// search
+import SearchScreen from '../view/search/search';
 import { color } from '../assets/styles/theme';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -67,7 +71,9 @@ function RootStack(isLogin = false) {
       <Stack.Screen
         name="BottomTabs"
         component={BottomTabs}
-        options={{ headerShown: false }}
+        options={{
+          header: ({ navigation }) => <TopBar navigation={navigation} />
+        }}
       />
       <Stack.Screen
         options={{ title: '收藏' }}
@@ -130,6 +136,11 @@ function RootStack(isLogin = false) {
         options={{ title: '发布帖子' }}
         name="Article"
         component={ArticleScreen}
+      />
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="Search"
+        component={SearchScreen}
       />
     </Stack.Navigator>
   );
