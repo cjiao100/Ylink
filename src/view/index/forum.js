@@ -25,7 +25,8 @@ class forum extends Component {
     this.state = {
       modalVisible: false,
       hotList: [],
-      postList: []
+      postList: [],
+      postId: ''
     };
 
     this.showModal = this.showModal.bind(this);
@@ -86,9 +87,25 @@ class forum extends Component {
       });
   }
 
-  showModal() {
+  reportPost() {
+    requestWithToken({
+      url: `/post/${this.state.postId}/report`,
+      method: 'Post'
+    })
+      .then(res => {
+        toast('举报成功,等待审核');
+        this.closeModal();
+      })
+      .catch(err => {
+        toast(err);
+        this.closeModal();
+      });
+  }
+
+  showModal(postId) {
     this.setState({
-      modalVisible: true
+      modalVisible: true,
+      postId
     });
   }
 
@@ -154,7 +171,7 @@ class forum extends Component {
                 key={item._id}
                 style={forumStyle.post}
                 onPress={() => this.openPostDetails(item)}
-                onLongPress={this.showModal}>
+                onLongPress={() => this.showModal(item._id)}>
                 <View>
                   <View style={forumStyle.post_header}>
                     <View style={forumStyle.post_header_left}>
@@ -173,7 +190,7 @@ class forum extends Component {
                         </Text>
                       </View>
                     </View>
-                    <Text onPress={this.showModal}>
+                    <Text onPress={() => this.showModal(item._id)}>
                       <Icon name="ellipsis1" size={18} />
                     </Text>
                   </View>
@@ -229,7 +246,7 @@ class forum extends Component {
                 style={forumStyle.modal_button}
                 underlayColor="#f5f5f5"
                 onPress={() => {
-                  toast('举报成功,等待审核');
+                  this.reportPost();
                 }}>
                 <Text>举报</Text>
               </TouchableHighlight>

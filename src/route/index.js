@@ -133,7 +133,7 @@ function RootStack(isLogin = false) {
         component={CreatePostScreen}
       />
       <Stack.Screen
-        options={{ title: '发布帖子' }}
+        options={{ title: '' }}
         name="Article"
         component={ArticleScreen}
       />
