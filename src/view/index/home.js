@@ -196,8 +196,7 @@ class Home extends Component {
 const homeStyle = StyleSheet.create({
   listContainer: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
-    paddingBottom: 20
+    backgroundColor: '#F5F5F5'
   },
   indicatorContainer: {
     alignItems: 'center'
@@ -209,24 +208,29 @@ const homeStyle = StyleSheet.create({
   item: {
     marginTop: 10,
     padding: 10,
+    paddingHorizontal: 15,
     flex: 1,
-    height: 200,
+    height: 300,
     backgroundColor: color.white_color
   },
   itemTitle: {
     color: color.black_color,
-    fontSize: font.primary_size
+    fontSize: 17,
+    lineHeight: 30,
+    fontWeight: 'bold'
   },
   itemDesc: {
     color: color.info_color,
-    fontSize: font.small_size
+    fontSize: font.small_size,
+    marginBottom: 10
   },
   itemStatus: {
     display: 'flex',
     justifyContent: 'space-around',
+    alignItems: 'center',
     flexDirection: 'row',
     height: 20,
-    marginTop: 5
+    marginTop: 10
   },
   itemStatusTitle: {
     display: 'flex',
