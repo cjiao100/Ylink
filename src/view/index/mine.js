@@ -113,7 +113,7 @@ class Mine extends Component {
                 </Text>
               </View>
             </View>
-            {this.showCampusBlock(this.state.userInfo.identity)}
+            {/* {this.showCampusBlock(this.state.userInfo.identity)} */}
             <View style={mineStyle.otherBlock}>
               <View style={mineStyle.listItem}>
                 <Icon name="setting" size={18} color={color.info_color} />

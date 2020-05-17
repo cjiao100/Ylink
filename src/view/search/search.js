@@ -14,6 +14,7 @@ import { color, font } from '../../assets/styles/theme';
 import moment from '../../utils/moment';
 import toast from '../../utils/toast';
 import topic from '../../utils/topic';
+import { requestWithToken } from '../../utils/request';
 
 class Search extends Component {
   constructor(props) {
@@ -22,80 +23,7 @@ class Search extends Component {
       search: '',
       goSearch: false,
       showTab: 'article',
-      result: {
-        article: [
-          {
-            __v: 0,
-            _id: '5e8dee38016a5547a34dcb47',
-            awesome: [],
-            browse: 1,
-            comment: [
-              '5e8def5d016a5547a34dcb48',
-              '5e8def5e016a5547a34dcb49',
-              '5e8def5e016a5547a34dcb4a',
-              '5e8def5f016a5547a34dcb4b'
-            ],
-            content: '这是内容',
-            coverImage: '',
-            created_at: '2020-04-08T15:31:04.632Z',
-            title: '111',
-            updated_at: '2020-05-04T06:54:24.296Z',
-            userId: '5e7d6a392f2630179fc2fe7f',
-            video: ''
-          },
-          {
-            __v: 0,
-            _id: '5e329f5bbc6b53546c8b54a2',
-            awesome: [],
-            browse: 0,
-            comment: [],
-            content: '这是内容',
-            coverImage: '',
-            created_at: '2020-01-30T09:18:09.777Z',
-            title: '111',
-            userId: '5e7d6a392f2630179fc2fe7f',
-            video: ''
-          }
-        ],
-        post: [
-          {
-            _id: '5e82d7d4f37bbf0f94649a1e',
-            browse: 141,
-            content: 'test',
-            created_at: '2020-03-31T05:40:36.923Z',
-            images: [
-              '/post/3a7780533fbc109d68bd49eb733d2ad4.png',
-              '/post/799101e44be75b0082c6e0735cf29366.png'
-            ],
-            postInfo: { awesome: 0, star: 0 },
-            title: 'test',
-            topicList: [],
-            updated_at: '2020-04-08T11:39:25.147Z',
-            userInfo: {
-              avatar: '/avatar/e26500fef320f06ab8a915e0a91a3333.png',
-              name: 'cjiao100'
-            }
-          },
-          {
-            _id: '5e82d7f83d6fa63b62d25c90',
-            browse: 6,
-            content: 'test',
-            created_at: '2020-03-31T05:41:12.444Z',
-            images: [
-              '/post/3a7780533fbc109d68bd49eb733d2ad4.png',
-              '/post/799101e44be75b0082c6e0735cf29366.png'
-            ],
-            postInfo: { awesome: 0, star: 0 },
-            title: 'test',
-            topicList: [],
-            updated_at: '2020-04-02T05:24:48.223Z',
-            userInfo: {
-              avatar: '/avatar/e26500fef320f06ab8a915e0a91a3333.png',
-              name: 'cjiao100'
-            }
-          }
-        ]
-      }
+      result: {}
     };
 
     this.search = this.search.bind(this);
@@ -109,6 +37,18 @@ class Search extends Component {
 
   search() {
     if (this.state.search) {
+      requestWithToken({
+        url: '/search',
+        method: 'Post',
+        data: { query: this.state.search }
+      }).then(res => {
+        console.log(res.data);
+        const [article, post] = res.data;
+        const result = { article, post };
+        this.setState({ result }, () => {
+          console.log(this.state.result);
+        });
+      });
       this.setState({
         goSearch: true
       });
@@ -212,11 +152,11 @@ class Search extends Component {
               <Image
                 style={posts.post_avatar}
                 source={{
-                  uri: `${global.URI}${item.userInfo.avatar}`
+                  uri: `${global.URI}${item.userId.avatar}`
                 }}
               />
               <View>
-                <Text style={posts.post_author}>{item.userInfo.name}</Text>
+                <Text style={posts.post_author}>{item.userId.name}</Text>
                 <Text style={posts.post_time}>{moment(item.created_at)}</Text>
               </View>
             </View>
